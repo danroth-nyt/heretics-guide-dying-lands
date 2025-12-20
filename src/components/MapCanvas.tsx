@@ -53,42 +53,74 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
     setSelectedRoad(newRoad);
   };
 
-  // A4 aspect ratio (210mm x 297mm ≈ 0.707)
-  const viewBoxWidth = 100;
-  const viewBoxHeight = 141; // 100 / 0.707
+  // Wide landscape orientation for better viewport fit
+  const viewBoxWidth = 180;
+  const viewBoxHeight = 115;
 
   return (
-    <div className="relative w-full h-full">
-      {/* SVG Canvas */}
+    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1 }}>
+      {/* SVG Canvas - stretches to fill entire container */}
       <svg
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
         className="w-full h-full"
+        preserveAspectRatio="none"
         style={{
           backgroundColor: 'transparent',
+          display: 'block',
         }}
       >
-        {/* Background */}
+        {/* Background - Weathered map parchment */}
+        <defs>
+          <filter id="paper-texture">
+            <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" seed="2" />
+            <feColorMatrix in="noise" type="matrix" 
+              values="0.3 0 0 0 0
+                      0.2 0.3 0 0 0
+                      0.1 0.1 0.2 0 0
+                      0 0 0 0.3 0" />
+          </filter>
+          <radialGradient id="parchment-gradient">
+            <stop offset="0%" stopColor="#f5e6d3" />
+            <stop offset="50%" stopColor="#e8d4b8" />
+            <stop offset="100%" stopColor="#d4b896" />
+          </radialGradient>
+        </defs>
+        
+        {/* Base parchment color */}
         <rect
           x="0"
           y="0"
           width={viewBoxWidth}
           height={viewBoxHeight}
-          fill="var(--mork-yellow)"
-          opacity="0.3"
+          fill="url(#parchment-gradient)"
         />
+        
+        {/* Paper texture overlay */}
+        <rect
+          x="0"
+          y="0"
+          width={viewBoxWidth}
+          height={viewBoxHeight}
+          filter="url(#paper-texture)"
+          opacity="0.4"
+        />
+        
+        {/* Age spots and stains */}
+        <circle cx="20" cy="30" r="8" fill="#9a7856" opacity="0.1" />
+        <circle cx="75" cy="20" r="12" fill="#8b6f47" opacity="0.08" />
+        <circle cx="85" cy="120" r="10" fill="#9a7856" opacity="0.12" />
+        <circle cx="15" cy="100" r="15" fill="#8b6f47" opacity="0.09" />
 
-        {/* Grid lines for aesthetic */}
-        <defs>
-          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-            <path
-              d="M 10 0 L 0 0 0 10"
-              fill="none"
-              stroke="var(--mork-black)"
-              strokeWidth="0.2"
-              opacity="0.2"
-            />
-          </pattern>
-        </defs>
+        {/* Subtle hand-drawn grid */}
+        <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+          <path
+            d="M 10 0 L 0 0 0 10"
+            fill="none"
+            stroke="#8b6f47"
+            strokeWidth="0.15"
+            opacity="0.25"
+          />
+        </pattern>
         <rect
           x="0"
           y="0"
@@ -96,6 +128,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           height={viewBoxHeight}
           fill="url(#grid)"
         />
+        
 
         {/* Roads (render first so they're behind nodes) */}
         <g>

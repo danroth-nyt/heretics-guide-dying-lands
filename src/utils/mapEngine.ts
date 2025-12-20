@@ -35,7 +35,7 @@ export function generateMap(territory: Territory, nodeCount: number = 6): { node
 function generateNodes(territory: Territory, count: number): MapNode[] {
   const nodes: MapNode[] = [];
   const shapes: NodeShape[] = ['circle', 'square', 'hex'];
-  const minDistance = 8; // Minimum distance between nodes (percentage)
+  const minDistance = 12; // Minimum distance between nodes (percentage)
   
   for (let i = 0; i < count; i++) {
     let x: number, y: number;
@@ -43,9 +43,10 @@ function generateNodes(territory: Territory, count: number): MapNode[] {
     const maxAttempts = 50;
     
     // Try to find a position that doesn't overlap with existing nodes
+    // Keep margins to prevent cutoff
     do {
-      x = 8 + Math.random() * 84; // Use more of the canvas
-      y = 8 + Math.random() * 125; // Use full height (viewBox is 141)
+      x = 15 + Math.random() * 150; // 15 to 165 (viewBox width is 180)
+      y = 15 + Math.random() * 85; // 15 to 100 (viewBox height is 115)
       attempts++;
       
       if (attempts > maxAttempts) {

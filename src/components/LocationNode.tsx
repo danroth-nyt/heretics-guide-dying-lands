@@ -12,6 +12,11 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
   const halfSize = shapeSize / 2;
 
   const renderShape = () => {
+    // Ink-drawn colors for aged map aesthetic
+    const fillColor = "#f4e4c1";
+    const strokeColor = "#1a0f08";
+    const strokeW = "2";
+    
     switch (node.shape) {
       case 'circle':
         return (
@@ -19,9 +24,9 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
             cx={0}
             cy={0}
             r={halfSize}
-            fill="var(--mork-yellow)"
-            stroke="var(--mork-black)"
-            strokeWidth="3"
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth={strokeW}
           />
         );
       case 'square':
@@ -31,9 +36,9 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
             y={-halfSize}
             width={shapeSize}
             height={shapeSize}
-            fill="var(--mork-yellow)"
-            stroke="var(--mork-black)"
-            strokeWidth="3"
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth={strokeW}
           />
         );
       case 'hex':
@@ -46,9 +51,9 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
         return (
           <polygon
             points={hexPoints}
-            fill="var(--mork-yellow)"
-            stroke="var(--mork-black)"
-            strokeWidth="3"
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth={strokeW}
           />
         );
     }
@@ -69,7 +74,7 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
         y={0}
         textAnchor="middle"
         dominantBaseline="middle"
-        fill="var(--mork-black)"
+        fill="#1a0f08"
         fontSize="4"
         fontWeight="bold"
         fontFamily="Special Elite, monospace"
@@ -82,8 +87,8 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
       <circle
         cx={0}
         cy={0}
-        r={2}
-        fill="var(--mork-black)"
+        r={1}
+        fill="#1a0f08"
         pointerEvents="none"
       />
     </g>

@@ -66,11 +66,11 @@ const Road: React.FC<RoadProps> = ({ road, nodes, onClick }) => {
         strokeWidth="15"
       />
       
-      {/* Visible road */}
+      {/* Visible road - ink-drawn style */}
       <path
         d={pathData}
         fill="none"
-        stroke="var(--mork-black)"
+        stroke="#1a0f08"
         strokeWidth={strokeStyle.strokeWidth}
         strokeDasharray={strokeStyle.strokeDasharray}
         opacity={strokeStyle.opacity}

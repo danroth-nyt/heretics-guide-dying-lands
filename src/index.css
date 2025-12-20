@@ -14,6 +14,11 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  height: 100%;
+  min-height: 100vh;
+}
+
 body {
   font-family: 'Special Elite', monospace;
   background-color: var(--mork-yellow);
@@ -292,6 +297,80 @@ h1, h2, h3, h4, h5, h6 {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--mork-pink);
+}
+
+/* Mork Borg style background for map area */
+.mork-background {
+  background: 
+    /* Aged parchment base */
+    radial-gradient(ellipse at center, #d4b896 0%, #c4a882 50%, #9a7d5f 100%),
+    /* Paper texture */
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 3px
+    );
+  position: relative;
+  overflow: hidden;
+  min-height: 100%;
+}
+
+/* Stains and aging marks */
+.mork-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    /* Dark stains */
+    radial-gradient(ellipse 400px 300px at 20% 30%, rgba(80, 50, 30, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 500px 400px at 80% 70%, rgba(60, 40, 25, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 300px 300px at 50% 50%, rgba(70, 45, 28, 0.08) 0%, transparent 50%),
+    /* Scratches and wear */
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 50px,
+      rgba(0, 0, 0, 0.03) 50px,
+      rgba(0, 0, 0, 0.03) 51px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 70px,
+      rgba(0, 0, 0, 0.02) 70px,
+      rgba(0, 0, 0, 0.02) 71px
+    );
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dark vignette and torn edges effect */
+.mork-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.3) 100%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, transparent 10%, transparent 90%, rgba(0, 0, 0, 0.1) 100%),
+    linear-gradient(to right, rgba(0, 0, 0, 0.1) 0%, transparent 10%, transparent 90%, rgba(0, 0, 0, 0.1) 100%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Utility classes */
