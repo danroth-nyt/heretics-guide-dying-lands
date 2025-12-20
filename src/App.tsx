@@ -92,7 +92,7 @@ function App() {
         </div>
 
         {/* Map Canvas */}
-        <div className="absolute inset-0 pt-32 pb-8 px-8">
+        <div className="absolute inset-0 pt-24 pb-2 px-2">
           {nodes.length === 0 ? (
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-center mork-panel max-w-md">

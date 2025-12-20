@@ -8,7 +8,7 @@ interface LocationNodeProps {
 }
 
 const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking }) => {
-  const shapeSize = 60;
+  const shapeSize = 20;
   const halfSize = shapeSize / 2;
 
   const renderShape = () => {
@@ -70,7 +70,7 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
         textAnchor="middle"
         dominantBaseline="middle"
         fill="var(--mork-black)"
-        fontSize="10"
+        fontSize="4"
         fontWeight="bold"
         fontFamily="Special Elite, monospace"
         pointerEvents="none"
