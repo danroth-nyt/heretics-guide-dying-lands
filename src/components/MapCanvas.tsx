@@ -31,7 +31,6 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
   };
 
   const handleRoadClick = (road: RoadType, event: React.MouseEvent) => {
-    const rect = (event.currentTarget as SVGElement).getBoundingClientRect();
     setRoadTooltipPosition({
       x: event.clientX,
       y: event.clientY,
@@ -141,4 +140,5 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
 };
 
 export default MapCanvas;
+
 
