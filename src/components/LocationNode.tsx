@@ -92,3 +92,4 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
 
 export default LocationNode;
 
+
