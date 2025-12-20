@@ -1,5 +1,5 @@
 import { MapNode, Road, Territory, NodeShape, RoadDifficulty, RoadAesthetics, GlobalOmens } from '../types';
-import { rollD12, rollD4, rollD6, rollD8, rollD10, randomChoice } from './diceUtils';
+import { rollD12, rollD4, randomChoice } from './diceUtils';
 import { regionTables } from '../data/regionTables';
 import { getLocationTables } from '../data/locationTables';
 import { rollOnTable, rollOnMultipleTables } from './tableLookup';
@@ -205,4 +205,5 @@ export function regenerateNodeDetails(node: MapNode): MapNode {
 export function regenerateRoad(road: Road): Road {
   return generateRoad(road.fromNodeId, road.toNodeId);
 }
+
 

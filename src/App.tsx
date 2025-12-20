@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Territory, MapNode, Road, GlobalOmens } from './types';
 import Sidebar from './components/Sidebar';
 import MapCanvas from './components/MapCanvas';
