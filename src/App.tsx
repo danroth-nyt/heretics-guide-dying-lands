@@ -69,7 +69,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-full min-h-screen overflow-hidden">
       <Sidebar
         selectedTerritory={selectedTerritory}
         onTerritoryChange={handleTerritoryChange}
@@ -80,7 +80,7 @@ function App() {
         isGenerating={isGenerating}
       />
       
-      <main className="flex-1 relative overflow-hidden">
+      <main className="flex-1 relative overflow-hidden h-full">
         {/* Title Bar */}
         <div className="absolute top-0 left-0 right-0 z-10 bg-mork-black text-mork-yellow p-6 border-b-4 border-mork-black no-print">
           <h1 className="mork-title text-center">
@@ -91,8 +91,8 @@ function App() {
           </p>
         </div>
 
-        {/* Map Canvas */}
-        <div className="absolute inset-0 pt-32 pb-8 px-8">
+        {/* Map Canvas - Full coverage to bottom */}
+        <div className="absolute top-28 left-0 right-0 mork-background" style={{ bottom: '-10px', minHeight: 'calc(100vh - 7rem)' }}>
           {nodes.length === 0 ? (
             <div className="w-full h-full flex items-center justify-center">
               <div className="text-center mork-panel max-w-md">
@@ -107,7 +107,7 @@ function App() {
               </div>
             </div>
           ) : (
-            <div className="w-full h-full mork-border bg-white">
+            <div className="w-full h-full">
               <MapCanvas
                 nodes={nodes}
                 roads={roads}

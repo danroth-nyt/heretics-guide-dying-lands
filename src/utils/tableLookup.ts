@@ -98,3 +98,4 @@ export function getRandomTableEntry(table: Table): TableEntry {
   return table.entries[randomIndex];
 }
 
+
