@@ -3,7 +3,24 @@ import { Table, LocationType } from '../types';
 /**
  * Location-specific sub-tables for generating details
  * Based on the actual Heretic's Guide to Dying Lands PDF
+ * Enhanced with Recluse oracle tables for expanded options
  */
+
+// Import Recluse dungeon oracles for expanded dungeon generation
+import {
+  dungeonOriginTable,
+  dungeonPurposeNowTable,
+  dungeonThemeTable,
+  dungeonEntranceStateTable,
+  dungeonRoomArchitectureTable,
+  dungeonRoomDressingTable,
+  dungeonHazardsTable,
+  dungeonDiscoveryTable,
+  dungeonEntranceHazardsTable,
+  dungeonRoomPurposeTable,
+  dungeonAirTempTable,
+  dungeonLightTable
+} from './oracles/recluse_dungeon';
 
 interface LocationTables {
   [key: string]: Table;
@@ -878,6 +895,19 @@ export const locationTables: Record<LocationType, LocationTables> = {
         { roll: 12, result: 'Dark sacrament' },
       ],
     },
+    // Recluse expanded dungeon oracles
+    origin: dungeonOriginTable,
+    purposeNow: dungeonPurposeNowTable,
+    theme: dungeonThemeTable,
+    entranceState: dungeonEntranceStateTable,
+    roomArchitecture: dungeonRoomArchitectureTable,
+    roomDressing: dungeonRoomDressingTable,
+    hazards: dungeonHazardsTable,
+    discovery: dungeonDiscoveryTable,
+    entranceHazards: dungeonEntranceHazardsTable,
+    roomPurpose: dungeonRoomPurposeTable,
+    airTemp: dungeonAirTempTable,
+    light: dungeonLightTable,
   },
 
   Ruins: {

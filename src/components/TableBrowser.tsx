@@ -15,7 +15,66 @@ import {
   npcWantsTable,
   weaponsTable,
   additionalStockTable,
+  // Recluse oracle imports
+  npcFirstNamesTable,
+  npcSurnamesTable,
+  villageNamesTable,
+  npcSummaryTable,
+  npcMotivationTable,
+  npcAppearanceTable,
+  npcTraitsTable,
+  weatherPrecipitationTable,
+  weatherWindTable,
+  weatherTemperatureTable,
+  actionOracleTable,
+  themeOracleTable,
+  descriptorOracleTable,
 } from '../data/globalTables';
+import {
+  dungeonOriginTable,
+  dungeonPurposeNowTable,
+  dungeonThemeTable,
+  dungeonEntranceStateTable,
+  dungeonRoomArchitectureTable,
+  dungeonRoomDressingTable,
+  dungeonHazardsTable,
+  dungeonDiscoveryTable,
+  dungeonEntranceHazardsTable,
+  dungeonRoomPurposeTable,
+  dungeonAirTempTable,
+  dungeonLightTable,
+} from '../data/oracles/recluse_dungeon';
+import {
+  cityMoodTable,
+  neighborhoodTypeTable,
+  streetActivityTable,
+  buildingTypeTable,
+  cityRumorsTable,
+  cityThreatsTable,
+  streetSurfaceTable,
+  streetSmellTable,
+  streetFeatureTable,
+  buildingInteriorTable,
+  buildingHiddenElementTable,
+} from '../data/oracles/recluse_city';
+import {
+  majorLandmarksTable,
+  ruinousLandmarksTable,
+  wildernessThreatSignsTable,
+  strangeLandmarksTable,
+  wildernessHazardsTable,
+  unnaturalHazardsTable,
+} from '../data/oracles/recluse_wilderness';
+import {
+  encounterContextTable,
+  encounterDispositionTable,
+  encounterGoalTable,
+  encounterComplicationsTable,
+} from '../data/oracles/recluse_encounter';
+import {
+  factionPlotHooksTable,
+  factionOriginsTable,
+} from '../data/oracles/recluse_npc';
 import { locationTables } from '../data/locationTables';
 import {
   difficultyTable,
@@ -67,17 +126,28 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Loot', table: lootTable },
         { name: 'Landscape', table: landscapeTable },
         { name: 'Weather', table: weatherTable },
+        // Recluse expanded weather
+        { name: 'Weather: Precipitation', table: weatherPrecipitationTable },
+        { name: 'Weather: Wind', table: weatherWindTable },
+        { name: 'Weather: Temperature', table: weatherTemperatureTable },
       ],
     },
     {
       name: 'Character',
       tables: [
         { name: 'Why Wander?', table: wanderTable },
-        { name: 'NPC Name', table: npcNameTable },
+        { name: 'NPC Name (Simple)', table: npcNameTable },
         { name: 'NPC Occupation', table: npcOccupationTable },
         { name: 'NPC Habit', table: npcHabitTable },
         { name: 'NPC Mood', table: npcMoodTable },
         { name: 'NPC Wants', table: npcWantsTable },
+        // Recluse expanded NPC
+        { name: 'NPC First Name (d100)', table: npcFirstNamesTable },
+        { name: 'NPC Surname (d100)', table: npcSurnamesTable },
+        { name: 'NPC Summary', table: npcSummaryTable },
+        { name: 'NPC Motivation', table: npcMotivationTable },
+        { name: 'NPC Appearance (d100)', table: npcAppearanceTable },
+        { name: 'NPC Traits (d100)', table: npcTraitsTable },
       ],
     },
     {
@@ -104,6 +174,73 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Road Smell', table: smellTable },
         { name: 'Road Wanderers', table: wanderersTable },
         { name: 'Road Surface', table: surfaceTable },
+      ],
+    },
+    {
+      name: 'Encounters',
+      tables: [
+        { name: 'Encounter Context', table: encounterContextTable },
+        { name: 'Encounter Disposition', table: encounterDispositionTable },
+        { name: 'Encounter Goal', table: encounterGoalTable },
+        { name: 'Encounter Complications', table: encounterComplicationsTable },
+      ],
+    },
+    {
+      name: 'Wilderness',
+      tables: [
+        { name: 'Major Landmarks', table: majorLandmarksTable },
+        { name: 'Ruinous Landmarks', table: ruinousLandmarksTable },
+        { name: 'Threat Signs', table: wildernessThreatSignsTable },
+        { name: 'Strange Landmarks', table: strangeLandmarksTable },
+        { name: 'Natural Hazards', table: wildernessHazardsTable },
+        { name: 'Unnatural Hazards', table: unnaturalHazardsTable },
+      ],
+    },
+    {
+      name: 'City',
+      tables: [
+        { name: 'City Mood', table: cityMoodTable },
+        { name: 'Neighborhood Type', table: neighborhoodTypeTable },
+        { name: 'Street Activity', table: streetActivityTable },
+        { name: 'Building Type', table: buildingTypeTable },
+        { name: 'City Rumors', table: cityRumorsTable },
+        { name: 'City Threats', table: cityThreatsTable },
+        { name: 'Street Surface', table: streetSurfaceTable },
+        { name: 'Street Smell', table: streetSmellTable },
+        { name: 'Street Feature', table: streetFeatureTable },
+        { name: 'Building Interior', table: buildingInteriorTable },
+        { name: 'Hidden Element', table: buildingHiddenElementTable },
+      ],
+    },
+    {
+      name: 'Factions',
+      tables: [
+        { name: 'Faction Plot Hooks', table: factionPlotHooksTable },
+        { name: 'Faction Origins', table: factionOriginsTable },
+      ],
+    },
+    {
+      name: 'Recluse Oracles',
+      tables: [
+        // General oracles
+        { name: 'Action Oracle (d100)', table: actionOracleTable },
+        { name: 'Theme Oracle (d100)', table: themeOracleTable },
+        { name: 'Descriptor Oracle (d100)', table: descriptorOracleTable },
+        // Names
+        { name: 'Village Names (d100)', table: villageNamesTable },
+        // Dungeon
+        { name: 'Dungeon Origin', table: dungeonOriginTable },
+        { name: 'Dungeon Purpose Now', table: dungeonPurposeNowTable },
+        { name: 'Dungeon Theme', table: dungeonThemeTable },
+        { name: 'Dungeon Entrance State', table: dungeonEntranceStateTable },
+        { name: 'Dungeon Room Architecture', table: dungeonRoomArchitectureTable },
+        { name: 'Dungeon Room Dressing', table: dungeonRoomDressingTable },
+        { name: 'Dungeon Hazards', table: dungeonHazardsTable },
+        { name: 'Dungeon Discovery', table: dungeonDiscoveryTable },
+        { name: 'Dungeon Entrance Hazards', table: dungeonEntranceHazardsTable },
+        { name: 'Dungeon Room Purpose', table: dungeonRoomPurposeTable },
+        { name: 'Dungeon Air/Temp', table: dungeonAirTempTable },
+        { name: 'Dungeon Light', table: dungeonLightTable },
       ],
     },
   ];
