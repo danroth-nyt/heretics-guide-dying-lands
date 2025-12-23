@@ -91,7 +91,8 @@ function App() {
       {/* Mobile Drawer Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/80 md:hidden fade-in"
+          className="fixed inset-0 bg-black/80 md:hidden fade-in"
+          style={{ zIndex: 9998 }}
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div
@@ -108,10 +109,7 @@ function App() {
                 handleGenerateMap();
                 setIsMobileMenuOpen(false);
               }}
-              onGenerateOmens={() => {
-                handleGenerateOmens();
-                setIsMobileMenuOpen(false);
-              }}
+              onGenerateOmens={handleGenerateOmens}
               globalOmens={globalOmens}
               onPrint={() => {
                 handlePrint();
