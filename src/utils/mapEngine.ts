@@ -30,7 +30,8 @@ let roadCounter = 0;
 export function generateMap(territory: Territory, nodeCount: number = 6): { nodes: MapNode[], roads: Road[] } {
   roadCounter = 0; // Reset counter for each new map
   const nodes = generateNodes(territory, nodeCount);
-  const roads = generateRoads(nodes);
+  let roads = generateRoads(nodes);
+  roads = assignRoadSeparationOffsets(roads, nodes); // Assign offsets to prevent overlap
   
   return { nodes, roads };
 }
@@ -203,6 +204,67 @@ function generateRoads(nodes: MapNode[]): Road[] {
   );
   
   return uniqueRoads;
+}
+
+/**
+ * Assign separation offsets to roads to prevent overlap
+ * Roads sharing the same node will be spread apart with increasing offsets
+ */
+function assignRoadSeparationOffsets(roads: Road[], nodes: MapNode[]): Road[] {
+  // Create a map of nodeId -> all roads connected to that node
+  const nodeRoadMap = new Map<string, Road[]>();
+  
+  // Initialize map for each node
+  nodes.forEach(node => {
+    nodeRoadMap.set(node.id, []);
+  });
+  
+  // Group roads by the nodes they connect to
+  roads.forEach(road => {
+    const fromRoads = nodeRoadMap.get(road.fromNodeId);
+    const toRoads = nodeRoadMap.get(road.toNodeId);
+    
+    if (fromRoads) fromRoads.push(road);
+    if (toRoads) toRoads.push(road);
+  });
+  
+  // Track which roads have already been assigned offsets
+  const assignedRoads = new Set<string>();
+  
+  // For each node with multiple roads, assign separation offsets
+  nodeRoadMap.forEach((roadsAtNode, nodeId) => {
+    if (roadsAtNode.length > 1) {
+      // Filter to only roads that haven't been assigned yet from this node's perspective
+      const unassignedRoads = roadsAtNode.filter(road => !assignedRoads.has(road.id));
+      
+      if (unassignedRoads.length > 1) {
+        // Sort roads by the other node's ID for consistency
+        unassignedRoads.sort((a, b) => {
+          const aOtherId = a.fromNodeId === nodeId ? a.toNodeId : a.fromNodeId;
+          const bOtherId = b.fromNodeId === nodeId ? b.toNodeId : b.fromNodeId;
+          return aOtherId.localeCompare(bOtherId);
+        });
+        
+        // Calculate evenly-spaced offsets centered around 0
+        const offsetStep = 15; // Units of separation between roads
+        const centerOffset = -(unassignedRoads.length - 1) * offsetStep / 2;
+        
+        unassignedRoads.forEach((road, index) => {
+          road.separationOffset = centerOffset + (index * offsetStep);
+          assignedRoads.add(road.id);
+        });
+      }
+    }
+  });
+  
+  // Set offset to 0 for any roads that weren't assigned (single roads to/from a node)
+  roads.forEach(road => {
+    if (!assignedRoads.has(road.id)) {
+      road.separationOffset = 0;
+    }
+  });
+  
+  return roads;
 }
 
 /**

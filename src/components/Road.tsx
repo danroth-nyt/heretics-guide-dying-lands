@@ -20,21 +20,25 @@ const Road: React.FC<RoadProps> = ({ road, nodes, onClick }) => {
   const dy = toNode.y - fromNode.y;
   const distance = Math.sqrt(dx * dx + dy * dy);
   
-  // Calculate control points for a curved path with some randomness
+  // Calculate control points for a curved path with separation
   const midX = (fromNode.x + toNode.x) / 2;
   const midY = (fromNode.y + toNode.y) / 2;
   
-  // Perpendicular offset for curve
+  // Perpendicular offset for curve - this creates the base curve
   const perpX = -dy / distance * 15;
   const perpY = dx / distance * 15;
   
-  // Seed-based "randomness" for consistent paths
-  const seed = road.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const offset = (seed % 3 - 1) * 10;
+  // Use separation offset to prevent road overlap
+  // If not set, fall back to seed-based offset for backwards compatibility
+  const separationOffset = road.separationOffset ?? ((road.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 3 - 1) * 10);
+  
+  // Apply separation perpendicular to the road direction
+  const controlX = midX + perpX + (separationOffset * perpX / 15);
+  const controlY = midY + perpY + (separationOffset * perpY / 15);
   
   const pathData = `
     M ${fromNode.x} ${fromNode.y}
-    Q ${midX + perpX + offset} ${midY + perpY + offset}
+    Q ${controlX} ${controlY}
       ${toNode.x} ${toNode.y}
   `;
 
@@ -64,9 +68,7 @@ const Road: React.FC<RoadProps> = ({ road, nodes, onClick }) => {
     for (let i = 1; i <= numMarkers; i++) {
       const t = i / (numMarkers + 1); // Parametric position along curve
       // Quadratic bezier formula: B(t) = (1-t)^2*P0 + 2(1-t)t*P1 + t^2*P2
-      const controlX = midX + perpX + offset;
-      const controlY = midY + perpY + offset;
-      
+      // Use the already-calculated control points that include separation offset
       const x = Math.pow(1-t, 2) * fromNode.x + 2*(1-t)*t * controlX + Math.pow(t, 2) * toNode.x;
       const y = Math.pow(1-t, 2) * fromNode.y + 2*(1-t)*t * controlY + Math.pow(t, 2) * toNode.y;
       

@@ -43,24 +43,39 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
       let left = position.x;
       let top = position.y;
       
-      // Calculate if tooltip fits above the cursor
-      const fitsAbove = position.y - rect.height - gap >= padding;
-      const fitsBelow = position.y + rect.height + gap <= window.innerHeight - padding;
-      
-      // Decide vertical position
+      // Use a simpler, more reliable positioning strategy
+      // If clicked in top third of screen, always go down
+      // If clicked in bottom third, always go up
+      // In middle, use smart positioning
+      const screenThirdHeight = window.innerHeight / 3;
       let transformY: string;
-      if (fitsAbove) {
-        // Position above cursor
-        top = position.y - gap;
-        transformY = '-100%';
-      } else if (fitsBelow) {
-        // Position below cursor
+      
+      if (position.y < screenThirdHeight) {
+        // Top third: always position below cursor
         top = position.y + gap;
         transformY = '0%';
+      } else if (position.y > window.innerHeight - screenThirdHeight) {
+        // Bottom third: always position above cursor
+        top = position.y - gap;
+        transformY = '-100%';
       } else {
-        // Doesn't fit either way - position at top of screen with scroll
-        top = padding + rect.height / 2;
-        transformY = '-50%';
+        // Middle: check what fits best
+        const fitsAbove = position.y - rect.height - gap >= padding;
+        const fitsBelow = position.y + rect.height + gap <= window.innerHeight - padding;
+        
+        if (fitsBelow) {
+          // Prefer below if it fits
+          top = position.y + gap;
+          transformY = '0%';
+        } else if (fitsAbove) {
+          // Otherwise try above
+          top = position.y - gap;
+          transformY = '-100%';
+        } else {
+          // Last resort: center in viewport
+          top = window.innerHeight / 2;
+          transformY = '-50%';
+        }
       }
 
       // Calculate horizontal position
