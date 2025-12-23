@@ -71,19 +71,22 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
     >
       {renderShape()}
       
-      {/* Location type label - positioned below shape */}
+      {/* Location type label - positioned below shape with high contrast */}
       <text
         x={0}
         y={halfSize + 5}
         textAnchor="middle"
         dominantBaseline="hanging"
-        fill="#1a0f08"
-        fontSize="4"
+        fill="#0a0604"
+        fontSize="4.5"
         fontWeight="bold"
         fontFamily="Pirata One, cursive"
         pointerEvents="none"
+        stroke="#f4e4c1"
+        strokeWidth="0.5"
+        paintOrder="stroke fill"
         style={{
-          filter: 'drop-shadow(0px 0.5px 0.5px rgba(0,0,0,0.3))'
+          filter: 'drop-shadow(0px 0.8px 0.8px rgba(0,0,0,0.4))'
         }}
       >
         {node.locationType.toUpperCase()}

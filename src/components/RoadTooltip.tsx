@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Road } from '../types';
 import { X, RefreshCw } from 'lucide-react';
 
@@ -10,7 +10,8 @@ interface RoadTooltipProps {
 }
 
 const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onReroll }) => {
-  if (!road) return null;
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [adjustedPosition, setAdjustedPosition] = useState({ left: position.x, top: position.y, transform: 'translate(-50%, -110%)' });
 
   // Difficulty color
   const getDifficultyColor = () => {
@@ -23,13 +24,62 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
     }
   };
 
+  useEffect(() => {
+    if (!tooltipRef.current) return;
+
+    const tooltip = tooltipRef.current;
+    const rect = tooltip.getBoundingClientRect();
+    const padding = 20;
+
+    let left = position.x;
+    let top = position.y;
+    let transformX = '-50%';
+    let transformY = 'calc(-100% - 20px)'; // Default: above the click point with gap
+
+    // Check if tooltip would go off left edge
+    if (position.x - rect.width / 2 < padding) {
+      left = rect.width / 2 + padding;
+      transformX = '-50%';
+    }
+    
+    // Check if tooltip would go off right edge
+    if (position.x + rect.width / 2 > window.innerWidth - padding) {
+      left = window.innerWidth - rect.width / 2 - padding;
+      transformX = '-50%';
+    }
+
+    // Check if tooltip would go off top edge
+    if (position.y - rect.height - 20 < padding) {
+      transformY = '20px'; // Show below the click point
+    }
+
+    // Check if showing below would go off bottom edge
+    const wouldGoOffBottom = position.y + rect.height + 40 > window.innerHeight;
+    const hasRoomAbove = position.y - rect.height - 20 >= padding;
+    
+    if (wouldGoOffBottom && hasRoomAbove) {
+      transformY = 'calc(-100% - 20px)'; // Keep above
+    }
+
+    setAdjustedPosition({
+      left,
+      top,
+      transform: `translate(${transformX}, ${transformY})`
+    });
+  }, [position, road]);
+
+  if (!road) return null;
+
   return (
     <div
+      ref={tooltipRef}
       className="fixed z-40 mork-modal p-6 max-w-lg fade-in"
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        transform: 'translate(-50%, -120%)',
+        left: `${adjustedPosition.left}px`,
+        top: `${adjustedPosition.top}px`,
+        transform: adjustedPosition.transform,
+        maxHeight: 'calc(100vh - 40px)',
+        overflowY: 'auto',
       }}
     >
       {/* Header */}
