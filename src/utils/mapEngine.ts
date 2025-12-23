@@ -20,11 +20,18 @@ import {
 } from '../data/globalTables';
 
 /**
+ * Module-level counter for unique road IDs
+ */
+let roadCounter = 0;
+
+/**
  * Generate a random map with nodes and roads
  */
 export function generateMap(territory: Territory, nodeCount: number = 6): { nodes: MapNode[], roads: Road[] } {
+  roadCounter = 0; // Reset counter for each new map
   const nodes = generateNodes(territory, nodeCount);
-  const roads = generateRoads(nodes);
+  let roads = generateRoads(nodes);
+  roads = assignRoadSeparationOffsets(roads, nodes); // Assign offsets to prevent overlap
   
   return { nodes, roads };
 }
@@ -35,7 +42,7 @@ export function generateMap(territory: Territory, nodeCount: number = 6): { node
 function generateNodes(territory: Territory, count: number): MapNode[] {
   const nodes: MapNode[] = [];
   const shapes: NodeShape[] = ['circle', 'square', 'hex'];
-  const minDistance = 12; // Minimum distance between nodes (percentage)
+  const minDistance = 32; // Minimum distance between nodes to prevent label overlap
   
   for (let i = 0; i < count; i++) {
     let x: number, y: number;
@@ -43,10 +50,10 @@ function generateNodes(territory: Territory, count: number): MapNode[] {
     const maxAttempts = 50;
     
     // Try to find a position that doesn't overlap with existing nodes
-    // Keep margins to prevent cutoff
+    // Keep margins to prevent cutoff - optimized for 16:9 ratio (240x135 viewBox)
     do {
-      x = 15 + Math.random() * 150; // 15 to 165 (viewBox width is 180)
-      y = 15 + Math.random() * 85; // 15 to 100 (viewBox height is 115)
+      x = 25 + Math.random() * 190; // 25 to 215 (viewBox width is 240, with 25px margins)
+      y = 25 + Math.random() * 85; // 25 to 110 (viewBox height is 135, with 25px margins)
       attempts++;
       
       if (attempts > maxAttempts) {
@@ -89,10 +96,30 @@ function generateNodes(territory: Territory, count: number): MapNode[] {
 function generateRoads(nodes: MapNode[]): Road[] {
   const roads: Road[] = [];
   const connections = new Map<string, Set<string>>();
+  const roadKeys = new Set<string>(); // Track unique road connections
+  const nodeRoads = new Map<string, Road[]>(); // Track roads from each node for uniqueness
+  
+  // Helper to create a normalized connection key (same regardless of direction)
+  const getRoadKey = (id1: string, id2: string): string => {
+    return [id1, id2].sort().join('|');
+  };
+  
+  // Helper to check if a road is unique compared to existing roads from the same node
+  const isRoadUnique = (newRoad: Road, nodeId: string): boolean => {
+    const existingRoads = nodeRoads.get(nodeId) || [];
+    
+    // Check if any existing road from this node has the same characteristics
+    return !existingRoads.some(existingRoad => {
+      return existingRoad.difficulty === newRoad.difficulty &&
+             existingRoad.encounter === newRoad.encounter &&
+             existingRoad.opportunity === newRoad.opportunity;
+    });
+  };
   
   // Initialize connection tracking
   nodes.forEach(node => {
     connections.set(node.id, new Set());
+    nodeRoads.set(node.id, []);
   });
   
   // Ensure minimum connectivity: each node connects to 1-3 nearest neighbors
@@ -119,9 +146,15 @@ function generateRoads(nodes: MapNode[]): Road[] {
       }
       
       const otherConnections = connections.get(other.id)!;
+      const roadKey = getRoadKey(node.id, other.id);
       
       // Don't connect if already connected
       if (currentConnections.has(other.id)) {
+        continue;
+      }
+      
+      // Don't connect if this road already exists (extra safety check)
+      if (roadKeys.has(roadKey)) {
         continue;
       }
       
@@ -130,13 +163,104 @@ function generateRoads(nodes: MapNode[]): Road[] {
         continue;
       }
       
-      // Create road
-      const road = generateRoad(node.id, other.id);
+      // Generate unique road - try multiple times to get unique characteristics
+      let road: Road | null = null;
+      let attempts = 0;
+      const maxAttempts = 10;
+      
+      while (attempts < maxAttempts) {
+        const candidateRoad = generateRoad(node.id, other.id);
+        
+        // Check if road is unique from both nodes' perspectives
+        if (isRoadUnique(candidateRoad, node.id) && isRoadUnique(candidateRoad, other.id)) {
+          road = candidateRoad;
+          break;
+        }
+        
+        attempts++;
+      }
+      
+      // If we couldn't generate a unique road, use what we have
+      if (!road) {
+        road = generateRoad(node.id, other.id);
+      }
+      
       roads.push(road);
       
-      // Track connection
+      // Track road from both nodes' perspectives
+      nodeRoads.get(node.id)!.push(road);
+      nodeRoads.get(other.id)!.push(road);
+      
+      // Track connection and road
       currentConnections.add(other.id);
       otherConnections.add(node.id);
+      roadKeys.add(roadKey);
+    }
+  });
+  
+  // Final deduplication: ensure no duplicate roads based on ID
+  const uniqueRoads = Array.from(
+    new Map(roads.map(road => [road.id, road])).values()
+  );
+  
+  return uniqueRoads;
+}
+
+/**
+ * Assign separation offsets to roads to prevent overlap
+ * Roads sharing the same node will be spread apart with increasing offsets
+ */
+function assignRoadSeparationOffsets(roads: Road[], nodes: MapNode[]): Road[] {
+  // Create a map of nodeId -> all roads connected to that node
+  const nodeRoadMap = new Map<string, Road[]>();
+  
+  // Initialize map for each node
+  nodes.forEach(node => {
+    nodeRoadMap.set(node.id, []);
+  });
+  
+  // Group roads by the nodes they connect to
+  roads.forEach(road => {
+    const fromRoads = nodeRoadMap.get(road.fromNodeId);
+    const toRoads = nodeRoadMap.get(road.toNodeId);
+    
+    if (fromRoads) fromRoads.push(road);
+    if (toRoads) toRoads.push(road);
+  });
+  
+  // Track which roads have already been assigned offsets
+  const assignedRoads = new Set<string>();
+  
+  // For each node with multiple roads, assign separation offsets
+  nodeRoadMap.forEach((roadsAtNode, nodeId) => {
+    if (roadsAtNode.length > 1) {
+      // Filter to only roads that haven't been assigned yet from this node's perspective
+      const unassignedRoads = roadsAtNode.filter(road => !assignedRoads.has(road.id));
+      
+      if (unassignedRoads.length > 1) {
+        // Sort roads by the other node's ID for consistency
+        unassignedRoads.sort((a, b) => {
+          const aOtherId = a.fromNodeId === nodeId ? a.toNodeId : a.fromNodeId;
+          const bOtherId = b.fromNodeId === nodeId ? b.toNodeId : b.fromNodeId;
+          return aOtherId.localeCompare(bOtherId);
+        });
+        
+        // Calculate evenly-spaced offsets centered around 0
+        const offsetStep = 15; // Units of separation between roads
+        const centerOffset = -(unassignedRoads.length - 1) * offsetStep / 2;
+        
+        unassignedRoads.forEach((road, index) => {
+          road.separationOffset = centerOffset + (index * offsetStep);
+          assignedRoads.add(road.id);
+        });
+      }
+    }
+  });
+  
+  // Set offset to 0 for any roads that weren't assigned (single roads to/from a node)
+  roads.forEach(road => {
+    if (!assignedRoads.has(road.id)) {
+      road.separationOffset = 0;
     }
   });
   
@@ -165,8 +289,13 @@ function generateRoad(fromNodeId: string, toNodeId: string): Road {
     surface: rollOnTable(surfaceTable),
   };
   
+  // Create a unique ID for this road instance
+  const sortedIds = [fromNodeId, toNodeId].sort();
+  roadCounter++;
+  const roadId = `road-${sortedIds[0]}-${sortedIds[1]}-${roadCounter}`;
+  
   return {
-    id: `road-${fromNodeId}-${toNodeId}`,
+    id: roadId,
     fromNodeId,
     toNodeId,
     difficulty,

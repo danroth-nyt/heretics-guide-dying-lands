@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Road } from '../types';
 import { X, RefreshCw } from 'lucide-react';
 
@@ -10,11 +10,13 @@ interface RoadTooltipProps {
 }
 
 const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onReroll }) => {
-  if (!road) return null;
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [adjustedPosition, setAdjustedPosition] = useState({ left: position.x, top: position.y, transform: 'translate(-50%, 0)' });
+  const [isPositioned, setIsPositioned] = useState(false);
 
   // Difficulty color
   const getDifficultyColor = () => {
-    switch (road.difficulty) {
+    switch (road?.difficulty) {
       case 'easy': return 'text-green-600';
       case 'unpleasant': return 'text-yellow-600';
       case 'problematic': return 'text-orange-600';
@@ -23,13 +25,97 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
     }
   };
 
+  useEffect(() => {
+    // Reset positioning state when road changes
+    setIsPositioned(false);
+    
+    if (!tooltipRef.current || !road) return;
+
+    // Small delay to let DOM render with new content before measuring
+    const timeoutId = setTimeout(() => {
+      if (!tooltipRef.current) return;
+      
+      const tooltip = tooltipRef.current;
+      const rect = tooltip.getBoundingClientRect();
+      const padding = 20;
+      const gap = 20; // Gap between cursor and tooltip
+
+      let left = position.x;
+      let top = position.y;
+      
+      // Use a simpler, more reliable positioning strategy
+      // If clicked in top third of screen, always go down
+      // If clicked in bottom third, always go up
+      // In middle, use smart positioning
+      const screenThirdHeight = window.innerHeight / 3;
+      let transformY: string;
+      
+      if (position.y < screenThirdHeight) {
+        // Top third: always position below cursor
+        top = position.y + gap;
+        transformY = '0%';
+      } else if (position.y > window.innerHeight - screenThirdHeight) {
+        // Bottom third: always position above cursor
+        top = position.y - gap;
+        transformY = '-100%';
+      } else {
+        // Middle: check what fits best
+        const fitsAbove = position.y - rect.height - gap >= padding;
+        const fitsBelow = position.y + rect.height + gap <= window.innerHeight - padding;
+        
+        if (fitsBelow) {
+          // Prefer below if it fits
+          top = position.y + gap;
+          transformY = '0%';
+        } else if (fitsAbove) {
+          // Otherwise try above
+          top = position.y - gap;
+          transformY = '-100%';
+        } else {
+          // Last resort: center in viewport
+          top = window.innerHeight / 2;
+          transformY = '-50%';
+        }
+      }
+
+      // Calculate horizontal position
+      let transformX = '-50%';
+      const halfWidth = rect.width / 2;
+      
+      if (position.x - halfWidth < padding) {
+        // Would go off left edge
+        left = padding + halfWidth;
+      } else if (position.x + halfWidth > window.innerWidth - padding) {
+        // Would go off right edge
+        left = window.innerWidth - padding - halfWidth;
+      }
+
+      setAdjustedPosition({
+        left,
+        top,
+        transform: `translate(${transformX}, ${transformY})`
+      });
+      
+      setIsPositioned(true);
+    }, 10);
+    
+    return () => clearTimeout(timeoutId);
+  }, [position, road]);
+
+  if (!road) return null;
+
   return (
     <div
+      ref={tooltipRef}
       className="fixed z-40 mork-modal p-6 max-w-lg fade-in"
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        transform: 'translate(-50%, -120%)',
+        left: `${adjustedPosition.left}px`,
+        top: `${adjustedPosition.top}px`,
+        transform: adjustedPosition.transform,
+        maxHeight: 'calc(100vh - 40px)',
+        overflowY: 'auto',
+        opacity: isPositioned ? 1 : 0,
+        transition: 'opacity 0.15s ease-in',
       }}
     >
       {/* Header */}

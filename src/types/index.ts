@@ -35,6 +35,7 @@ export interface Road {
   encounter: string;
   opportunity: string;
   aesthetics: RoadAesthetics;
+  separationOffset?: number; // Offset for preventing road overlap
 }
 
 // Road aesthetics

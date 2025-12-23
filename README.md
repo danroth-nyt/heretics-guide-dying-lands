@@ -46,7 +46,7 @@ The built files will be in the `dist/` directory.
 
 ### Deploying to GitHub Pages
 
-This project is configured for automatic deployment to GitHub Pages. See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
+This project is configured for automatic deployment to GitHub Pages. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
 
 Quick setup:
 1. Enable GitHub Pages in your repo settings (Source: GitHub Actions)
@@ -117,9 +117,37 @@ Edit `src/index.css` to customize:
 
 This is a fan project based on MÖRK BORG by Ockult Örtmästare Games and Stockholm Kartell, and the "Heretic's Guide to Dying Lands" supplement. No copyright infringement intended.
 
+## Documentation
+
+Comprehensive documentation is available in the [docs/](docs/) directory:
+
+- **[Quick Start Guide](docs/QUICKSTART.md)** - Get started quickly
+- **[Development Instructions](docs/INSTRUCTIONS.md)** - Detailed dev guide
+- **[Contributing Guide](docs/CONTRIBUTING.md)** - How to contribute
+- **[Data Templates](docs/DATA_TEMPLATE.md)** - Data structure reference
+- **[Implementation Notes](docs/AESTHETIC_IMPROVEMENTS.md)** - Recent changes
+- **[Deployment Guide](docs/DEPLOYMENT.md)** - Deployment instructions
+
+See the [docs/README.md](docs/README.md) for a complete index.
+
+## Development Tips
+
+### Viewing Changes on Local Server
+
+When running `npm run dev`, Vite provides hot module reloading, but if changes don't appear:
+
+**Windows:** `Ctrl + F5` or `Ctrl + Shift + R`
+**Mac:** `Cmd + Shift + R`
+**Alternative:** Open DevTools (F12), right-click refresh button, select "Empty Cache and Hard Reload"
+
+The dev server auto-reloads most changes, but hard refresh may be needed for:
+- CSS/style changes
+- SVG filter modifications
+- Configuration updates
+
 ## Contributing
 
-This project was created as a tool for MÖRK BORG players. Feel free to modify and enhance it for your own use.
+This project was created as a tool for MÖRK BORG players. Feel free to modify and enhance it for your own use. See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines.
 
 ## Roadmap
 

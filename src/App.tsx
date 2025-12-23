@@ -94,8 +94,8 @@ function App() {
         {/* Map Canvas - Full coverage to bottom */}
         <div className="absolute top-28 left-0 right-0 mork-background" style={{ bottom: '-10px', minHeight: 'calc(100vh - 7rem)' }}>
           {nodes.length === 0 ? (
-            <div className="w-full h-full flex items-center justify-center">
-              <div className="text-center mork-panel max-w-md">
+            <div className="w-full h-full flex items-center justify-center px-8 py-12">
+              <div className="text-center mork-panel max-w-md mx-auto" style={{ marginTop: '2rem' }}>
                 <h2 className="text-3xl font-pirata mb-4">Welcome, Heretic</h2>
                 <p className="mb-6 text-sm opacity-75">
                   Select your territory and generate a map to begin your journey through the dying lands.
