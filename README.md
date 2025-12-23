@@ -6,13 +6,29 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
 
 ## Features
 
+### Map Generation
 - **4 Territories**: Kergüs, Wästland, Grift, and Tveland, each with unique location types
 - **Procedural Generation**: Random map generation with 6 locations and connecting roads
 - **Interactive Nodes**: Click any location to see detailed information from sub-tables
 - **Road Details**: Click roads to see difficulty, encounters, opportunities, and aesthetics
-- **Global Omens**: Roll for Oracle, Landscape, and Weather to set the scene
 - **Print-Ready**: Export maps to A4 format for physical use
+
+### Reference Tools
+- **Quick Rollers**: Instant access to frequently used tables
+  - Roll random Loot (d66)
+  - Generate complete NPCs with all attributes
+  - Roll character motivations (Why do you wander?)
+- **Full Table Browser**: Comprehensive modal with 100+ game tables
+  - Searchable by name or category
+  - Organized by type (Global, Character, Items, Roads, Locations)
+  - Inline dice roller for any table
+- **Global Omens**: Roll for Oracle, Landscape, and Weather to set the scene
+
+### UI/UX
+- **Collapsible Sections**: Clean, organized sidebar with accordion panels
+- **Persistent State**: Section preferences saved between sessions
 - **Authentic Theme**: Yellow and black high-contrast design with grunge textures
+- **Complete Book Data**: All tables synced with Heretic's Guide to Dying Lands
 
 ## Getting Started
 
@@ -55,6 +71,7 @@ Quick setup:
 
 ## Usage
 
+### Map Generation
 1. **Select Territory**: Choose from Kergüs, Wästland, Grift, or Tveland
 2. **Generate Map**: Click "Generate Map" to create a new random map
 3. **Explore Locations**: Click on any location node to see its details
@@ -62,39 +79,45 @@ Quick setup:
 5. **Roll Omens**: Generate atmospheric elements for your adventure
 6. **Print**: Use the Print Map button to create a physical copy
 
+### Quick Reference
+- **Quick Rollers**: Expand the section to instantly roll on common tables
+- **Reference Browser**: Click "Browse All Tables" to access the full table modal
+- **Search**: Use the search bar to quickly find specific tables
+- **Keyboard Shortcuts**:
+  - `Ctrl/Cmd + G`: Generate new map
+  - `Ctrl/Cmd + O`: Roll global omens
+  - `Ctrl/Cmd + P`: Print map
+
 ## Project Structure
 
 ```
 src/
 ├── components/         # React components
-│   ├── Sidebar.tsx
-│   ├── MapCanvas.tsx
-│   ├── LocationNode.tsx
-│   ├── Road.tsx
-│   ├── LocationModal.tsx
-│   └── RoadTooltip.tsx
-├── data/              # Game tables and data
-│   ├── regionTables.ts
-│   ├── locationTables.ts
-│   ├── roadTables.ts
-│   └── globalTables.ts
+│   ├── Sidebar.tsx            # Main sidebar with accordion sections
+│   ├── MapCanvas.tsx          # SVG map rendering
+│   ├── LocationNode.tsx       # Individual location nodes
+│   ├── Road.tsx               # Road connections
+│   ├── LocationModal.tsx      # Location detail popup
+│   ├── RoadTooltip.tsx        # Road encounter tooltip
+│   ├── AccordionSection.tsx   # Collapsible panel component
+│   ├── QuickRollers.tsx       # Quick table rollers
+│   ├── ReferenceModal.tsx     # Full table browser modal
+│   ├── TableBrowser.tsx       # Table category navigation
+│   └── TableDisplay.tsx       # Table content viewer
+├── data/              # Complete game tables and data
+│   ├── regionTables.ts        # Territory-specific locations (d12)
+│   ├── locationTables.ts      # All 20 location sub-tables
+│   ├── roadTables.ts          # Road encounters & aesthetics
+│   └── globalTables.ts        # Oracle, Fate, Loot, NPC, Items
 ├── utils/             # Utilities and logic
-│   ├── diceUtils.ts
-│   ├── mapEngine.ts
-│   └── tableLookup.ts
+│   ├── diceUtils.ts           # Dice rolling functions
+│   ├── mapEngine.ts           # Map generation engine
+│   └── tableLookup.ts         # Table rolling logic
 └── types/             # TypeScript interfaces
     └── index.ts
 ```
 
 ## Customization
-
-### Adding PDF Data
-
-The current implementation includes placeholder data. To populate with actual PDF content:
-
-1. Open `src/data/locationTables.ts`
-2. Fill in the table entries for each location type
-3. Ensure dice roll ranges match the PDF
 
 ### Modifying Visual Theme
 
@@ -151,13 +174,15 @@ This project was created as a tool for MÖRK BORG players. Feel free to modify a
 
 ## Roadmap
 
-- [ ] Add full PDF data for all location types
+- [x] ~~Add full PDF data for all location types~~ ✅ Complete!
+- [x] ~~Add comprehensive table reference browser~~ ✅ Complete!
+- [x] ~~Add quick roller tools~~ ✅ Complete!
 - [ ] Implement save/load map functionality
 - [ ] Add map sharing via URL
 - [ ] Create mobile-responsive design
-- [ ] Add more territories and location types
+- [ ] Export maps as images
+- [ ] Add campaign tracking/notes
 - [ ] Implement advanced road pathfinding
-- [ ] Add sound effects and music (optional)
 
 ---
 
