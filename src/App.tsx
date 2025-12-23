@@ -148,8 +148,8 @@ function App() {
           </p>
         </div>
 
-        {/* Map Canvas - Full coverage to bottom */}
-        <div className="absolute top-16 md:top-28 left-0 right-0 bottom-0 mork-background">
+        {/* Map Canvas - Full coverage to bottom with padding for UI elements */}
+        <div className="absolute top-16 md:top-28 left-0 right-0 bottom-0 mork-background overflow-hidden">
           {nodes.length === 0 ? (
             <div className="w-full h-full flex items-center justify-center px-8 py-12">
               <div className="text-center mork-panel max-w-md mx-auto" style={{ marginTop: '2rem' }}>

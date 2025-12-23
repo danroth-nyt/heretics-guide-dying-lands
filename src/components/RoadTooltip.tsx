@@ -119,7 +119,10 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
         onClick={handleBackdropClick}
       >
         <div className="mork-modal w-full h-full flex flex-col overflow-hidden" style={{ 
-          paddingTop: 'max(2.5rem, calc(env(safe-area-inset-top) + 2rem))'
+          marginTop: 'max(5rem, calc(env(safe-area-inset-top) + 4rem))',
+          borderTop: '6px solid var(--mork-yellow)',
+          height: 'auto',
+          maxHeight: 'calc(100% - max(5rem, calc(env(safe-area-inset-top) + 4rem)))'
         }}>
           {/* Pull indicator */}
           <div className="px-6 pt-2 pb-3">

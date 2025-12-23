@@ -32,8 +32,11 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
       className="fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in"
       onClick={handleBackdropClick}
     >
-      <div className="mork-modal w-full h-full md:max-w-2xl md:h-auto md:max-h-[90vh] md:rounded-lg md:mx-4 flex flex-col overflow-hidden" style={{
-        paddingTop: window.innerWidth >= 768 ? '2rem' : 'max(2.5rem, calc(env(safe-area-inset-top) + 2rem))'
+      <div className="mork-modal w-full md:max-w-2xl md:max-h-[90vh] md:rounded-lg md:mx-4 flex flex-col overflow-hidden" style={{
+        marginTop: window.innerWidth >= 768 ? '0' : 'max(5rem, calc(env(safe-area-inset-top) + 4rem))',
+        height: window.innerWidth >= 768 ? 'auto' : 'auto',
+        maxHeight: window.innerWidth >= 768 ? '90vh' : 'calc(100% - max(5rem, calc(env(safe-area-inset-top) + 4rem)))',
+        borderTop: window.innerWidth >= 768 ? undefined : '6px solid var(--mork-yellow)'
       }}>
         {/* Pull indicator - mobile only */}
         <div className="md:hidden px-6 pt-2 pb-3">

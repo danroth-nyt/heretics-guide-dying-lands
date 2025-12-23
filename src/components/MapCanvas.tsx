@@ -60,11 +60,11 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
   const viewBoxHeight = 135;
 
   return (
-    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1, overflow: 'hidden', pointerEvents: 'auto' }}>
+    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1, overflow: 'visible', pointerEvents: 'auto' }}>
       <TransformWrapper
         initialScale={1}
-        minScale={0.5}
-        maxScale={4}
+        minScale={0.3}
+        maxScale={5}
         centerOnInit={true}
         wheel={{ step: 0.1 }}
         doubleClick={{ disabled: false, mode: 'zoomIn' }}
@@ -105,8 +105,18 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
             </div>
 
             <TransformComponent
-              wrapperStyle={{ width: '100%', height: '100%', overflow: 'visible' }}
-              contentStyle={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              wrapperStyle={{ 
+                width: '100%', 
+                height: '100%', 
+                overflow: 'visible'
+              }}
+              contentStyle={{ 
+                width: '100%', 
+                height: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center'
+              }}
             >
               {/* SVG Canvas - stretches to fill entire container */}
               <svg
