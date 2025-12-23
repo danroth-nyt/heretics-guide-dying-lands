@@ -34,7 +34,7 @@ const AccordionSection: React.FC<AccordionSectionProps> = ({
     <div className="mb-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between bg-mork-black text-mork-yellow p-3 border-2 border-mork-black hover:bg-opacity-90 transition-colors"
+        className="w-full flex items-center justify-between bg-mork-black text-mork-yellow p-3 min-h-11 border-2 border-mork-black hover:bg-opacity-90 transition-colors"
       >
         <div className="flex items-center gap-2">
           {icon}

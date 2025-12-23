@@ -3,6 +3,7 @@ import { Territory, MapNode, Road, GlobalOmens } from './types';
 import Sidebar from './components/Sidebar';
 import MapCanvas from './components/MapCanvas';
 import ReferenceModal from './components/ReferenceModal';
+import MobileNav from './components/MobileNav';
 import { generateMap, generateGlobalOmens } from './utils/mapEngine';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   const [globalOmens, setGlobalOmens] = useState<GlobalOmens | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isReferenceOpen, setIsReferenceOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -72,15 +74,64 @@ function App() {
 
   return (
     <div className="flex h-full min-h-screen overflow-hidden">
-      <Sidebar
-        selectedTerritory={selectedTerritory}
-        onTerritoryChange={handleTerritoryChange}
-        onGenerateMap={handleGenerateMap}
-        onGenerateOmens={handleGenerateOmens}
-        globalOmens={globalOmens}
-        onPrint={handlePrint}
-        onOpenReference={() => setIsReferenceOpen(true)}
-        isGenerating={isGenerating}
+      {/* Desktop Sidebar - Hidden on mobile */}
+      <div className="hidden md:block">
+        <Sidebar
+          selectedTerritory={selectedTerritory}
+          onTerritoryChange={handleTerritoryChange}
+          onGenerateMap={handleGenerateMap}
+          onGenerateOmens={handleGenerateOmens}
+          globalOmens={globalOmens}
+          onPrint={handlePrint}
+          onOpenReference={() => setIsReferenceOpen(true)}
+          isGenerating={isGenerating}
+        />
+      </div>
+
+      {/* Mobile Drawer Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/80 md:hidden fade-in"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <div
+            className="fixed left-0 top-0 bottom-0 w-80 max-w-[85vw] transform transition-transform duration-300 ease-out"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              animation: 'slideInLeft 0.3s ease-out'
+            }}
+          >
+            <Sidebar
+              selectedTerritory={selectedTerritory}
+              onTerritoryChange={handleTerritoryChange}
+              onGenerateMap={() => {
+                handleGenerateMap();
+                setIsMobileMenuOpen(false);
+              }}
+              onGenerateOmens={() => {
+                handleGenerateOmens();
+                setIsMobileMenuOpen(false);
+              }}
+              globalOmens={globalOmens}
+              onPrint={() => {
+                handlePrint();
+                setIsMobileMenuOpen(false);
+              }}
+              onOpenReference={() => {
+                setIsReferenceOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              isGenerating={isGenerating}
+              isMobileDrawer={true}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Navigation Button */}
+      <MobileNav
+        isOpen={isMobileMenuOpen}
+        onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       />
       
       <ReferenceModal
@@ -90,17 +141,17 @@ function App() {
       
       <main className="flex-1 relative overflow-hidden h-full">
         {/* Title Bar */}
-        <div className="absolute top-0 left-0 right-0 z-10 bg-mork-black text-mork-yellow p-6 border-b-4 border-mork-black no-print">
-          <h1 className="mork-title text-center">
+        <div className="absolute top-0 left-0 right-0 z-10 bg-mork-black text-mork-yellow p-3 md:p-6 border-b-4 border-mork-black no-print">
+          <h1 className="mork-title text-center text-2xl md:text-4xl lg:text-5xl">
             HERETIC MAP GENERATOR
           </h1>
-          <p className="text-center text-sm mt-2 opacity-75 font-elite">
+          <p className="text-center text-xs md:text-sm mt-1 md:mt-2 opacity-75 font-elite">
             FOR THE DYING LANDS
           </p>
         </div>
 
         {/* Map Canvas - Full coverage to bottom */}
-        <div className="absolute top-28 left-0 right-0 mork-background" style={{ bottom: '-10px', minHeight: 'calc(100vh - 7rem)' }}>
+        <div className="absolute top-16 md:top-28 left-0 right-0 bottom-0 mork-background">
           {nodes.length === 0 ? (
             <div className="w-full h-full flex items-center justify-center px-8 py-12">
               <div className="text-center mork-panel max-w-md mx-auto" style={{ marginTop: '2rem' }}>
