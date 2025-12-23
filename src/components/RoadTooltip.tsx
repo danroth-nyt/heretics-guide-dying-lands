@@ -11,11 +11,12 @@ interface RoadTooltipProps {
 
 const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onReroll }) => {
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const [adjustedPosition, setAdjustedPosition] = useState({ left: position.x, top: position.y, transform: 'translate(-50%, -110%)' });
+  const [adjustedPosition, setAdjustedPosition] = useState({ left: position.x, top: position.y, transform: 'translate(-50%, 0)' });
+  const [isPositioned, setIsPositioned] = useState(false);
 
   // Difficulty color
   const getDifficultyColor = () => {
-    switch (road.difficulty) {
+    switch (road?.difficulty) {
       case 'easy': return 'text-green-600';
       case 'unpleasant': return 'text-yellow-600';
       case 'problematic': return 'text-orange-600';
@@ -25,47 +26,65 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
   };
 
   useEffect(() => {
-    if (!tooltipRef.current) return;
-
-    const tooltip = tooltipRef.current;
-    const rect = tooltip.getBoundingClientRect();
-    const padding = 20;
-
-    let left = position.x;
-    let top = position.y;
-    let transformX = '-50%';
-    let transformY = 'calc(-100% - 20px)'; // Default: above the click point with gap
-
-    // Check if tooltip would go off left edge
-    if (position.x - rect.width / 2 < padding) {
-      left = rect.width / 2 + padding;
-      transformX = '-50%';
-    }
+    // Reset positioning state when road changes
+    setIsPositioned(false);
     
-    // Check if tooltip would go off right edge
-    if (position.x + rect.width / 2 > window.innerWidth - padding) {
-      left = window.innerWidth - rect.width / 2 - padding;
-      transformX = '-50%';
-    }
+    if (!tooltipRef.current || !road) return;
 
-    // Check if tooltip would go off top edge
-    if (position.y - rect.height - 20 < padding) {
-      transformY = '20px'; // Show below the click point
-    }
+    // Small delay to let DOM render with new content before measuring
+    const timeoutId = setTimeout(() => {
+      if (!tooltipRef.current) return;
+      
+      const tooltip = tooltipRef.current;
+      const rect = tooltip.getBoundingClientRect();
+      const padding = 20;
+      const gap = 20; // Gap between cursor and tooltip
 
-    // Check if showing below would go off bottom edge
-    const wouldGoOffBottom = position.y + rect.height + 40 > window.innerHeight;
-    const hasRoomAbove = position.y - rect.height - 20 >= padding;
+      let left = position.x;
+      let top = position.y;
+      
+      // Calculate if tooltip fits above the cursor
+      const fitsAbove = position.y - rect.height - gap >= padding;
+      const fitsBelow = position.y + rect.height + gap <= window.innerHeight - padding;
+      
+      // Decide vertical position
+      let transformY: string;
+      if (fitsAbove) {
+        // Position above cursor
+        top = position.y - gap;
+        transformY = '-100%';
+      } else if (fitsBelow) {
+        // Position below cursor
+        top = position.y + gap;
+        transformY = '0%';
+      } else {
+        // Doesn't fit either way - position at top of screen with scroll
+        top = padding + rect.height / 2;
+        transformY = '-50%';
+      }
+
+      // Calculate horizontal position
+      let transformX = '-50%';
+      const halfWidth = rect.width / 2;
+      
+      if (position.x - halfWidth < padding) {
+        // Would go off left edge
+        left = padding + halfWidth;
+      } else if (position.x + halfWidth > window.innerWidth - padding) {
+        // Would go off right edge
+        left = window.innerWidth - padding - halfWidth;
+      }
+
+      setAdjustedPosition({
+        left,
+        top,
+        transform: `translate(${transformX}, ${transformY})`
+      });
+      
+      setIsPositioned(true);
+    }, 10);
     
-    if (wouldGoOffBottom && hasRoomAbove) {
-      transformY = 'calc(-100% - 20px)'; // Keep above
-    }
-
-    setAdjustedPosition({
-      left,
-      top,
-      transform: `translate(${transformX}, ${transformY})`
-    });
+    return () => clearTimeout(timeoutId);
   }, [position, road]);
 
   if (!road) return null;
@@ -80,6 +99,8 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
         transform: adjustedPosition.transform,
         maxHeight: 'calc(100vh - 40px)',
         overflowY: 'auto',
+        opacity: isPositioned ? 1 : 0,
+        transition: 'opacity 0.15s ease-in',
       }}
     >
       {/* Header */}

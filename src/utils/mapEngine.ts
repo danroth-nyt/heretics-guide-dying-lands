@@ -20,9 +20,15 @@ import {
 } from '../data/globalTables';
 
 /**
+ * Module-level counter for unique road IDs
+ */
+let roadCounter = 0;
+
+/**
  * Generate a random map with nodes and roads
  */
 export function generateMap(territory: Territory, nodeCount: number = 6): { nodes: MapNode[], roads: Road[] } {
+  roadCounter = 0; // Reset counter for each new map
   const nodes = generateNodes(territory, nodeCount);
   const roads = generateRoads(nodes);
   
@@ -89,10 +95,30 @@ function generateNodes(territory: Territory, count: number): MapNode[] {
 function generateRoads(nodes: MapNode[]): Road[] {
   const roads: Road[] = [];
   const connections = new Map<string, Set<string>>();
+  const roadKeys = new Set<string>(); // Track unique road connections
+  const nodeRoads = new Map<string, Road[]>(); // Track roads from each node for uniqueness
+  
+  // Helper to create a normalized connection key (same regardless of direction)
+  const getRoadKey = (id1: string, id2: string): string => {
+    return [id1, id2].sort().join('|');
+  };
+  
+  // Helper to check if a road is unique compared to existing roads from the same node
+  const isRoadUnique = (newRoad: Road, nodeId: string): boolean => {
+    const existingRoads = nodeRoads.get(nodeId) || [];
+    
+    // Check if any existing road from this node has the same characteristics
+    return !existingRoads.some(existingRoad => {
+      return existingRoad.difficulty === newRoad.difficulty &&
+             existingRoad.encounter === newRoad.encounter &&
+             existingRoad.opportunity === newRoad.opportunity;
+    });
+  };
   
   // Initialize connection tracking
   nodes.forEach(node => {
     connections.set(node.id, new Set());
+    nodeRoads.set(node.id, []);
   });
   
   // Ensure minimum connectivity: each node connects to 1-3 nearest neighbors
@@ -119,9 +145,15 @@ function generateRoads(nodes: MapNode[]): Road[] {
       }
       
       const otherConnections = connections.get(other.id)!;
+      const roadKey = getRoadKey(node.id, other.id);
       
       // Don't connect if already connected
       if (currentConnections.has(other.id)) {
+        continue;
+      }
+      
+      // Don't connect if this road already exists (extra safety check)
+      if (roadKeys.has(roadKey)) {
         continue;
       }
       
@@ -130,17 +162,47 @@ function generateRoads(nodes: MapNode[]): Road[] {
         continue;
       }
       
-      // Create road
-      const road = generateRoad(node.id, other.id);
+      // Generate unique road - try multiple times to get unique characteristics
+      let road: Road | null = null;
+      let attempts = 0;
+      const maxAttempts = 10;
+      
+      while (attempts < maxAttempts) {
+        const candidateRoad = generateRoad(node.id, other.id);
+        
+        // Check if road is unique from both nodes' perspectives
+        if (isRoadUnique(candidateRoad, node.id) && isRoadUnique(candidateRoad, other.id)) {
+          road = candidateRoad;
+          break;
+        }
+        
+        attempts++;
+      }
+      
+      // If we couldn't generate a unique road, use what we have
+      if (!road) {
+        road = generateRoad(node.id, other.id);
+      }
+      
       roads.push(road);
       
-      // Track connection
+      // Track road from both nodes' perspectives
+      nodeRoads.get(node.id)!.push(road);
+      nodeRoads.get(other.id)!.push(road);
+      
+      // Track connection and road
       currentConnections.add(other.id);
       otherConnections.add(node.id);
+      roadKeys.add(roadKey);
     }
   });
   
-  return roads;
+  // Final deduplication: ensure no duplicate roads based on ID
+  const uniqueRoads = Array.from(
+    new Map(roads.map(road => [road.id, road])).values()
+  );
+  
+  return uniqueRoads;
 }
 
 /**
@@ -165,8 +227,13 @@ function generateRoad(fromNodeId: string, toNodeId: string): Road {
     surface: rollOnTable(surfaceTable),
   };
   
+  // Create a unique ID for this road instance
+  const sortedIds = [fromNodeId, toNodeId].sort();
+  roadCounter++;
+  const roadId = `road-${sortedIds[0]}-${sortedIds[1]}-${roadCounter}`;
+  
   return {
-    id: `road-${fromNodeId}-${toNodeId}`,
+    id: roadId,
     fromNodeId,
     toNodeId,
     difficulty,
