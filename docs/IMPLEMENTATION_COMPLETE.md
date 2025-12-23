@@ -51,6 +51,15 @@ The **HERETIC MAP GENERATOR** has been successfully implemented according to the
 - Global omens included in header
 - Professional output for tabletop use
 
+### 📱 Mobile Responsiveness
+- Full mobile and tablet support
+- Touch-optimized interface (44px minimum tap targets)
+- Mobile drawer navigation with hamburger menu
+- Zoom and pan controls for map interaction
+- Responsive modals with bottom-sheet design
+- Safe area support for notched devices
+- CSS media query-based responsive design (no runtime window checks)
+
 ### 📚 Documentation
 1. **README.md** - Project overview and features
 2. **QUICKSTART.md** - Get running in 3 steps
@@ -89,7 +98,9 @@ Follow the step-by-step instructions in [INSTRUCTIONS.md](INSTRUCTIONS.md).
 ✅ **Animations** - Shake effects and smooth transitions  
 ✅ **Keyboard Shortcuts** - Fast workflow  
 ✅ **Error Handling** - Graceful failures  
-✅ **Responsive Design** - Works on desktop browsers  
+✅ **Responsive Design** - Works on desktop, tablet, and mobile  
+✅ **Touch Controls** - Zoom, pan, and tap optimized for touch devices  
+✅ **Mobile Navigation** - Slide-out drawer menu for mobile  
 
 ---
 
@@ -113,13 +124,19 @@ The application works with **placeholder data** that demonstrates all functional
 - `src/main.tsx` - Entry point
 - `src/index.css` - Global styles and theme
 
-### Components (6 files)
-- `Sidebar.tsx` - Control panel
-- `MapCanvas.tsx` - Map container
+### Components (13 files)
+- `Sidebar.tsx` - Control panel / mobile drawer
+- `MobileNav.tsx` - Hamburger menu for mobile
+- `MapCanvas.tsx` - Map with zoom/pan controls
 - `LocationNode.tsx` - Node rendering
 - `Road.tsx` - Road rendering
-- `LocationModal.tsx` - Location details popup
-- `RoadTooltip.tsx` - Road details popup
+- `LocationModal.tsx` - Responsive location details modal
+- `RoadTooltip.tsx` - Responsive road details popup
+- `AccordionSection.tsx` - Collapsible sections
+- `QuickRollers.tsx` - Quick reference tools
+- `ReferenceModal.tsx` - Table browser modal
+- `TableBrowser.tsx` - Table navigation
+- `TableDisplay.tsx` - Table content display
 
 ### Data Layer (4 files)
 - `regionTables.ts` - Territory → Location mappings
@@ -163,10 +180,9 @@ The application works with **placeholder data** that demonstrates all functional
 - ✅ Comprehensive error handling
 
 ### Browser Support
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+- **Desktop**: Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
+- **Mobile**: iOS Safari 14+, Chrome Mobile 90+, Samsung Internet 14+
+- **Tablets**: Full support on iPad and Android tablets
 
 ---
 
@@ -206,10 +222,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Known Limitations
 
-1. **Placeholder Data**: Location details are generic until PDF data is added
-2. **No Persistence**: Maps are not saved between sessions
-3. **Desktop-First**: Mobile layout could be improved
-4. **No Map History**: Can't undo or view previous maps
+1. **No Persistence**: Maps are not saved between sessions
+2. **No Map History**: Can't undo or view previous maps
+3. **No Map Export**: Only print functionality (could add PNG/JSON export)
 
 These are intentional limitations that can be addressed in future versions.
 

@@ -118,12 +118,7 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
         className="md:hidden fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in"
         onClick={handleBackdropClick}
       >
-        <div className="mork-modal w-full h-full flex flex-col overflow-hidden" style={{ 
-          marginTop: 'max(5rem, calc(env(safe-area-inset-top) + 4rem))',
-          borderTop: '6px solid var(--mork-yellow)',
-          height: 'auto',
-          maxHeight: 'calc(100% - max(5rem, calc(env(safe-area-inset-top) + 4rem)))'
-        }}>
+        <div className="mork-modal modal-responsive-container w-full flex flex-col overflow-hidden">
           {/* Pull indicator */}
           <div className="px-6 pt-2 pb-3">
             <div className="pull-indicator"></div>
@@ -194,9 +189,7 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
           </div>
 
           {/* Sticky Actions Footer */}
-          <div className="flex-shrink-0 px-6 pt-4 border-t-2 border-mork-yellow bg-mork-black" style={{
-            paddingBottom: 'max(1rem, env(safe-area-inset-bottom))'
-          }}>
+          <div className="flex-shrink-0 modal-footer-responsive px-6 pt-4 border-t-2 border-mork-yellow bg-mork-black">
             <div className="flex gap-3">
               <button
                 onClick={() => onReroll(road)}

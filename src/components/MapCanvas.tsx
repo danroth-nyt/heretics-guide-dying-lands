@@ -70,6 +70,8 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
         doubleClick={{ disabled: false, mode: 'zoomIn' }}
         panning={{ 
           velocityDisabled: true,
+          // Prevent panning when interacting with UI buttons (elements with this class), so
+          // clicks/drags on controls don't move the map
           excluded: ['mork-button']
         }}
         limitToBounds={false}

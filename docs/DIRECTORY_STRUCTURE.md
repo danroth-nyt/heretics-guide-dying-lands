@@ -36,12 +36,18 @@ heretics-guide-dying-lands/
 │   ├── vite-env.d.ts           # Vite type definitions
 │   │
 │   ├── components/             # React components
-│   │   ├── Sidebar.tsx         # Left sidebar UI
-│   │   ├── MapCanvas.tsx       # SVG map renderer
-│   │   ├── LocationNode.tsx    # Map location markers
-│   │   ├── Road.tsx            # Road connections
-│   │   ├── LocationModal.tsx   # Location detail popup
-│   │   └── RoadTooltip.tsx     # Road detail tooltip
+│   │   ├── AccordionSection.tsx # Collapsible panel component
+│   │   ├── LocationModal.tsx    # Responsive location detail modal
+│   │   ├── LocationNode.tsx     # Map location markers
+│   │   ├── MapCanvas.tsx        # SVG map with zoom/pan controls
+│   │   ├── MobileNav.tsx        # Mobile hamburger menu
+│   │   ├── QuickRollers.tsx     # Quick reference tools
+│   │   ├── ReferenceModal.tsx   # Full table browser modal
+│   │   ├── Road.tsx             # Road connections
+│   │   ├── RoadTooltip.tsx      # Responsive road detail popup
+│   │   ├── Sidebar.tsx          # Sidebar UI / mobile drawer
+│   │   ├── TableBrowser.tsx     # Table category navigation
+│   │   └── TableDisplay.tsx     # Table content viewer
 │   │
 │   ├── data/                   # Game data tables
 │   │   ├── regionTables.ts     # Region-specific data

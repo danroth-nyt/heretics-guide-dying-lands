@@ -43,11 +43,12 @@ A complete web application for generating procedural hex-crawl maps based on the
 
 6. **UI Components**
    - **Sidebar**: Territory selector, generate buttons, global omens display
-   - **MapCanvas**: SVG-based map rendering with A4 aspect ratio
+   - **MobileNav**: Responsive hamburger menu for mobile devices
+   - **MapCanvas**: SVG-based map rendering with zoom/pan controls
    - **LocationNode**: Interactive nodes with shape variants
    - **Road**: Curved SVG paths with difficulty-based styling
-   - **LocationModal**: Full-screen detail view with reroll functionality
-   - **RoadTooltip**: Popup showing road details and aesthetics
+   - **LocationModal**: Responsive modal with mobile bottom-sheet design
+   - **RoadTooltip**: Adaptive popup for desktop/mobile displays
 
 7. **Interactivity**
    - Click nodes to view location details
@@ -64,9 +65,13 @@ A complete web application for generating procedural hex-crawl maps based on the
 
 9. **Polish & UX**
    - Shake animation on map generation
-   - Fade-in animations for modals
+   - Fade-in and slide animations for modals
    - Hover effects on interactive elements
    - Keyboard shortcuts (Ctrl+G, Ctrl+O, Ctrl+P)
+   - Responsive design for mobile and tablet devices
+   - Touch-optimized controls with minimum tap targets (44px)
+   - Zoom and pan functionality for mobile map interaction
+   - Mobile drawer navigation with slide animations
    - Error handling
    - Loading states
 
@@ -84,12 +89,18 @@ heretics-guide-dying-lands/
 │   └── vite.svg                    # Favicon
 ├── src/
 │   ├── components/
-│   │   ├── LocationModal.tsx       # Detail popup for locations
+│   │   ├── AccordionSection.tsx    # Collapsible sections
+│   │   ├── LocationModal.tsx       # Responsive location detail modal
 │   │   ├── LocationNode.tsx        # SVG node rendering
-│   │   ├── MapCanvas.tsx           # Main map container
+│   │   ├── MapCanvas.tsx           # Map with zoom/pan controls
+│   │   ├── MobileNav.tsx           # Mobile hamburger menu
+│   │   ├── QuickRollers.tsx        # Quick reference tools
+│   │   ├── ReferenceModal.tsx      # Table browser modal
 │   │   ├── Road.tsx                # SVG road rendering
-│   │   ├── RoadTooltip.tsx         # Road detail popup
-│   │   └── Sidebar.tsx             # Control panel
+│   │   ├── RoadTooltip.tsx         # Responsive road detail popup
+│   │   ├── Sidebar.tsx             # Control panel / drawer
+│   │   ├── TableBrowser.tsx        # Table navigation
+│   │   └── TableDisplay.tsx        # Table content display
 │   ├── data/
 │   │   ├── globalTables.ts         # Oracle, Fate, Loot, Weather
 │   │   ├── locationTables.ts       # Sub-tables for all locations
@@ -127,6 +138,7 @@ heretics-guide-dying-lands/
 - **Vite 5.0.8** - Build tool and dev server
 - **Tailwind CSS 3.3.6** - Utility-first styling
 - **Lucide React 0.294.0** - Icon library
+- **react-zoom-pan-pinch 3.7.0** - Map zoom and pan controls
 - **SVG** - Map rendering
 
 ## Current State
@@ -192,22 +204,21 @@ heretics-guide-dying-lands/
 
 ## Known Limitations
 
-1. **Placeholder Data**: Location details are generic until PDF data is added
-2. **No Persistence**: Maps are not saved (can be added later)
-3. **Desktop-First**: Mobile layout could be improved
-4. **No Map Export**: Only print functionality (could add JSON/PNG export)
+1. **No Persistence**: Maps are not saved between sessions (can be added later)
+2. **No Map Export**: Only print functionality (could add JSON/PNG export)
+3. **No Map History**: Cannot undo or view previous maps
 
 ## Potential Enhancements
 
 - Save/load maps to localStorage
 - Export maps as PNG or JSON
 - Share maps via URL
-- Mobile-responsive sidebar
 - More animation options
 - Sound effects (optional)
 - Additional territories
 - Custom location types
 - Map history/undo
+- Offline PWA support
 
 ## Success Criteria ✅
 

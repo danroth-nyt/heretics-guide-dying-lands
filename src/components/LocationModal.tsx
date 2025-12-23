@@ -32,21 +32,14 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
       className="fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in md:pl-72"
       onClick={handleBackdropClick}
     >
-      <div className="mork-modal w-full md:max-w-2xl md:max-h-[90vh] md:rounded-lg md:mx-4 flex flex-col overflow-hidden" style={{
-        marginTop: window.innerWidth >= 768 ? '0' : 'max(5rem, calc(env(safe-area-inset-top) + 4rem))',
-        height: window.innerWidth >= 768 ? 'auto' : 'auto',
-        maxHeight: window.innerWidth >= 768 ? '90vh' : 'calc(100% - max(5rem, calc(env(safe-area-inset-top) + 4rem)))',
-        borderTop: window.innerWidth >= 768 ? undefined : '6px solid var(--mork-yellow)'
-      }}>
+      <div className="mork-modal modal-responsive-container w-full md:max-w-2xl md:rounded-lg md:mx-4 flex flex-col overflow-hidden">
         {/* Pull indicator - mobile only */}
         <div className="md:hidden px-6 pt-2 pb-3">
           <div className="pull-indicator"></div>
         </div>
 
         {/* Sticky Header */}
-        <div className="flex-shrink-0 px-6 pb-4 md:px-8 md:pt-8 md:pb-4 border-b-2 border-mork-yellow" style={{
-          paddingTop: window.innerWidth >= 768 ? undefined : '0'
-        }}>
+        <div className="flex-shrink-0 modal-header-responsive px-6 pb-4 md:px-8 md:pb-4 border-b-2 border-mork-yellow">
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1">
               <h2 className="text-2xl md:text-4xl font-pirata mb-2 leading-tight break-words">{node.locationType}</h2>
@@ -88,9 +81,7 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
         </div>
 
         {/* Sticky Actions Footer */}
-        <div className="flex-shrink-0 px-6 pt-4 md:px-8 md:pb-8 border-t-2 border-mork-yellow bg-mork-black" style={{
-          paddingBottom: window.innerWidth >= 768 ? undefined : 'max(1rem, env(safe-area-inset-bottom))'
-        }}>
+        <div className="flex-shrink-0 modal-footer-responsive px-6 pt-4 md:px-8 border-t-2 border-mork-yellow bg-mork-black">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={() => onReroll(node)}

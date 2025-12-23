@@ -242,6 +242,46 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Responsive modal positioning - replaces window.innerWidth checks */
+.modal-responsive-container {
+  /* Mobile: positioned below header with safe area support */
+  margin-top: max(5rem, calc(env(safe-area-inset-top) + 4rem));
+  height: auto;
+  max-height: calc(100% - max(5rem, calc(env(safe-area-inset-top) + 4rem)));
+  border-top: 6px solid var(--mork-yellow);
+}
+
+@media (min-width: 768px) {
+  .modal-responsive-container {
+    margin-top: 0;
+    height: auto;
+    max-height: 90vh;
+    border-top: none;
+  }
+}
+
+/* Responsive modal header padding */
+.modal-header-responsive {
+  padding-top: 0;
+}
+
+@media (min-width: 768px) {
+  .modal-header-responsive {
+    padding-top: 2rem;
+  }
+}
+
+/* Responsive modal footer padding */
+.modal-footer-responsive {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .modal-footer-responsive {
+    padding-bottom: 2rem;
+  }
+}
+
 /* Shake animation */
 @keyframes shake {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
