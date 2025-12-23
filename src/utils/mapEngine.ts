@@ -16,7 +16,10 @@ import {
 import {
   oracleTable,
   landscapeTable,
-  weatherTable
+  weatherTable,
+  weatherPrecipitationTable,
+  weatherWindTable,
+  weatherTemperatureTable
 } from '../data/globalTables';
 
 /**
@@ -422,7 +425,12 @@ export function generateGlobalOmens(): GlobalOmens {
   return {
     oracle: rollOnTable(oracleTable),
     landscape: rollOnTable(landscapeTable),
-    weather: rollOnTable(weatherTable),
+    weather: rollOnTable(weatherTable), // Keep legacy for backwards compatibility
+    weatherDetailed: {
+      precipitation: rollOnTable(weatherPrecipitationTable),
+      wind: rollOnTable(weatherWindTable),
+      temperature: rollOnTable(weatherTemperatureTable),
+    },
   };
 }
 

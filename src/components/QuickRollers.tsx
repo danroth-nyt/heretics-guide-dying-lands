@@ -4,7 +4,6 @@ import { rollDice } from '../utils/diceUtils';
 import {
   lootTable,
   wanderTable,
-  npcNameTable,
   npcOccupationTable,
   npcHabitTable,
   npcMoodTable,
@@ -12,6 +11,9 @@ import {
   npcFirstNamesTable,
   npcSurnamesTable,
   npcAppearanceTable,
+  npcSummaryTable,
+  npcMotivationTable,
+  npcTraitsTable,
 } from '../data/globalTables';
 import {
   encounterContextTable,
@@ -26,22 +28,20 @@ import {
 } from '../data/oracles/recluse_dungeon';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'npcDetailed';
-  result: string | NPCResult | EncounterResult | DungeonRoomResult | NPCDetailedResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom';
+  result: string | NPCResult | EncounterResult | DungeonRoomResult;
 }
 
 interface NPCResult {
   name: string;
+  summary: string;
+  appearance: string;
+  traits: string;
+  motivation: string;
   occupation: string;
   habit: string;
   mood: string;
   wants: string;
-}
-
-interface NPCDetailedResult {
-  name: string;
-  surname: string;
-  appearance: string;
 }
 
 interface EncounterResult {
@@ -79,13 +79,25 @@ const QuickRollers: React.FC = () => {
   };
 
   const rollNPC = () => {
-    const nameRoll = rollDice(12);
+    // Roll on ALL NPC oracle tables
+    const firstNameRoll = rollDice(100);
+    const surnameRoll = rollDice(100);
+    const summaryRoll = rollDice(20);
+    const appearanceRoll = rollDice(100);
+    const traitsRoll = rollDice(100);
+    const motivationRoll = rollDice(20);
     const occupationRoll = rollDice(12);
     const habitRoll = rollDice(12);
     const moodRoll = rollDice(12);
     const wantsRoll = rollDice(12);
 
-    const name = npcNameTable.entries.find((e) => e.roll === nameRoll)?.result || 'Unknown';
+    const firstName = npcFirstNamesTable.entries.find((e) => e.roll === firstNameRoll)?.result || 'Unknown';
+    const surname = npcSurnamesTable.entries.find((e) => e.roll === surnameRoll)?.result || 'Unknown';
+    const name = `${firstName} ${surname}`;
+    const summary = npcSummaryTable.entries.find((e) => e.roll === summaryRoll)?.result || 'Unknown';
+    const appearance = npcAppearanceTable.entries.find((e) => e.roll === appearanceRoll)?.result || 'Unknown';
+    const traits = npcTraitsTable.entries.find((e) => e.roll === traitsRoll)?.result || 'Unknown';
+    const motivation = npcMotivationTable.entries.find((e) => e.roll === motivationRoll)?.result || 'Unknown';
     const occupation = npcOccupationTable.entries.find((e) => e.roll === occupationRoll)?.result || 'Unknown';
     const habit = npcHabitTable.entries.find((e) => e.roll === habitRoll)?.result || 'Unknown';
     const mood = npcMoodTable.entries.find((e) => e.roll === moodRoll)?.result || 'Unknown';
@@ -93,22 +105,7 @@ const QuickRollers: React.FC = () => {
 
     setLastRoll({
       type: 'npc',
-      result: { name, occupation, habit, mood, wants },
-    });
-  };
-
-  const rollNPCDetailed = () => {
-    const firstNameRoll = rollDice(100);
-    const surnameRoll = rollDice(100);
-    const appearanceRoll = rollDice(100);
-
-    const name = npcFirstNamesTable.entries.find((e) => e.roll === firstNameRoll)?.result || 'Unknown';
-    const surname = npcSurnamesTable.entries.find((e) => e.roll === surnameRoll)?.result || 'Unknown';
-    const appearance = npcAppearanceTable.entries.find((e) => e.roll === appearanceRoll)?.result || 'Unknown';
-
-    setLastRoll({
-      type: 'npcDetailed',
-      result: { name, surname, appearance },
+      result: { name, summary, appearance, traits, motivation, occupation, habit, mood, wants },
     });
   };
 
@@ -154,23 +151,14 @@ const QuickRollers: React.FC = () => {
           <h3 className="text-sm font-bold uppercase text-mork-pink">Random NPC:</h3>
           <div className="text-xs space-y-1">
             <p><strong>Name:</strong> {npc.name}</p>
+            <p><strong>Summary:</strong> {npc.summary}</p>
+            <p><strong>Appearance:</strong> {npc.appearance}</p>
+            <p><strong>Traits:</strong> {npc.traits}</p>
+            <p><strong>Motivation:</strong> {npc.motivation}</p>
             <p><strong>Occupation:</strong> {npc.occupation}</p>
             <p><strong>Habit:</strong> {npc.habit}</p>
             <p><strong>Mood:</strong> {npc.mood}</p>
             <p><strong>Wants:</strong> {npc.wants}</p>
-          </div>
-        </div>
-      );
-    }
-
-    if (lastRoll.type === 'npcDetailed' && typeof lastRoll.result === 'object' && 'appearance' in lastRoll.result) {
-      const npc = lastRoll.result as NPCDetailedResult;
-      return (
-        <div className="mork-panel space-y-2">
-          <h3 className="text-sm font-bold uppercase text-mork-pink">Detailed NPC:</h3>
-          <div className="text-xs space-y-1">
-            <p><strong>Name:</strong> {npc.name} {npc.surname}</p>
-            <p><strong>Appearance:</strong> {npc.appearance}</p>
           </div>
         </div>
       );
@@ -232,14 +220,6 @@ const QuickRollers: React.FC = () => {
         >
           <User size={16} />
           Roll NPC
-        </button>
-
-        <button
-          onClick={rollNPCDetailed}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <User size={16} />
-          Roll NPC (Detailed)
         </button>
         
         <button

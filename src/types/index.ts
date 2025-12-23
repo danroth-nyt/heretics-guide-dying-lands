@@ -51,7 +51,12 @@ export interface RoadAesthetics {
 export interface GlobalOmens {
   oracle: string;
   landscape: string;
-  weather: string;
+  weather: string; // Legacy simple weather
+  weatherDetailed: {
+    precipitation: string;
+    wind: string;
+    temperature: string;
+  };
 }
 
 // Table entry

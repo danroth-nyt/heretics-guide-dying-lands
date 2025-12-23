@@ -185,7 +185,12 @@ function App() {
             <div className="text-sm mb-4 text-center">
               <p><strong>Oracle:</strong> {globalOmens.oracle}</p>
               <p><strong>Landscape:</strong> {globalOmens.landscape}</p>
-              <p><strong>Weather:</strong> {globalOmens.weather}</p>
+              <p><strong>Weather:</strong></p>
+              <ul className="text-xs space-y-1 mt-1">
+                <li>• {globalOmens.weatherDetailed.precipitation}</li>
+                <li>• {globalOmens.weatherDetailed.wind}</li>
+                <li>• {globalOmens.weatherDetailed.temperature}</li>
+              </ul>
             </div>
           )}
         </div>

@@ -119,10 +119,20 @@ const Sidebar: React.FC<SidebarProps> = ({
             </div>
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Weather:</h3>
-              <p className="text-sm flex items-center gap-2">
-                <Cloud size={14} />
-                {globalOmens.weather}
-              </p>
+              <div className="text-sm space-y-1">
+                <p className="flex items-center gap-2">
+                  <Cloud size={14} className="text-mork-pink" />
+                  {globalOmens.weatherDetailed.precipitation}
+                </p>
+                <p className="flex items-center gap-2">
+                  <Cloud size={14} className="text-mork-pink" />
+                  {globalOmens.weatherDetailed.wind}
+                </p>
+                <p className="flex items-center gap-2">
+                  <Cloud size={14} className="text-mork-pink" />
+                  {globalOmens.weatherDetailed.temperature}
+                </p>
+              </div>
             </div>
           </div>
         ) : (
