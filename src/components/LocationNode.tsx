@@ -8,7 +8,7 @@ interface LocationNodeProps {
 }
 
 const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking }) => {
-  const shapeSize = 20;
+  const shapeSize = 14;  // Reduced from 20 for marker-style nodes
   const halfSize = shapeSize / 2;
 
   const renderShape = () => {
@@ -27,6 +27,7 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
             fill={fillColor}
             stroke={strokeColor}
             strokeWidth={strokeW}
+            filter="url(#hand-drawn)"
           />
         );
       case 'square':
@@ -39,6 +40,7 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
             fill={fillColor}
             stroke={strokeColor}
             strokeWidth={strokeW}
+            filter="url(#hand-drawn)"
           />
         );
       case 'hex':
@@ -54,6 +56,7 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
             fill={fillColor}
             stroke={strokeColor}
             strokeWidth={strokeW}
+            filter="url(#hand-drawn)"
           />
         );
     }
@@ -68,29 +71,23 @@ const LocationNode: React.FC<LocationNodeProps> = ({ node, onClick, isShaking })
     >
       {renderShape()}
       
-      {/* Location type label */}
+      {/* Location type label - positioned below shape */}
       <text
         x={0}
-        y={0}
+        y={halfSize + 5}
         textAnchor="middle"
-        dominantBaseline="middle"
+        dominantBaseline="hanging"
         fill="#1a0f08"
         fontSize="4"
         fontWeight="bold"
-        fontFamily="Special Elite, monospace"
+        fontFamily="Pirata One, cursive"
         pointerEvents="none"
+        style={{
+          filter: 'drop-shadow(0px 0.5px 0.5px rgba(0,0,0,0.3))'
+        }}
       >
         {node.locationType.toUpperCase()}
       </text>
-      
-      {/* Small dot in center */}
-      <circle
-        cx={0}
-        cy={0}
-        r={1}
-        fill="#1a0f08"
-        pointerEvents="none"
-      />
     </g>
   );
 };
