@@ -29,7 +29,7 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in md:pl-72"
       onClick={handleBackdropClick}
     >
       <div className="mork-modal w-full md:max-w-2xl md:max-h-[90vh] md:rounded-lg md:mx-4 flex flex-col overflow-hidden" style={{
