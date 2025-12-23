@@ -17,6 +17,16 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
     }
   };
 
+  // Convert camelCase to Title Case with spaces
+  const formatKey = (key: string): string => {
+    return key
+      .replace(/([A-Z])/g, ' $1') // Add space before capital letters
+      .trim() // Remove leading space
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in"
@@ -47,7 +57,7 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
             Object.entries(node.details).map(([key, value]) => (
               <div key={key} className="border-t-2 border-mork-yellow pt-3">
                 <h3 className="text-xl font-pirata mb-2 text-mork-pink">
-                  {key.charAt(0).toUpperCase() + key.slice(1)}:
+                  {formatKey(key)}:
                 </h3>
                 <p className="text-base leading-relaxed">{value}</p>
               </div>

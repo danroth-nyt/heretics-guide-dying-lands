@@ -17,7 +17,8 @@ export function rollOnTable(table: Table): string {
   let roll: number;
 
   // Detect d66 table (rolls like 11, 12, ..., 66)
-  if (minRoll >= 11 && maxRoll <= 66 && rolls.some(r => r % 10 > 6)) {
+  // d66 has both tens and ones digits between 1-6, so no ones digit should be > 6
+  if (minRoll >= 11 && maxRoll <= 66 && rolls.every(r => r % 10 <= 6 && r % 10 >= 1)) {
     roll = rollD66();
   }
   // Detect d20
