@@ -91,6 +91,106 @@ function generateNodes(territory: Territory, count: number): MapNode[] {
 }
 
 /**
+ * Check if two line segments intersect
+ */
+function doLinesIntersect(
+  p1: {x: number, y: number}, 
+  p2: {x: number, y: number},
+  p3: {x: number, y: number}, 
+  p4: {x: number, y: number}
+): boolean {
+  const ccw = (a: {x: number, y: number}, b: {x: number, y: number}, c: {x: number, y: number}): boolean => {
+    return (c.y - a.y) * (b.x - a.x) > (b.y - a.y) * (c.x - a.x);
+  };
+  
+  return ccw(p1, p3, p4) !== ccw(p2, p3, p4) && ccw(p1, p2, p3) !== ccw(p1, p2, p4);
+}
+
+/**
+ * Calculate angle between two points in radians
+ */
+function getAngle(from: {x: number, y: number}, to: {x: number, y: number}): number {
+  return Math.atan2(to.y - from.y, to.x - from.x);
+}
+
+/**
+ * Check if a new road would be too close in angle to existing roads from the same node
+ * Returns true if the road would overlap/be too close
+ */
+function wouldRoadOverlap(newRoad: {from: MapNode, to: MapNode}, existingRoads: Road[], nodes: MapNode[]): boolean {
+  const nodeMap = new Map(nodes.map(n => [n.id, n]));
+  const minAngleDiff = Math.PI / 6; // 30 degrees minimum between roads from same node
+  
+  // Get angle of new road from both endpoints
+  const newAngleFromStart = getAngle(newRoad.from, newRoad.to);
+  const newAngleFromEnd = getAngle(newRoad.to, newRoad.from);
+  
+  for (const road of existingRoads) {
+    const roadFrom = nodeMap.get(road.fromNodeId);
+    const roadTo = nodeMap.get(road.toNodeId);
+    
+    if (!roadFrom || !roadTo) continue;
+    
+    // Check if roads share the 'from' node
+    if (roadFrom.id === newRoad.from.id || roadTo.id === newRoad.from.id) {
+      const sharedNode = roadFrom.id === newRoad.from.id ? roadFrom : roadTo;
+      const otherNode = roadFrom.id === newRoad.from.id ? roadTo : roadFrom;
+      
+      const existingAngle = getAngle(sharedNode, otherNode);
+      const angleDiff = Math.abs(newAngleFromStart - existingAngle);
+      const normalizedDiff = Math.min(angleDiff, 2 * Math.PI - angleDiff);
+      
+      if (normalizedDiff < minAngleDiff) {
+        return true;
+      }
+    }
+    
+    // Check if roads share the 'to' node
+    if (roadFrom.id === newRoad.to.id || roadTo.id === newRoad.to.id) {
+      const sharedNode = roadFrom.id === newRoad.to.id ? roadFrom : roadTo;
+      const otherNode = roadFrom.id === newRoad.to.id ? roadTo : roadFrom;
+      
+      const existingAngle = getAngle(sharedNode, otherNode);
+      const angleDiff = Math.abs(newAngleFromEnd - existingAngle);
+      const normalizedDiff = Math.min(angleDiff, 2 * Math.PI - angleDiff);
+      
+      if (normalizedDiff < minAngleDiff) {
+        return true;
+      }
+    }
+  }
+  
+  return false;
+}
+
+/**
+ * Check if a new road would cross any existing roads
+ */
+function wouldRoadCross(newRoad: {from: MapNode, to: MapNode}, existingRoads: Road[], nodes: MapNode[]): boolean {
+  const nodeMap = new Map(nodes.map(n => [n.id, n]));
+  
+  for (const road of existingRoads) {
+    const roadFrom = nodeMap.get(road.fromNodeId);
+    const roadTo = nodeMap.get(road.toNodeId);
+    
+    if (!roadFrom || !roadTo) continue;
+    
+    // Skip if roads share a node (they're supposed to meet)
+    if (roadFrom.id === newRoad.from.id || roadFrom.id === newRoad.to.id ||
+        roadTo.id === newRoad.from.id || roadTo.id === newRoad.to.id) {
+      continue;
+    }
+    
+    // Check if lines intersect
+    if (doLinesIntersect(newRoad.from, newRoad.to, roadFrom, roadTo)) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+/**
  * Generate roads between nodes
  */
 function generateRoads(nodes: MapNode[]): Road[] {
@@ -160,6 +260,16 @@ function generateRoads(nodes: MapNode[]): Road[] {
       
       // Don't connect if it would give the other node too many connections
       if (otherConnections.size >= 3) {
+        continue;
+      }
+      
+      // Check if this road would cross existing roads
+      if (wouldRoadCross({from: node, to: other}, roads, nodes)) {
+        continue;
+      }
+      
+      // Check if this road would overlap/be too close to existing roads from the same nodes
+      if (wouldRoadOverlap({from: node, to: other}, roads, nodes)) {
         continue;
       }
       

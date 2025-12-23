@@ -17,13 +17,13 @@ const ReferenceModal: React.FC<ReferenceModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-      <div className="bg-mork-yellow border-4 border-mork-black w-full max-w-6xl h-[90vh] flex flex-col">
+      <div className="bg-mork-yellow border-4 border-mork-black w-full max-w-6xl h-[90vh] flex flex-col mx-2 md:mx-4">
         {/* Header */}
-        <div className="bg-mork-black text-mork-yellow p-4 flex items-center justify-between border-b-4 border-mork-black">
-          <h2 className="text-2xl font-pirata">📖 TABLE REFERENCE</h2>
+        <div className="bg-mork-black text-mork-yellow p-3 md:p-4 flex items-center justify-between border-b-4 border-mork-black">
+          <h2 className="text-xl md:text-2xl font-pirata">📖 TABLE REFERENCE</h2>
           <button
             onClick={onClose}
-            className="hover:text-mork-pink transition-colors"
+            className="hover:text-mork-pink transition-colors min-h-11 min-w-11 flex items-center justify-center"
             aria-label="Close"
           >
             <X size={28} />
@@ -31,20 +31,20 @@ const ReferenceModal: React.FC<ReferenceModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* Search Bar */}
-        <div className="p-4 border-b-2 border-mork-black">
+        <div className="p-3 md:p-4 border-b-2 border-mork-black">
           <input
             type="text"
             placeholder="🔍 Search tables..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border-2 border-mork-black bg-white focus:outline-none focus:border-mork-pink"
+            className="w-full px-4 py-2 min-h-11 border-2 border-mork-black bg-white focus:outline-none focus:border-mork-pink"
           />
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 flex overflow-hidden">
+        <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
           {/* Left Panel - Table Browser */}
-          <div className="w-1/3 border-r-4 border-mork-black overflow-y-auto p-4">
+          <div className="w-full md:w-1/3 border-b-4 md:border-b-0 md:border-r-4 border-mork-black overflow-y-auto p-3 md:p-4 max-h-48 md:max-h-none">
             <TableBrowser
               onSelectTable={setSelectedTable}
               selectedTable={selectedTable}
@@ -53,7 +53,7 @@ const ReferenceModal: React.FC<ReferenceModalProps> = ({ isOpen, onClose }) => {
           </div>
 
           {/* Right Panel - Table Display */}
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-3 md:p-4">
             <TableDisplay table={selectedTable} />
           </div>
         </div>

@@ -83,25 +83,32 @@ Quick setup:
 - **Quick Rollers**: Expand the section to instantly roll on common tables
 - **Reference Browser**: Click "Browse All Tables" to access the full table modal
 - **Search**: Use the search bar to quickly find specific tables
-- **Keyboard Shortcuts**:
+- **Keyboard Shortcuts** (Desktop):
   - `Ctrl/Cmd + G`: Generate new map
   - `Ctrl/Cmd + O`: Roll global omens
   - `Ctrl/Cmd + P`: Print map
+
+### Mobile & Touch Controls
+- **Mobile Menu**: Tap the hamburger menu (bottom-left) to access controls
+- **Zoom & Pan**: Use pinch-to-zoom or tap the zoom buttons to navigate the map
+- **Touch Targets**: All buttons are optimized for touch with minimum 44px tap areas
+- **Modals**: Swipe down or tap the close button to dismiss modal windows
 
 ## Project Structure
 
 ```
 src/
 ├── components/         # React components
-│   ├── Sidebar.tsx            # Main sidebar with accordion sections
-│   ├── MapCanvas.tsx          # SVG map rendering
-│   ├── LocationNode.tsx       # Individual location nodes
-│   ├── Road.tsx               # Road connections
-│   ├── LocationModal.tsx      # Location detail popup
-│   ├── RoadTooltip.tsx        # Road encounter tooltip
 │   ├── AccordionSection.tsx   # Collapsible panel component
+│   ├── LocationModal.tsx      # Responsive location detail modal
+│   ├── LocationNode.tsx       # Individual location nodes
+│   ├── MapCanvas.tsx          # SVG map with zoom/pan controls
+│   ├── MobileNav.tsx          # Mobile hamburger menu
 │   ├── QuickRollers.tsx       # Quick table rollers
 │   ├── ReferenceModal.tsx     # Full table browser modal
+│   ├── Road.tsx               # Road connections
+│   ├── RoadTooltip.tsx        # Responsive road detail popup
+│   ├── Sidebar.tsx            # Main sidebar / mobile drawer
 │   ├── TableBrowser.tsx       # Table category navigation
 │   └── TableDisplay.tsx       # Table content viewer
 ├── data/              # Complete game tables and data
@@ -134,6 +141,7 @@ Edit `src/index.css` to customize:
 - **Vite** - Build tool
 - **Tailwind CSS** - Styling
 - **Lucide React** - Icons
+- **react-zoom-pan-pinch** - Map zoom and pan controls
 - **SVG** - Map rendering
 
 ## License
@@ -177,12 +185,13 @@ This project was created as a tool for MÖRK BORG players. Feel free to modify a
 - [x] ~~Add full PDF data for all location types~~ ✅ Complete!
 - [x] ~~Add comprehensive table reference browser~~ ✅ Complete!
 - [x] ~~Add quick roller tools~~ ✅ Complete!
+- [x] ~~Create mobile-responsive design~~ ✅ Complete!
 - [ ] Implement save/load map functionality
 - [ ] Add map sharing via URL
-- [ ] Create mobile-responsive design
 - [ ] Export maps as images
 - [ ] Add campaign tracking/notes
 - [ ] Implement advanced road pathfinding
+- [ ] Add PWA support for offline use
 
 ---
 

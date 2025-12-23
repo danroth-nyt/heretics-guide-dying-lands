@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
+import { ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 import { MapNode, Road as RoadType } from '../types';
 import { LocationNodeShape, LocationNodeLabel } from './LocationNode';
 import Road from './Road';
@@ -58,15 +60,76 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
   const viewBoxHeight = 135;
 
   return (
-    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1 }}>
-      {/* SVG Canvas - stretches to fill entire container */}
-      <svg
+    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1, overflow: 'visible', pointerEvents: 'auto' }}>
+      <TransformWrapper
+        initialScale={1}
+        minScale={0.3}
+        maxScale={5}
+        centerOnInit={true}
+        wheel={{ step: 0.1 }}
+        doubleClick={{ disabled: false, mode: 'zoomIn' }}
+        panning={{ 
+          velocityDisabled: true,
+          // Prevent panning when interacting with UI buttons (elements with this class), so
+          // clicks/drags on controls don't move the map
+          excluded: ['mork-button']
+        }}
+        limitToBounds={false}
+      >
+        {({ zoomIn, zoomOut, resetTransform }) => (
+          <>
+            {/* Zoom Controls - Floating on mobile/tablet */}
+            <div className="absolute top-4 right-4 z-30 flex flex-col gap-2 md:hidden no-print pointer-events-auto">
+              <button
+                onClick={() => zoomIn()}
+                className="mork-button p-2 rounded shadow-lg bg-opacity-90"
+                aria-label="Zoom in"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <ZoomIn size={20} />
+              </button>
+              <button
+                onClick={() => zoomOut()}
+                className="mork-button p-2 rounded shadow-lg bg-opacity-90"
+                aria-label="Zoom out"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <ZoomOut size={20} />
+              </button>
+              <button
+                onClick={() => resetTransform()}
+                className="mork-button p-2 rounded shadow-lg bg-opacity-90"
+                aria-label="Reset zoom"
+                style={{ pointerEvents: 'auto' }}
+              >
+                <Maximize2 size={20} />
+              </button>
+            </div>
+
+            <TransformComponent
+              wrapperStyle={{ 
+                width: '100%', 
+                height: '100%', 
+                overflow: 'visible'
+              }}
+              contentStyle={{ 
+                width: '100%', 
+                height: '100%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center'
+              }}
+            >
+              {/* SVG Canvas - stretches to fill entire container */}
+              <svg
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
         className="w-full h-full"
-        preserveAspectRatio="xMidYMid slice"
+        preserveAspectRatio="xMidYMid meet"
         style={{
           backgroundColor: 'transparent',
           display: 'block',
+          maxWidth: '100%',
+          maxHeight: '100%',
         }}
       >
         {/* Background - Weathered map parchment */}
@@ -325,6 +388,10 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           ))}
         </g>
       </svg>
+            </TransformComponent>
+          </>
+        )}
+      </TransformWrapper>
 
       {/* Modals and Tooltips */}
       <LocationModal

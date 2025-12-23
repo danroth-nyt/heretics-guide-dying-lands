@@ -14,6 +14,7 @@ interface SidebarProps {
   onPrint: () => void;
   onOpenReference?: () => void;
   isGenerating?: boolean;
+  isMobileDrawer?: boolean;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -25,9 +26,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   onPrint,
   onOpenReference,
   isGenerating,
+  isMobileDrawer = false,
 }) => {
   return (
-    <aside className="w-80 h-screen bg-mork-yellow border-r-4 border-mork-black p-6 overflow-y-auto no-print">
+    <aside className={`w-80 h-screen bg-mork-yellow border-mork-black p-6 overflow-y-auto no-print ${
+      isMobileDrawer ? '' : 'border-r-4'
+    }`}>
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">

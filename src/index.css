@@ -83,13 +83,21 @@ h1, h2, h3, h4, h5, h6 {
 /* Distressed text effect */
 .mork-title {
   font-family: 'Pirata One', cursive;
-  font-size: 3.5rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   text-shadow: 
-    3px 3px 0px rgba(0, 0, 0, 0.2),
+    2px 2px 0px rgba(0, 0, 0, 0.2),
     -1px -1px 0px rgba(0, 0, 0, 0.1);
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .mork-title {
+    letter-spacing: 0.1em;
+    text-shadow: 
+      3px 3px 0px rgba(0, 0, 0, 0.2),
+      -1px -1px 0px rgba(0, 0, 0, 0.1);
+  }
 }
 
 /* Heavy borders */
@@ -111,6 +119,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--mork-yellow);
   border: 3px solid var(--mork-black);
   padding: 0.75rem 1.5rem;
+  min-height: 44px;
   font-size: 1rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -149,6 +158,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--mork-black);
   border: 3px solid var(--mork-black);
   padding: 0.75rem;
+  min-height: 44px;
   font-size: 1rem;
   cursor: pointer;
   box-shadow: inset 2px 2px 0px rgba(0, 0, 0, 0.1);
@@ -185,6 +195,93 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(0, 0, 0, 0.85);
 }
 
+/* Mobile Modal - Full screen on mobile, centered card on desktop */
+.mobile-modal-container {
+  /* Mobile: full screen with safe area */
+  @media (max-width: 767px) {
+    position: fixed;
+    inset: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Desktop: centered card */
+  @media (min-width: 768px) {
+    max-width: 42rem;
+    margin: 1rem;
+    max-height: 90vh;
+    border-radius: 0.5rem;
+  }
+}
+
+/* Pull indicator for mobile modals */
+.pull-indicator {
+  width: 48px;
+  height: 5px;
+  background-color: var(--mork-yellow);
+  opacity: 0.6;
+  border-radius: 3px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .pull-indicator {
+    display: none;
+  }
+}
+
+/* Landscape 2-column layout for modal content */
+@media (max-width: 767px) and (orientation: landscape) {
+  .modal-content-landscape {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* Responsive modal positioning - replaces window.innerWidth checks */
+.modal-responsive-container {
+  /* Mobile: positioned below header with safe area support */
+  margin-top: max(5rem, calc(env(safe-area-inset-top) + 4rem));
+  height: auto;
+  max-height: calc(100% - max(5rem, calc(env(safe-area-inset-top) + 4rem)));
+  border-top: 6px solid var(--mork-yellow);
+}
+
+@media (min-width: 768px) {
+  .modal-responsive-container {
+    margin-top: 0;
+    height: auto;
+    max-height: 90vh;
+    border-top: none;
+  }
+}
+
+/* Responsive modal header padding */
+.modal-header-responsive {
+  padding-top: 0;
+}
+
+@media (min-width: 768px) {
+  .modal-header-responsive {
+    padding-top: 2rem;
+  }
+}
+
+/* Responsive modal footer padding */
+.modal-footer-responsive {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  .modal-footer-responsive {
+    padding-bottom: 2rem;
+  }
+}
+
 /* Shake animation */
 @keyframes shake {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }
@@ -217,6 +314,26 @@ h1, h2, h3, h4, h5, h6 {
 
 .fade-in {
   animation: fadeIn 0.3s ease-out;
+}
+
+/* Slide in from left animation */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Slide up from bottom animation (for mobile bottom sheets) */
+@keyframes slideUpMobile {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* SVG node hover effect */
@@ -322,6 +439,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   overflow: hidden;
   min-height: 100%;
+  box-sizing: border-box;
 }
 
 /* Stains and aging marks - enhanced for MÖRK BORG */
