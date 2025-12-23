@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MapNode, Road as RoadType } from '../types';
-import LocationNode from './LocationNode';
+import LocationNode, { LocationNodeShape, LocationNodeLabel } from './LocationNode';
 import Road from './Road';
 import LocationModal from './LocationModal';
 import RoadTooltip from './RoadTooltip';
@@ -291,7 +291,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           <ellipse cx="91" cy="121" rx="1.3" ry="0.8" transform="rotate(25 91 121)" />
         </g>
 
-        {/* Roads (render first so they're behind nodes) */}
+        {/* Layer 1: Roads (render first so they're behind everything) */}
         <g>
           {roads.map(road => (
             <g
@@ -303,14 +303,24 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           ))}
         </g>
 
-        {/* Nodes */}
+        {/* Layer 2: Node Shapes (render before labels) */}
         <g>
           {nodes.map(node => (
-            <LocationNode
+            <LocationNodeShape
               key={node.id}
               node={node}
               onClick={handleNodeClick}
               isShaking={isGenerating}
+            />
+          ))}
+        </g>
+
+        {/* Layer 3: Node Labels (render on top so they're never covered) */}
+        <g>
+          {nodes.map(node => (
+            <LocationNodeLabel
+              key={node.id}
+              node={node}
             />
           ))}
         </g>

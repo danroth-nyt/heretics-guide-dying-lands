@@ -41,7 +41,7 @@ export function generateMap(territory: Territory, nodeCount: number = 6): { node
 function generateNodes(territory: Territory, count: number): MapNode[] {
   const nodes: MapNode[] = [];
   const shapes: NodeShape[] = ['circle', 'square', 'hex'];
-  const minDistance = 12; // Minimum distance between nodes (percentage)
+  const minDistance = 32; // Minimum distance between nodes to prevent label overlap
   
   for (let i = 0; i < count; i++) {
     let x: number, y: number;
