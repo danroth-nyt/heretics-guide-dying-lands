@@ -43,10 +43,10 @@ function generateNodes(territory: Territory, count: number): MapNode[] {
     const maxAttempts = 50;
     
     // Try to find a position that doesn't overlap with existing nodes
-    // Keep margins to prevent cutoff - optimized for horizontal 240x100 viewBox
+    // Keep margins to prevent cutoff - optimized for 16:9 ratio (240x135 viewBox)
     do {
       x = 25 + Math.random() * 190; // 25 to 215 (viewBox width is 240, with 25px margins)
-      y = 20 + Math.random() * 60; // 20 to 80 (viewBox height is 100, with 20px margins)
+      y = 25 + Math.random() * 85; // 25 to 110 (viewBox height is 135, with 25px margins)
       attempts++;
       
       if (attempts > maxAttempts) {

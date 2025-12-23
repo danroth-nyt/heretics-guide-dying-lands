@@ -53,9 +53,9 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
     setSelectedRoad(newRoad);
   };
 
-  // Extra-wide landscape orientation optimized for horizontal monitors
+  // Landscape orientation optimized for 16:9 horizontal monitors
   const viewBoxWidth = 240;
-  const viewBoxHeight = 100;
+  const viewBoxHeight = 135;
 
   return (
     <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1 }}>
@@ -150,7 +150,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
             <ellipse cx="0" cy="8" rx="12" ry="8" fill="#1a0f08" />
           </g>
           
-          {/* More dramatic age spots and stains - adjusted for 240x100 canvas */}
+          {/* More dramatic age spots and stains - adjusted for 240x135 canvas */}
           <circle cx="30" cy="28" r="10" fill="#7a5840" opacity="0.18" />
           <ellipse cx="32" cy="30" rx="12" ry="8" fill="#6a4830" opacity="0.12" transform="rotate(25 32 30)" />
           
@@ -163,7 +163,14 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           <circle cx="25" cy="72" r="16" fill="#8b6f47" opacity="0.14" />
           <ellipse cx="27" cy="74" rx="14" ry="10" fill="#7a5840" opacity="0.1" transform="rotate(40 27 74)" />
           
-          {/* Blood/dark ink splatters - more dramatic, adjusted for wider canvas */}
+          {/* Additional stains for taller canvas */}
+          <circle cx="160" cy="105" r="13" fill="#7a5840" opacity="0.16" />
+          <ellipse cx="162" cy="107" rx="11" ry="7" fill="#6a4830" opacity="0.11" transform="rotate(-30 162 107)" />
+          
+          <circle cx="70" cy="115" r="10" fill="#8b6f47" opacity="0.13" />
+          <ellipse cx="72" cy="117" rx="8" ry="5" fill="#7a5840" opacity="0.09" transform="rotate(20 72 117)" />
+          
+          {/* Blood/dark ink splatters - more dramatic, adjusted for taller canvas */}
           <g opacity="0.25">
             <circle cx="80" cy="15" r="3.5" fill="#4a1a1a" />
             <ellipse cx="82" cy="16" rx="2" ry="1.5" fill="#3a0a0a" transform="rotate(30 82 16)" />
@@ -177,6 +184,12 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
             <circle cx="45" cy="85" r="3.2" fill="#4a1a1a" />
             <circle cx="47" cy="86" r="1.8" fill="#3a0a0a" />
             <path d="M 44,88 L 42,90 L 43,89" fill="#3a0a0a" />
+            
+            {/* Additional blood for taller canvas */}
+            <circle cx="200" cy="112" r="3.8" fill="#3a0a0a" />
+            <ellipse cx="202" cy="114" rx="2.2" ry="1.6" fill="#4a1a1a" transform="rotate(15 202 114)" />
+            <circle cx="198" cy="110" r="1.3" fill="#3a0a0a" />
+            <path d="M 201,116 L 203,118 L 202,117" fill="#3a0a0a" />
           </g>
           
           {/* Enhanced vignette */}
@@ -249,7 +262,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           <text x="-10" y="1" textAnchor="middle" fontSize="3" fontWeight="bold" fontFamily="Pirata One, cursive" fill="#1a0f08">W</text>
         </g>
         
-        {/* Ink splatters - scattered across wider map */}
+        {/* Ink splatters - scattered across taller map */}
         <g opacity="0.15" fill="#1a0f08">
           <circle cx="60" cy="22" r="2.5" />
           <ellipse cx="61" cy="23" rx="1.5" ry="1" transform="rotate(30 61 23)" />
@@ -268,6 +281,14 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
           
           <circle cx="210" cy="30" r="2" />
           <ellipse cx="211" cy="31" rx="1.2" ry="0.8" transform="rotate(15 211 31)" />
+          
+          {/* Additional splatters for taller canvas */}
+          <circle cx="145" cy="110" r="2.6" />
+          <ellipse cx="146" cy="111" rx="1.4" ry="1" transform="rotate(-40 146 111)" />
+          <circle cx="144" cy="109" r="0.9" />
+          
+          <circle cx="90" cy="120" r="2.3" />
+          <ellipse cx="91" cy="121" rx="1.3" ry="0.8" transform="rotate(25 91 121)" />
         </g>
 
         {/* Roads (render first so they're behind nodes) */}
