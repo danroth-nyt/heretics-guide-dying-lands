@@ -10,6 +10,13 @@ function roll(sides: number): number {
 }
 
 /**
+ * Roll a die with the specified number of sides (exported version)
+ */
+export function rollDice(sides: number): number {
+  return roll(sides);
+}
+
+/**
  * Roll a d4 (1-4)
  */
 export function rollD4(): number {

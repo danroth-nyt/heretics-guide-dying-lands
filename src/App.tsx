@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Territory, MapNode, Road, GlobalOmens } from './types';
 import Sidebar from './components/Sidebar';
 import MapCanvas from './components/MapCanvas';
+import ReferenceModal from './components/ReferenceModal';
 import { generateMap, generateGlobalOmens } from './utils/mapEngine';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   const [roads, setRoads] = useState<Road[]>([]);
   const [globalOmens, setGlobalOmens] = useState<GlobalOmens | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isReferenceOpen, setIsReferenceOpen] = useState(false);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -77,7 +79,13 @@ function App() {
         onGenerateOmens={handleGenerateOmens}
         globalOmens={globalOmens}
         onPrint={handlePrint}
+        onOpenReference={() => setIsReferenceOpen(true)}
         isGenerating={isGenerating}
+      />
+      
+      <ReferenceModal
+        isOpen={isReferenceOpen}
+        onClose={() => setIsReferenceOpen(false)}
       />
       
       <main className="flex-1 relative overflow-hidden h-full">
