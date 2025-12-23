@@ -17,7 +17,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onToggle }) => {
           minWidth: '56px', 
           minHeight: '56px',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
-          zIndex: 9999
+          zIndex: 9999,
+          pointerEvents: 'auto'
         }}
         aria-label="Toggle menu"
       >

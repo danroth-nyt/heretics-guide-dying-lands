@@ -195,6 +195,53 @@ h1, h2, h3, h4, h5, h6 {
   background-color: rgba(0, 0, 0, 0.85);
 }
 
+/* Mobile Modal - Full screen on mobile, centered card on desktop */
+.mobile-modal-container {
+  /* Mobile: full screen with safe area */
+  @media (max-width: 767px) {
+    position: fixed;
+    inset: 0;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Desktop: centered card */
+  @media (min-width: 768px) {
+    max-width: 42rem;
+    margin: 1rem;
+    max-height: 90vh;
+    border-radius: 0.5rem;
+  }
+}
+
+/* Pull indicator for mobile modals */
+.pull-indicator {
+  width: 48px;
+  height: 5px;
+  background-color: var(--mork-yellow);
+  opacity: 0.6;
+  border-radius: 3px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .pull-indicator {
+    display: none;
+  }
+}
+
+/* Landscape 2-column layout for modal content */
+@media (max-width: 767px) and (orientation: landscape) {
+  .modal-content-landscape {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
 /* Shake animation */
 @keyframes shake {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }

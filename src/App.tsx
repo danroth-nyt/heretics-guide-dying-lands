@@ -139,7 +139,7 @@ function App() {
       
       <main className="flex-1 relative overflow-hidden h-full">
         {/* Title Bar */}
-        <div className="absolute top-0 left-0 right-0 z-10 bg-mork-black text-mork-yellow p-3 md:p-6 border-b-4 border-mork-black no-print">
+        <div className="absolute top-0 left-0 right-0 bg-mork-black text-mork-yellow p-3 md:p-6 border-b-4 border-mork-black no-print" style={{ zIndex: 5 }}>
           <h1 className="mork-title text-center text-2xl md:text-4xl lg:text-5xl">
             HERETIC MAP GENERATOR
           </h1>

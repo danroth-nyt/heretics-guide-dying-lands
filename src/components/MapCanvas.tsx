@@ -60,7 +60,7 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
   const viewBoxHeight = 135;
 
   return (
-    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1, overflow: 'hidden' }}>
+    <div className="relative w-full h-full" style={{ position: 'relative', zIndex: 1, overflow: 'hidden', pointerEvents: 'auto' }}>
       <TransformWrapper
         initialScale={1}
         minScale={0.5}
@@ -77,25 +77,28 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
         {({ zoomIn, zoomOut, resetTransform }) => (
           <>
             {/* Zoom Controls - Floating on mobile/tablet */}
-            <div className="absolute top-4 right-4 z-30 flex flex-col gap-2 md:hidden no-print">
+            <div className="absolute top-4 right-4 z-30 flex flex-col gap-2 md:hidden no-print pointer-events-auto">
               <button
                 onClick={() => zoomIn()}
-                className="mork-button p-2 rounded shadow-lg"
+                className="mork-button p-2 rounded shadow-lg bg-opacity-90"
                 aria-label="Zoom in"
+                style={{ pointerEvents: 'auto' }}
               >
                 <ZoomIn size={20} />
               </button>
               <button
                 onClick={() => zoomOut()}
-                className="mork-button p-2 rounded shadow-lg"
+                className="mork-button p-2 rounded shadow-lg bg-opacity-90"
                 aria-label="Zoom out"
+                style={{ pointerEvents: 'auto' }}
               >
                 <ZoomOut size={20} />
               </button>
               <button
                 onClick={() => resetTransform()}
-                className="mork-button p-2 rounded shadow-lg"
+                className="mork-button p-2 rounded shadow-lg bg-opacity-90"
                 aria-label="Reset zoom"
+                style={{ pointerEvents: 'auto' }}
               >
                 <Maximize2 size={20} />
               </button>
