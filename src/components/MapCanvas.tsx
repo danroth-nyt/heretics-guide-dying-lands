@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MapNode, Road as RoadType } from '../types';
-import LocationNode, { LocationNodeShape, LocationNodeLabel } from './LocationNode';
+import { LocationNodeShape, LocationNodeLabel } from './LocationNode';
 import Road from './Road';
 import LocationModal from './LocationModal';
 import RoadTooltip from './RoadTooltip';
