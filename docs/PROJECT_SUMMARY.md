@@ -27,7 +27,7 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Location sub-tables for 20 location types
    - Road tables (difficulty, encounters, opportunities, aesthetics)
    - Global tables (Oracle d66, Fate d20, Loot d66, Landscape d10, Weather d10)
-   - **Comprehensive Oracle System** (200+ tables from Recluse supplement):
+   - **Comprehensive Oracle System** (200+ tables from Reclvse Version 1.9):
      - Adventures (inciting incident, destination, danger, twist)
      - Cities (origin, condition, districts, governance, problems, secrets, discoveries)
      - Neighborhoods (sounds, smells, activities)
@@ -96,6 +96,8 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Touch-optimized controls with minimum tap targets (44px)
    - Zoom and pan functionality for mobile map interaction
    - Mobile drawer navigation with slide animations
+   - **Landscape Mobile Optimization** with 2-column modal layouts and compact UI
+   - Dynamic hamburger menu positioning (bottom-left portrait, top-left landscape)
    - Error handling
    - Loading states
 
@@ -129,7 +131,7 @@ heretics-guide-dying-lands/
 │   │   ├── TableBrowser.tsx        # Table navigation
 │   │   └── TableDisplay.tsx        # Table content display
 │   ├── data/
-│   │   ├── oracles/                # Recluse supplement oracle tables
+│   │   ├── oracles/                # Reclvse Version 1.9 oracle tables
 │   │   │   ├── recluse_adventure.ts    # Adventure generation
 │   │   │   ├── recluse_city.ts         # City, neighborhood, street generation
 │   │   │   ├── recluse_creature.ts     # Beast/creature generation
@@ -190,13 +192,14 @@ heretics-guide-dying-lands/
 - Print functionality works
 - Keyboard shortcuts implemented
 - Error handling in place
-- **Comprehensive Oracle System** with 200+ tables
+- **Comprehensive Oracle System** with 200+ tables from Reclvse Version 1.9
   - General oracles (encounters, beasts, signs, hazards, adventures, factions, NPCs)
   - Location oracles (dungeon, city, neighborhood, street, wilderness)
   - Name generation oracles
   - Inline dice rollers for all tables
 - **Save/Load Functionality** for preserving maps
 - **Table Browser** with search and categorization
+- **Landscape Mobile Optimization** for horizontal viewing on phones and tablets
 
 ## Next Steps for User
 
@@ -291,7 +294,7 @@ The HERETIC MAP GENERATOR is **fully functional and feature-complete**. All core
 - Mobile-responsive design with touch controls
 - Print-ready output
 
-The project has evolved from a basic map generator into a comprehensive solo/GM toolkit for the MÖRK BORG Heretic's Guide to Dying Lands supplement.
+The project has evolved from a basic map generator into a comprehensive solo/GM toolkit for the MÖRK BORG Heretic's Guide to Dying Lands supplement, with oracle tables from Reclvse Version 1.9.
 
 **FOR THE DYING LANDS** ☠
 

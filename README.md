@@ -103,10 +103,11 @@ Quick setup:
   - `Ctrl/Cmd + P`: Print map
 
 ### Mobile & Touch Controls
-- **Mobile Menu**: Tap the hamburger menu (bottom-left) to access controls
+- **Mobile Menu**: Tap the hamburger menu (bottom-left in portrait, top-left in landscape) to access controls
 - **Zoom & Pan**: Use pinch-to-zoom or tap the zoom buttons to navigate the map
 - **Touch Targets**: All buttons are optimized for touch with minimum 44px tap areas
 - **Modals**: Swipe down or tap the close button to dismiss modal windows
+- **Landscape Mode**: Optimized 2-column modal layouts and compact UI for horizontal viewing
 
 ## Project Structure
 
@@ -129,7 +130,7 @@ src/
 │   ├── TableBrowser.tsx       # Table category navigation
 │   └── TableDisplay.tsx       # Table content viewer
 ├── data/              # Complete game tables and data
-│   ├── oracles/               # Oracle tables from Recluse supplement
+│   ├── oracles/               # Oracle tables from Reclvse Version 1.9
 │   │   ├── recluse_adventure.ts   # Adventure generation
 │   │   ├── recluse_city.ts        # City, neighborhood, and street generation
 │   │   ├── recluse_creature.ts    # Beast and creature generation
@@ -222,6 +223,7 @@ This project was created as a tool for MÖRK BORG players. Feel free to modify a
   - [x] General oracles (encounters, beasts, signs, hazards, adventures, factions)
   - [x] Location oracles (dungeon, city, neighborhood, street, wilderness)
   - [x] Name generation oracles
+- [x] ~~Optimize for landscape mobile devices~~ ✅ Complete!
 - [ ] Add map sharing via URL
 - [ ] Export maps as images
 - [ ] Add campaign tracking/notes
