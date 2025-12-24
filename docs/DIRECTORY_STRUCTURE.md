@@ -26,7 +26,7 @@ heretics-guide-dying-lands/
 │   ├── PROJECT_SUMMARY.md      # Project overview
 │   ├── IMPLEMENTATION_COMPLETE.md  # Feature notes
 │   ├── AESTHETIC_IMPROVEMENTS.md   # Visual enhancements
-│   ├── MARGIN_FIXES.md         # Layout fixes
+│   ├── HORIZONTAL_OPTIMIZATION.md  # Landscape display optimization
 │   └── DIRECTORY_STRUCTURE.md  # This file
 │
 ├── src/                        # 📁 SOURCE CODE
@@ -112,7 +112,7 @@ heretics-guide-dying-lands/
 
 ### Recent Changes
 - Visual updates: `docs/AESTHETIC_IMPROVEMENTS.md`
-- Layout fixes: `docs/MARGIN_FIXES.md`
+- Display optimization: `docs/HORIZONTAL_OPTIMIZATION.md`
 - Features: `docs/IMPLEMENTATION_COMPLETE.md`
 
 ## Navigation Tips

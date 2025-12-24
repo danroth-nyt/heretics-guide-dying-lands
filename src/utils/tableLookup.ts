@@ -1,4 +1,4 @@
-import { Table, TableEntry } from '../types';
+import { Table } from '../types';
 import { rollD4, rollD6, rollD8, rollD10, rollD12, rollD20, rollD66 } from './diceUtils';
 
 /**
@@ -82,21 +82,3 @@ export function rollOnMultipleTables(tables: Record<string, Table>): Record<stri
   
   return results;
 }
-
-/**
- * Get a specific result from a table by roll value
- */
-export function getTableResult(table: Table, roll: number | string): string {
-  const entry = table.entries.find(e => e.roll === roll);
-  return entry ? entry.result : 'Unknown';
-}
-
-/**
- * Get a random entry from a table without rolling
- */
-export function getRandomTableEntry(table: Table): TableEntry {
-  const randomIndex = Math.floor(Math.random() * table.entries.length);
-  return table.entries[randomIndex];
-}
-
-

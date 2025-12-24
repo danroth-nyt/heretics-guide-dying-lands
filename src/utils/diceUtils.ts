@@ -5,57 +5,50 @@
 /**
  * Roll a die with the specified number of sides
  */
-function roll(sides: number): number {
-  return Math.floor(Math.random() * sides) + 1;
-}
-
-/**
- * Roll a die with the specified number of sides (exported version)
- */
 export function rollDice(sides: number): number {
-  return roll(sides);
+  return Math.floor(Math.random() * sides) + 1;
 }
 
 /**
  * Roll a d4 (1-4)
  */
 export function rollD4(): number {
-  return roll(4);
+  return rollDice(4);
 }
 
 /**
  * Roll a d6 (1-6)
  */
 export function rollD6(): number {
-  return roll(6);
+  return rollDice(6);
 }
 
 /**
  * Roll a d8 (1-8)
  */
 export function rollD8(): number {
-  return roll(8);
+  return rollDice(8);
 }
 
 /**
  * Roll a d10 (1-10)
  */
 export function rollD10(): number {
-  return roll(10);
+  return rollDice(10);
 }
 
 /**
  * Roll a d12 (1-12)
  */
 export function rollD12(): number {
-  return roll(12);
+  return rollDice(12);
 }
 
 /**
  * Roll a d20 (1-20)
  */
 export function rollD20(): number {
-  return roll(20);
+  return rollDice(20);
 }
 
 /**
@@ -75,7 +68,7 @@ export function rollD66(): number {
 export function rollMultiple(sides: number, count: number): number {
   let total = 0;
   for (let i = 0; i < count; i++) {
-    total += roll(sides);
+    total += rollDice(sides);
   }
   return total;
 }
@@ -86,7 +79,7 @@ export function rollMultiple(sides: number, count: number): number {
 export function rollMultipleIndividual(sides: number, count: number): number[] {
   const results: number[] = [];
   for (let i = 0; i < count; i++) {
-    results.push(roll(sides));
+    results.push(rollDice(sides));
   }
   return results;
 }
@@ -109,5 +102,3 @@ export function shuffle<T>(array: T[]): T[] {
   }
   return result;
 }
-
-

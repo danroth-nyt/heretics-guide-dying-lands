@@ -13,7 +13,7 @@ This directory contains all project documentation for the Heretic Map Generator.
 
 ## Implementation Details
 - **[AESTHETIC_IMPROVEMENTS.md](AESTHETIC_IMPROVEMENTS.md)** - Recent visual enhancements (Phase 1-5)
-- **[MARGIN_FIXES.md](MARGIN_FIXES.md)** - Layout margin fixes for element positioning
+- **[HORIZONTAL_OPTIMIZATION.md](HORIZONTAL_OPTIMIZATION.md)** - Landscape display optimization
 - **[IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md)** - Feature completion notes
 - **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - Overall project summary
 

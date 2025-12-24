@@ -77,4 +77,3 @@ export const territoryDescriptions: Record<Territory, string> = {
   grift: 'A mercantile realm of trade and treachery',
   tveland: 'A mystical territory of faith and knowledge',
 };
-

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2, Trees } from 'lucide-react';
-import { rollDice } from '../utils/diceUtils';
+import { rollOnTable } from '../utils/tableLookup';
 import {
   lootTable,
   wanderTable,
@@ -88,7 +88,7 @@ import {
   socialDiscoveriesTable,
   signsOfUndercityTable,
   cityThreatsTable,
-} from '../data/globalTables';
+} from '../data/oracles/recluse_city';
 
 interface RollResult {
   type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city' | 'wilderness';
@@ -191,47 +191,31 @@ const Oracles: React.FC = () => {
   const [lastRoll, setLastRoll] = useState<RollResult | null>(null);
 
   const rollLoot = () => {
-    const roll = rollDice(6) * 10 + rollDice(6);
-    const entry = lootTable.entries.find((e) => e.roll === roll);
     setLastRoll({
       type: 'loot',
-      result: entry ? entry.result : 'Unknown',
+      result: rollOnTable(lootTable),
     });
   };
 
   const rollWander = () => {
-    const roll = rollDice(20);
-    const entry = wanderTable.entries.find((e) => e.roll === roll);
     setLastRoll({
       type: 'wander',
-      result: entry ? entry.result : 'Unknown',
+      result: rollOnTable(wanderTable),
     });
   };
 
   const rollNPC = () => {
-    // Roll on ALL NPC oracle tables
-    const firstNameRoll = rollDice(100);
-    const surnameRoll = rollDice(100);
-    const summaryRoll = rollDice(20);
-    const appearanceRoll = rollDice(100);
-    const traitsRoll = rollDice(100);
-    const motivationRoll = rollDice(20);
-    const occupationRoll = rollDice(12);
-    const habitRoll = rollDice(12);
-    const moodRoll = rollDice(12);
-    const wantsRoll = rollDice(12);
-
-    const firstName = npcFirstNamesTable.entries.find((e) => e.roll === firstNameRoll)?.result || 'Unknown';
-    const surname = npcSurnamesTable.entries.find((e) => e.roll === surnameRoll)?.result || 'Unknown';
+    const firstName = rollOnTable(npcFirstNamesTable);
+    const surname = rollOnTable(npcSurnamesTable);
     const name = `${firstName} ${surname}`;
-    const summary = npcSummaryTable.entries.find((e) => e.roll === summaryRoll)?.result || 'Unknown';
-    const appearance = npcAppearanceTable.entries.find((e) => e.roll === appearanceRoll)?.result || 'Unknown';
-    const traits = npcTraitsTable.entries.find((e) => e.roll === traitsRoll)?.result || 'Unknown';
-    const motivation = npcMotivationTable.entries.find((e) => e.roll === motivationRoll)?.result || 'Unknown';
-    const occupation = npcOccupationTable.entries.find((e) => e.roll === occupationRoll)?.result || 'Unknown';
-    const habit = npcHabitTable.entries.find((e) => e.roll === habitRoll)?.result || 'Unknown';
-    const mood = npcMoodTable.entries.find((e) => e.roll === moodRoll)?.result || 'Unknown';
-    const wants = npcWantsTable.entries.find((e) => e.roll === wantsRoll)?.result || 'Unknown';
+    const summary = rollOnTable(npcSummaryTable);
+    const appearance = rollOnTable(npcAppearanceTable);
+    const traits = rollOnTable(npcTraitsTable);
+    const motivation = rollOnTable(npcMotivationTable);
+    const occupation = rollOnTable(npcOccupationTable);
+    const habit = rollOnTable(npcHabitTable);
+    const mood = rollOnTable(npcMoodTable);
+    const wants = rollOnTable(npcWantsTable);
 
     setLastRoll({
       type: 'npc',
@@ -240,13 +224,9 @@ const Oracles: React.FC = () => {
   };
 
   const rollEncounter = () => {
-    const contextRoll = rollDice(12);
-    const dispositionRoll = rollDice(10);
-    const goalRoll = rollDice(10);
-
-    const context = encounterContextTable.entries.find((e) => e.roll === contextRoll)?.result || 'Unknown';
-    const disposition = encounterDispositionTable.entries.find((e) => e.roll === dispositionRoll)?.result || 'Unknown';
-    const goal = encounterGoalTable.entries.find((e) => e.roll === goalRoll)?.result || 'Unknown';
+    const context = rollOnTable(encounterContextTable);
+    const disposition = rollOnTable(encounterDispositionTable);
+    const goal = rollOnTable(encounterGoalTable);
 
     setLastRoll({
       type: 'encounter',
@@ -255,33 +235,19 @@ const Oracles: React.FC = () => {
   };
 
   const rollDungeonRoom = () => {
-    const originRoll = rollDice(6);
-    const themeRoll = rollDice(12);
-    const architectureRoll = rollDice(20);
-    const dressingRoll = rollDice(20);
-    const inhabitantsRoll = rollDice(20);
-    const motiveRoll = rollDice(12);
-    const firstImpressionRoll = rollDice(12);
-    const challengeRoll = rollDice(12);
-    const helpRoll = rollDice(6);
-    const atmosphereRoll = rollDice(6);
-    const sizeRoll = rollDice(6);
-    const exitCountRoll = rollDice(6);
-    const exitTypeRoll = rollDice(6);
-
-    const origin = dungeonOriginTable.entries.find((e) => e.roll === originRoll)?.result || 'Unknown';
-    const theme = dungeonThemeTable.entries.find((e) => e.roll === themeRoll)?.result || 'Unknown';
-    const architecture = dungeonRoomArchitectureTable.entries.find((e) => e.roll === architectureRoll)?.result || 'Unknown';
-    const dressing = dungeonRoomDressingTable.entries.find((e) => e.roll === dressingRoll)?.result || 'Unknown';
-    const inhabitants = dungeonInhabitantsTable.entries.find((e) => e.roll === inhabitantsRoll)?.result || 'Unknown';
-    const motive = dungeonPrimaryMotiveTable.entries.find((e) => e.roll === motiveRoll)?.result || 'Unknown';
-    const firstImpression = entranceFirstImpressionTable.entries.find((e) => e.roll === firstImpressionRoll)?.result || 'Unknown';
-    const immediateChallenge = entranceImmediateChallengeTable.entries.find((e) => e.roll === challengeRoll)?.result || 'Unknown';
-    const possibleHelp = entrancePossibleHelpTable.entries.find((e) => e.roll === helpRoll)?.result || 'Unknown';
-    const atmosphere = roomAtmosphereTable.entries.find((e) => e.roll === atmosphereRoll)?.result || 'Unknown';
-    const sizeDetailed = roomSizeDetailedTable.entries.find((e) => e.roll === sizeRoll)?.result || 'Unknown';
-    const exitCount = roomExitCountTable.entries.find((e) => e.roll === exitCountRoll)?.result || 'Unknown';
-    const exitType = roomExitTypeTable.entries.find((e) => e.roll === exitTypeRoll)?.result || 'Unknown';
+    const origin = rollOnTable(dungeonOriginTable);
+    const theme = rollOnTable(dungeonThemeTable);
+    const architecture = rollOnTable(dungeonRoomArchitectureTable);
+    const dressing = rollOnTable(dungeonRoomDressingTable);
+    const inhabitants = rollOnTable(dungeonInhabitantsTable);
+    const motive = rollOnTable(dungeonPrimaryMotiveTable);
+    const firstImpression = rollOnTable(entranceFirstImpressionTable);
+    const immediateChallenge = rollOnTable(entranceImmediateChallengeTable);
+    const possibleHelp = rollOnTable(entrancePossibleHelpTable);
+    const atmosphere = rollOnTable(roomAtmosphereTable);
+    const sizeDetailed = rollOnTable(roomSizeDetailedTable);
+    const exitCount = rollOnTable(roomExitCountTable);
+    const exitType = rollOnTable(roomExitTypeTable);
 
     setLastRoll({
       type: 'dungeonRoom',
@@ -304,15 +270,10 @@ const Oracles: React.FC = () => {
   };
 
   const rollAdventure = () => {
-    const incidentRoll = rollDice(20);
-    const destinationRoll = rollDice(20);
-    const dangerRoll = rollDice(20);
-    const twistRoll = rollDice(20);
-
-    const incitingIncident = adventureIncitingIncidentTable.entries.find((e) => e.roll === incidentRoll)?.result || 'Unknown';
-    const destination = adventureDestinationTable.entries.find((e) => e.roll === destinationRoll)?.result || 'Unknown';
-    const dangerHeart = adventureDangerHeartTable.entries.find((e) => e.roll === dangerRoll)?.result || 'Unknown';
-    const twist = adventureTwistTable.entries.find((e) => e.roll === twistRoll)?.result || 'Unknown';
+    const incitingIncident = rollOnTable(adventureIncitingIncidentTable);
+    const destination = rollOnTable(adventureDestinationTable);
+    const dangerHeart = rollOnTable(adventureDangerHeartTable);
+    const twist = rollOnTable(adventureTwistTable);
 
     setLastRoll({
       type: 'adventure',
@@ -321,21 +282,13 @@ const Oracles: React.FC = () => {
   };
 
   const rollFaction = () => {
-    const originRoll = rollDice(20);
-    const purposeRoll = rollDice(20);
-    const attitudeRoll = rollDice(20);
-    const powerRoll = rollDice(20);
-    const resourcesRoll = rollDice(20);
-    const weaknessRoll = rollDice(20);
-    const plotHookRoll = rollDice(20);
-
-    const origin = factionOriginsTable.entries.find((e) => e.roll === originRoll)?.result || 'Unknown';
-    const purpose = factionPurposeTable.entries.find((e) => e.roll === purposeRoll)?.result || 'Unknown';
-    const attitude = factionAttitudeTable.entries.find((e) => e.roll === attitudeRoll)?.result || 'Unknown';
-    const power = factionPowerTable.entries.find((e) => e.roll === powerRoll)?.result || 'Unknown';
-    const resources = factionResourcesTable.entries.find((e) => e.roll === resourcesRoll)?.result || 'Unknown';
-    const weakness = factionWeaknessTable.entries.find((e) => e.roll === weaknessRoll)?.result || 'Unknown';
-    const plotHook = factionPlotHooksTable.entries.find((e) => e.roll === plotHookRoll)?.result || 'Unknown';
+    const origin = rollOnTable(factionOriginsTable);
+    const purpose = rollOnTable(factionPurposeTable);
+    const attitude = rollOnTable(factionAttitudeTable);
+    const power = rollOnTable(factionPowerTable);
+    const resources = rollOnTable(factionResourcesTable);
+    const weakness = rollOnTable(factionWeaknessTable);
+    const plotHook = rollOnTable(factionPlotHooksTable);
 
     setLastRoll({
       type: 'faction',
@@ -344,39 +297,22 @@ const Oracles: React.FC = () => {
   };
 
   const rollCity = () => {
-    const originRoll = rollDice(6);
-    const conditionRoll = rollDice(12);
-    const signsRoll = rollDice(20);
-    const gatekeeperRoll = rollDice(12);
-    const discoveriesRoll = rollDice(20);
-    const urbanOddityRoll = rollDice(20);
-    const moodRoll = rollDice(12);
-    const attitudeRoll = rollDice(6);
-    const problemRoll = rollDice(20);
-    const secretRoll = rollDice(12);
-    const noiseRoll = rollDice(12);
-    const exteriorRoll = rollDice(20);
-    const notableObjectRoll = rollDice(20);
-    const socialDiscoveryRoll = rollDice(12);
-    const undercityRoll = rollDice(12);
-    const threatRoll = rollDice(20);
-
-    const origin = cityOriginTable.entries.find((e) => e.roll === originRoll)?.result || 'Unknown';
-    const condition = cityConditionTable.entries.find((e) => e.roll === conditionRoll)?.result || 'Unknown';
-    const signsEntering = citySignsEnteringTable.entries.find((e) => e.roll === signsRoll)?.result || 'Unknown';
-    const gatekeeper = cityGatekeeperTable.entries.find((e) => e.roll === gatekeeperRoll)?.result || 'Unknown';
-    const discoveries = cityDiscoveriesTable.entries.find((e) => e.roll === discoveriesRoll)?.result || 'Unknown';
-    const urbanOddity = cityUrbanOdditiesTable.entries.find((e) => e.roll === urbanOddityRoll)?.result || 'Unknown';
-    const neighborhoodMood = neighborhoodMoodTable.entries.find((e) => e.roll === moodRoll)?.result || 'Unknown';
-    const neighborhoodAttitude = neighborhoodAttitudeTable.entries.find((e) => e.roll === attitudeRoll)?.result || 'Unknown';
-    const neighborhoodProblem = neighborhoodProblemTable.entries.find((e) => e.roll === problemRoll)?.result || 'Unknown';
-    const neighborhoodSecret = neighborhoodSecretTable.entries.find((e) => e.roll === secretRoll)?.result || 'Unknown';
-    const streetNoise = streetNoiseTable.entries.find((e) => e.roll === noiseRoll)?.result || 'Unknown';
-    const buildingExterior = buildingExteriorTable.entries.find((e) => e.roll === exteriorRoll)?.result || 'Unknown';
-    const buildingNotableObject = buildingNotableObjectTable.entries.find((e) => e.roll === notableObjectRoll)?.result || 'Unknown';
-    const socialDiscovery = socialDiscoveriesTable.entries.find((e) => e.roll === socialDiscoveryRoll)?.result || 'Unknown';
-    const signsOfUndercity = signsOfUndercityTable.entries.find((e) => e.roll === undercityRoll)?.result || 'Unknown';
-    const threat = cityThreatsTable.entries.find((e) => e.roll === threatRoll)?.result || 'Unknown';
+    const origin = rollOnTable(cityOriginTable);
+    const condition = rollOnTable(cityConditionTable);
+    const signsEntering = rollOnTable(citySignsEnteringTable);
+    const gatekeeper = rollOnTable(cityGatekeeperTable);
+    const discoveries = rollOnTable(cityDiscoveriesTable);
+    const urbanOddity = rollOnTable(cityUrbanOdditiesTable);
+    const neighborhoodMood = rollOnTable(neighborhoodMoodTable);
+    const neighborhoodAttitude = rollOnTable(neighborhoodAttitudeTable);
+    const neighborhoodProblem = rollOnTable(neighborhoodProblemTable);
+    const neighborhoodSecret = rollOnTable(neighborhoodSecretTable);
+    const streetNoise = rollOnTable(streetNoiseTable);
+    const buildingExterior = rollOnTable(buildingExteriorTable);
+    const buildingNotableObject = rollOnTable(buildingNotableObjectTable);
+    const socialDiscovery = rollOnTable(socialDiscoveriesTable);
+    const signsOfUndercity = rollOnTable(signsOfUndercityTable);
+    const threat = rollOnTable(cityThreatsTable);
 
     setLastRoll({
       type: 'city',
@@ -402,45 +338,25 @@ const Oracles: React.FC = () => {
   };
 
   const rollWilderness = () => {
-    const temperatureRoll = rollDice(20);
-    const visibilityRoll = rollDice(20);
-    const unnaturalWeatherRoll = rollDice(20);
-    const minorDiscoveryRoll = rollDice(20);
-    const travelersRoll = rollDice(20);
-    const ruinsRoll = rollDice(20);
-    const omenRoll = rollDice(20);
-    const resourceRoll = rollDice(12);
-    const terrainDangerRoll = rollDice(20);
-    const weatherShiftRoll = rollDice(12);
-    const weatherOmenRoll = rollDice(12);
-    const oddityRoll = rollDice(20);
-    const waterRoll = rollDice(12);
-    const detailRoll = rollDice(12);
-    const lostPeopleRoll = rollDice(12);
-    const creatureRoll = rollDice(20);
-    const ambushRoll = rollDice(12);
-    const wildlifeRoll = rollDice(20);
-    const resourceLossRoll = rollDice(12);
-
-    const temperature = wildernessTemperatureTable.entries.find((e) => e.roll === temperatureRoll)?.result || 'Unknown';
-    const visibility = wildernessVisibilityTable.entries.find((e) => e.roll === visibilityRoll)?.result || 'Unknown';
-    const unnaturalWeather = unnaturalWeatherTable.entries.find((e) => e.roll === unnaturalWeatherRoll)?.result || 'Unknown';
-    const minorDiscovery = minorNaturalDiscoveriesTable.entries.find((e) => e.roll === minorDiscoveryRoll)?.result || 'Unknown';
-    const signsOfTravelers = signsOfTravelersTable.entries.find((e) => e.roll === travelersRoll)?.result || 'Unknown';
-    const remainsAndRuins = remainsAndRuinsTable.entries.find((e) => e.roll === ruinsRoll)?.result || 'Unknown';
-    const strangeOmen = strangeOmensTable.entries.find((e) => e.roll === omenRoll)?.result || 'Unknown';
-    const wildResource = wildResourcesTable.entries.find((e) => e.roll === resourceRoll)?.result || 'Unknown';
-    const terrainDanger = wildernessTerrainDangersTable.entries.find((e) => e.roll === terrainDangerRoll)?.result || 'Unknown';
-    const weatherShift = weatherShiftTable.entries.find((e) => e.roll === weatherShiftRoll)?.result || 'Unknown';
-    const weatherOmenSign = weatherOmenSignsTable.entries.find((e) => e.roll === weatherOmenRoll)?.result || 'Unknown';
-    const naturalOddity = naturalOdditiesTable.entries.find((e) => e.roll === oddityRoll)?.result || 'Unknown';
-    const landmarkWater = landmarkWaterTable.entries.find((e) => e.roll === waterRoll)?.result || 'Unknown';
-    const landmarkDetail = landmarkDetailsTable.entries.find((e) => e.roll === detailRoll)?.result || 'Unknown';
-    const signsOfLostPeople = signsOfLostPeopleTable.entries.find((e) => e.roll === lostPeopleRoll)?.result || 'Unknown';
-    const creatureSignsLarge = creatureSignsLargeTable.entries.find((e) => e.roll === creatureRoll)?.result || 'Unknown';
-    const signsOfAmbush = signsOfAmbushTable.entries.find((e) => e.roll === ambushRoll)?.result || 'Unknown';
-    const wildlifeHazard = wildlifeHazardsTable.entries.find((e) => e.roll === wildlifeRoll)?.result || 'Unknown';
-    const resourceLossHazard = resourceLossHazardsTable.entries.find((e) => e.roll === resourceLossRoll)?.result || 'Unknown';
+    const temperature = rollOnTable(wildernessTemperatureTable);
+    const visibility = rollOnTable(wildernessVisibilityTable);
+    const unnaturalWeather = rollOnTable(unnaturalWeatherTable);
+    const minorDiscovery = rollOnTable(minorNaturalDiscoveriesTable);
+    const signsOfTravelers = rollOnTable(signsOfTravelersTable);
+    const remainsAndRuins = rollOnTable(remainsAndRuinsTable);
+    const strangeOmen = rollOnTable(strangeOmensTable);
+    const wildResource = rollOnTable(wildResourcesTable);
+    const terrainDanger = rollOnTable(wildernessTerrainDangersTable);
+    const weatherShift = rollOnTable(weatherShiftTable);
+    const weatherOmenSign = rollOnTable(weatherOmenSignsTable);
+    const naturalOddity = rollOnTable(naturalOdditiesTable);
+    const landmarkWater = rollOnTable(landmarkWaterTable);
+    const landmarkDetail = rollOnTable(landmarkDetailsTable);
+    const signsOfLostPeople = rollOnTable(signsOfLostPeopleTable);
+    const creatureSignsLarge = rollOnTable(creatureSignsLargeTable);
+    const signsOfAmbush = rollOnTable(signsOfAmbushTable);
+    const wildlifeHazard = rollOnTable(wildlifeHazardsTable);
+    const resourceLossHazard = rollOnTable(resourceLossHazardsTable);
 
     setLastRoll({
       type: 'wilderness',
@@ -684,7 +600,7 @@ const Oracles: React.FC = () => {
 
       {/* Location Oracles */}
       <div className="border-2 border-mork-black p-3">
-        <h4 className="text-xs font-bold uppercase tracking-wider mb-2 text-center opacity-75">
+        <h4 className="text-sm font-bold uppercase tracking-wider mb-2 text-center opacity-75">
           Locations
         </h4>
         <div className="grid grid-cols-1 gap-2">
@@ -720,4 +636,3 @@ const Oracles: React.FC = () => {
 };
 
 export default Oracles;
-
