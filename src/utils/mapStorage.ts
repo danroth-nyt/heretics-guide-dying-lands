@@ -22,7 +22,7 @@ export function saveMap(
   omens: Omens | null
 ): SavedMap {
   const savedMap: SavedMap = {
-    id: `map-${Date.now()}`,
+    id: `map-${crypto.randomUUID()}`,
     name,
     timestamp: Date.now(),
     state: {
@@ -146,7 +146,7 @@ export function importMapFromFile(file: File): Promise<SavedMap> {
         }
         
         // Generate new ID to avoid conflicts
-        savedMap.id = `map-${Date.now()}`;
+        savedMap.id = `map-${crypto.randomUUID()}`;
         savedMap.timestamp = Date.now();
         
         // Save to localStorage

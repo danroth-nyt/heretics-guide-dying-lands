@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { X, Save, Upload, Download, Trash2 } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { X, Save, Upload, Download, Trash2, CheckCircle, AlertCircle, AlertTriangle } from 'lucide-react';
 import {
   SavedMap,
   getSavedMaps,
@@ -33,29 +33,55 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   const [mapName, setMapName] = useState('');
   const [activeTab, setActiveTab] = useState<'save' | 'load'>('load');
   const [selectedMapId, setSelectedMapId] = useState<string | null>(null);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<{
+    type: 'success' | 'error' | 'warning';
+    text: string;
+  } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-dismiss status messages after 3 seconds
+  useEffect(() => {
+    if (statusMessage) {
+      const timer = setTimeout(() => {
+        setStatusMessage(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [statusMessage]);
+
+  // Clear pending delete when clicking away
+  useEffect(() => {
+    if (pendingDeleteId) {
+      const timer = setTimeout(() => {
+        setPendingDeleteId(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [pendingDeleteId]);
 
   if (!isOpen) return null;
 
   const handleSave = () => {
     if (!mapName.trim()) {
-      alert('Please enter a map name');
+      setStatusMessage({ type: 'warning', text: 'Please enter a map name' });
       return;
     }
 
     if (currentNodes.length === 0) {
-      alert('No map to save! Generate a map first.');
+      setStatusMessage({ type: 'warning', text: 'No map to save! Generate a map first.' });
       return;
     }
 
     try {
       saveMap(mapName, currentTerritory, currentNodes, currentRoads, currentOmens);
       setSavedMaps(getSavedMaps());
+      const savedName = mapName;
       setMapName('');
-      alert(`Map "${mapName}" saved successfully!`);
+      setStatusMessage({ type: 'success', text: `Map "${savedName}" saved successfully!` });
       setActiveTab('load');
     } catch (error) {
-      alert('Failed to save map');
+      setStatusMessage({ type: 'error', text: 'Failed to save map' });
       console.error(error);
     }
   };
@@ -70,13 +96,19 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
     onClose();
   };
 
-  const handleDelete = (id: string, name: string) => {
-    if (confirm(`Delete map "${name}"?`)) {
+  const handleDelete = (id: string) => {
+    if (pendingDeleteId === id) {
+      // Second click - actually delete
       deleteMap(id);
       setSavedMaps(getSavedMaps());
       if (selectedMapId === id) {
         setSelectedMapId(null);
       }
+      setPendingDeleteId(null);
+      setStatusMessage({ type: 'success', text: 'Map deleted successfully' });
+    } else {
+      // First click - show confirmation
+      setPendingDeleteId(id);
     }
   };
 
@@ -91,9 +123,9 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
     try {
       await importMapFromFile(file);
       setSavedMaps(getSavedMaps());
-      alert('Map imported successfully!');
+      setStatusMessage({ type: 'success', text: 'Map imported successfully!' });
     } catch (error) {
-      alert('Failed to import map: ' + (error as Error).message);
+      setStatusMessage({ type: 'error', text: 'Failed to import map: ' + (error as Error).message });
     }
 
     // Reset file input
@@ -138,6 +170,27 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
             Load Map
           </button>
         </div>
+
+        {/* Status Message */}
+        {statusMessage && (
+          <div className={`p-3 mb-4 rounded border-2 flex items-center gap-2 ${
+            statusMessage.type === 'success' ? 'bg-green-900 bg-opacity-20 border-green-600 text-green-100' :
+            statusMessage.type === 'error' ? 'bg-red-900 bg-opacity-20 border-red-600 text-red-100' :
+            'bg-yellow-900 bg-opacity-20 border-yellow-600 text-yellow-100'
+          }`}>
+            {statusMessage.type === 'success' && <CheckCircle size={20} />}
+            {statusMessage.type === 'error' && <AlertCircle size={20} />}
+            {statusMessage.type === 'warning' && <AlertTriangle size={20} />}
+            <span className="flex-1">{statusMessage.text}</span>
+            <button
+              onClick={() => setStatusMessage(null)}
+              className="opacity-75 hover:opacity-100"
+              aria-label="Dismiss"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        )}
 
         {/* Save Tab */}
         {activeTab === 'save' && (
@@ -231,11 +284,22 @@ const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
                           <Download size={16} />
                         </button>
                         <button
-                          onClick={() => handleDelete(map.id, map.name)}
-                          className="mork-button px-3 text-sm py-1 hover:bg-red-600"
-                          title="Delete"
+                          onClick={() => handleDelete(map.id)}
+                          className={`mork-button text-sm py-1 ${
+                            pendingDeleteId === map.id 
+                              ? 'bg-red-600 hover:bg-red-700 px-2' 
+                              : 'px-3 hover:bg-red-600'
+                          }`}
+                          title={pendingDeleteId === map.id ? 'Click again to confirm' : 'Delete'}
                         >
-                          <Trash2 size={16} />
+                          {pendingDeleteId === map.id ? (
+                            <span className="flex items-center gap-1">
+                              <Trash2 size={14} />
+                              <span className="text-xs">Confirm?</span>
+                            </span>
+                          ) : (
+                            <Trash2 size={16} />
+                          )}
                         </button>
                       </div>
                     </div>
