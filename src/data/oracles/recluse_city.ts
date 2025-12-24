@@ -275,3 +275,309 @@ export const buildingHiddenElementTable: Table = {
   ],
 };
 
+export const cityOriginTable: Table = {
+  name: 'City Origin (d6)',
+  entries: [
+    { roll: 1, result: 'Fortress settlement' },
+    { roll: 2, result: 'Merchant capital' },
+    { roll: 3, result: 'Religious stronghold' },
+    { roll: 4, result: 'Refuge turned metropolis' },
+    { roll: 5, result: 'Ruined city rebuilt' },
+    { roll: 6, result: 'City grown atop ancient bones' },
+  ],
+};
+
+export const cityGatekeeperTable: Table = {
+  name: 'City Gatekeeper (d12)',
+  entries: [
+    { roll: 1, result: 'Suspicious' },
+    { roll: 2, result: 'Tired' },
+    { roll: 3, result: 'Hostile' },
+    { roll: 4, result: 'Bureaucratic' },
+    { roll: 5, result: 'Friendly' },
+    { roll: 6, result: 'Fearful' },
+    { roll: 7, result: 'Harried' },
+    { roll: 8, result: 'Distracted' },
+    { roll: 9, result: 'Drunk' },
+    { roll: 10, result: 'Nervous' },
+    { roll: 11, result: 'Stern' },
+    { roll: 12, result: 'Righteous' },
+  ],
+};
+
+export const cityConditionTable: Table = {
+  name: 'City Condition (d12)',
+  entries: [
+    { roll: 1, result: 'Crumbling' },
+    { roll: 2, result: 'Overcrowded' },
+    { roll: 3, result: 'Deserted' },
+    { roll: 4, result: 'Flooded in places' },
+    { roll: 5, result: 'Burn-scarred' },
+    { roll: 6, result: 'Plague-stricken' },
+    { roll: 7, result: 'Under construction' },
+    { roll: 8, result: 'Patrolled aggressively' },
+    { roll: 9, result: 'Lawless' },
+    { roll: 10, result: 'Filth-choked' },
+    { roll: 11, result: 'Fog-laden' },
+    { roll: 12, result: 'Famine-scarred' },
+  ],
+};
+
+export const neighborhoodMoodTable: Table = {
+  name: 'Neighborhood Mood (d12)',
+  entries: [
+    { roll: 1, result: 'Celebratory' },
+    { roll: 2, result: 'Wary' },
+    { roll: 3, result: 'Desperate' },
+    { roll: 4, result: 'Chaotic' },
+    { roll: 5, result: 'Riotous' },
+    { roll: 6, result: 'Fearful' },
+    { roll: 7, result: 'Silent' },
+    { roll: 8, result: 'Suspicious' },
+    { roll: 9, result: 'Industrious' },
+    { roll: 10, result: 'Oppressed' },
+    { roll: 11, result: 'Grim' },
+    { roll: 12, result: 'Sinisterly calm' },
+  ],
+};
+
+export const neighborhoodProblemTable: Table = {
+  name: 'Neighborhood Problem (d20)',
+  entries: [
+    { roll: 1, result: 'Rampant theft' },
+    { roll: 2, result: 'Cult recruitment' },
+    { roll: 3, result: 'Guard brutality' },
+    { roll: 4, result: 'Violent gangs' },
+    { roll: 5, result: 'Famine' },
+    { roll: 6, result: 'Disease' },
+    { roll: 7, result: 'Striking workers' },
+    { roll: 8, result: 'Corrupt nobles' },
+    { roll: 9, result: 'Arcane anomalies' },
+    { roll: 10, result: 'Demonic sightings' },
+    { roll: 11, result: 'Sewer overflows' },
+    { roll: 12, result: 'Missing persons' },
+    { roll: 13, result: 'Smuggling rings' },
+    { roll: 14, result: 'Rising prices' },
+    { roll: 15, result: 'Strange beasts roaming' },
+    { roll: 16, result: 'Building collapses' },
+    { roll: 17, result: 'Witch hunts' },
+    { roll: 18, result: 'Fires breaking out' },
+    { roll: 19, result: 'River contamination' },
+    { roll: 20, result: 'Old curse resurfacing' },
+  ],
+};
+
+export const cityDiscoveriesTable: Table = {
+  name: 'City Discoveries (d20)',
+  entries: [
+    { roll: 1, result: 'A freshly extinguished torch' },
+    { roll: 2, result: 'A single coin stamped with an unknown symbol' },
+    { roll: 3, result: 'Scraps of torn fabric caught on a nail' },
+    { roll: 4, result: 'Half-eaten food left behind' },
+    { roll: 5, result: 'A dropped tool' },
+    { roll: 6, result: 'A shoeprint where it shouldn\'t be' },
+    { roll: 7, result: 'A bloodstained pebble' },
+    { roll: 8, result: 'A broken trinket' },
+    { roll: 9, result: 'A page torn from a ledger' },
+    { roll: 10, result: 'A loose stone revealing a tiny gap' },
+    { roll: 11, result: 'A child\'s toy abandoned' },
+    { roll: 12, result: 'A wax seal stamped on nothing' },
+    { roll: 13, result: 'A spilled bottle' },
+    { roll: 14, result: 'A cracked charm' },
+    { roll: 15, result: 'A note reading only one word' },
+    { roll: 16, result: 'A curl of strange smoke' },
+    { roll: 17, result: 'A faint hum from below the street' },
+    { roll: 18, result: 'A faint magical spark lingering in air' },
+    { roll: 19, result: 'A shadow that doesn\'t match its caster' },
+    { roll: 20, result: 'A warm spot on the cobblestone' },
+  ],
+};
+
+export const cityUrbanOdditiesTable: Table = {
+  name: 'City Urban Oddities (d20)',
+  entries: [
+    { roll: 1, result: 'Rats carrying something shiny' },
+    { roll: 2, result: 'Chalk arrows pointing nowhere' },
+    { roll: 3, result: 'A lantern flickering against the wind' },
+    { roll: 4, result: 'A sudden warm breeze' },
+    { roll: 5, result: 'A cat staring at nothing' },
+    { roll: 6, result: 'A door opening by itself' },
+    { roll: 7, result: 'A statue\'s eyes wet' },
+    { roll: 8, result: 'A puddle reflecting a different scene' },
+    { roll: 9, result: 'A coin spinning on its own' },
+    { roll: 10, result: 'A feather falling from above' },
+    { roll: 11, result: 'An alley unusually cold' },
+    { roll: 12, result: 'A shadow lingering a beat too long' },
+    { roll: 13, result: 'Muted footsteps with no source' },
+    { roll: 14, result: 'Dust swirling in patterns' },
+    { roll: 15, result: 'A smell that appears and vanishes' },
+    { roll: 16, result: 'Crows gathered silently' },
+    { roll: 17, result: 'Someone whispering from a drain' },
+    { roll: 18, result: 'A loud snap from a roof' },
+    { roll: 19, result: 'A message rewritten while you watch' },
+    { roll: 20, result: 'A shape slipping behind a wall crack' },
+  ],
+};
+
+export const citySignsEnteringTable: Table = {
+  name: 'City Signs Entering (d20)',
+  entries: [
+    { roll: 1, result: 'Refugees fleeing' },
+    { roll: 2, result: 'Smoke rising' },
+    { roll: 3, result: 'Flyers posted everywhere' },
+    { roll: 4, result: 'Strange banners' },
+    { roll: 5, result: 'Heavy guard presence' },
+    { roll: 6, result: 'Sounds of distant fighting' },
+    { roll: 7, result: 'Market noise' },
+    { roll: 8, result: 'Chanting' },
+    { roll: 9, result: 'Rumbling earth' },
+    { roll: 10, result: 'Foul smell' },
+    { roll: 11, result: 'Blood on the gates' },
+    { roll: 12, result: 'Long lines of travelers' },
+    { roll: 13, result: 'Starved animals' },
+    { roll: 14, result: 'Abandoned carts' },
+    { roll: 15, result: 'Hushed whispers' },
+    { roll: 16, result: 'Broken gates' },
+    { roll: 17, result: 'Magic lights flickering' },
+    { roll: 18, result: 'A corpse at the entrance' },
+    { roll: 19, result: 'Gate taxes aggressively enforced' },
+    { roll: 20, result: 'A holy procession entering' },
+  ],
+};
+
+export const neighborhoodAttitudeTable: Table = {
+  name: 'Neighborhood Attitude (d6)',
+  entries: [
+    { roll: 1, result: 'Welcoming' },
+    { roll: 2, result: 'Curious' },
+    { roll: 3, result: 'Indifferent' },
+    { roll: 4, result: 'Suspicious' },
+    { roll: 5, result: 'Hostile' },
+    { roll: 6, result: 'Dangerous' },
+  ],
+};
+
+export const neighborhoodSecretTable: Table = {
+  name: 'Neighborhood Secret (d12)',
+  entries: [
+    { roll: 1, result: 'Underground tunnels connect multiple buildings' },
+    { roll: 2, result: 'A forbidden market appears at night' },
+    { roll: 3, result: 'A cult cell meets in silence' },
+    { roll: 4, result: 'Nobles trade blood money' },
+    { roll: 5, result: 'A spirit haunts the streets' },
+    { roll: 6, result: 'An assassin operates freely' },
+    { roll: 7, result: 'A ritual is underway somewhere nearby' },
+    { roll: 8, result: 'A hidden shrine grants forbidden blessings' },
+    { roll: 9, result: 'A monster is fed by locals' },
+    { roll: 10, result: 'An experimental workshop produces horrors' },
+    { roll: 11, result: 'A traitor organizes rebellion' },
+    { roll: 12, result: 'A relic is buried beneath the stones' },
+  ],
+};
+
+export const streetNoiseTable: Table = {
+  name: 'Street Noise (d12)',
+  entries: [
+    { roll: 1, result: 'Loud shouting' },
+    { roll: 2, result: 'Merchant cries' },
+    { roll: 3, result: 'Crowd noise' },
+    { roll: 4, result: 'Music' },
+    { roll: 5, result: 'Arguments' },
+    { roll: 6, result: 'Clashing metal' },
+    { roll: 7, result: 'Running footsteps' },
+    { roll: 8, result: 'Whispering' },
+    { roll: 9, result: 'Distant screams' },
+    { roll: 10, result: 'Rumbling' },
+    { roll: 11, result: 'Strange chanting' },
+    { roll: 12, result: 'Complete silence' },
+  ],
+};
+
+export const buildingExteriorTable: Table = {
+  name: 'Building Exterior (d20)',
+  entries: [
+    { roll: 1, result: 'Crumbling façade' },
+    { roll: 2, result: 'Freshly painted' },
+    { roll: 3, result: 'Boarded windows' },
+    { roll: 4, result: 'Wide open door' },
+    { roll: 5, result: 'Hanging lantern' },
+    { roll: 6, result: 'Strange markings' },
+    { roll: 7, result: 'Guard posted outside' },
+    { roll: 8, result: 'Rotten wooden steps' },
+    { roll: 9, result: 'Overgrown vines' },
+    { roll: 10, result: 'Smoke drifting from roof' },
+    { roll: 11, result: 'Blood on doorstep' },
+    { roll: 12, result: 'Holy symbols carved' },
+    { roll: 13, result: 'Arcane symbols carved' },
+    { roll: 14, result: 'Loud crowd inside' },
+    { roll: 15, result: 'Silent but occupied' },
+    { roll: 16, result: 'Recently broken into' },
+    { roll: 17, result: 'Door hanging crooked' },
+    { roll: 18, result: 'Multiple locks' },
+    { roll: 19, result: 'Stench leaking out' },
+    { roll: 20, result: 'Beautiful and pristine' },
+  ],
+};
+
+export const buildingNotableObjectTable: Table = {
+  name: 'Building Notable Object (d20)',
+  entries: [
+    { roll: 1, result: 'Locked chest' },
+    { roll: 2, result: 'Hidden drawer' },
+    { roll: 3, result: 'Strange idol' },
+    { roll: 4, result: 'Bloody rag' },
+    { roll: 5, result: 'Unusual tools' },
+    { roll: 6, result: 'Secret ledger' },
+    { roll: 7, result: 'Map fragment' },
+    { roll: 8, result: 'Ritual knife' },
+    { roll: 9, result: 'Magic charm' },
+    { roll: 10, result: 'Sealed urn' },
+    { roll: 11, result: 'Bottles labeled wrong' },
+    { roll: 12, result: 'Wardrobe full of cloaks' },
+    { roll: 13, result: 'Inscribed stone' },
+    { roll: 14, result: 'Strange bone' },
+    { roll: 15, result: 'Letter with missing pages' },
+    { roll: 16, result: 'Caged animal' },
+    { roll: 17, result: 'Set of keys' },
+    { roll: 18, result: 'Book with torn-out pages' },
+    { roll: 19, result: 'Something glowing faintly' },
+    { roll: 20, result: 'Personal belongings left behind' },
+  ],
+};
+
+export const socialDiscoveriesTable: Table = {
+  name: 'Social Discoveries (d12)',
+  entries: [
+    { roll: 1, result: 'Someone following you' },
+    { roll: 2, result: 'Someone desperately signaling for help' },
+    { roll: 3, result: 'A group watching silently' },
+    { roll: 4, result: 'A street performer who knows your name' },
+    { roll: 5, result: 'A merchant offering something suspicious' },
+    { roll: 6, result: 'A child tugging at your sleeve' },
+    { roll: 7, result: 'A guard glaring intensely' },
+    { roll: 8, result: 'A beggar whispering a warning' },
+    { roll: 9, result: 'A noble dropping a ring' },
+    { roll: 10, result: 'A stranger matching your stride' },
+    { roll: 11, result: 'A friend of someone you met earlier' },
+    { roll: 12, result: 'Someone trying to hand you a message' },
+  ],
+};
+
+export const signsOfUndercityTable: Table = {
+  name: 'Signs of Undercity (d12)',
+  entries: [
+    { roll: 1, result: 'Hidden grate slightly ajar' },
+    { roll: 2, result: 'Sewage backflow in odd places' },
+    { roll: 3, result: 'Strange fungi growing through cracks' },
+    { roll: 4, result: 'Muted chanting below' },
+    { roll: 5, result: 'Torch smoke drifting up' },
+    { roll: 6, result: 'An unusual rope' },
+    { roll: 7, result: 'Brickwork newer than surroundings' },
+    { roll: 8, result: 'Moisture on walls where it shouldn\'t be' },
+    { roll: 9, result: 'A slab sunk slightly' },
+    { roll: 10, result: 'A vent exhaling warm air' },
+    { roll: 11, result: 'Gurgling beneath your feet' },
+    { roll: 12, result: 'A ladder leading down' },
+  ],
+};
+

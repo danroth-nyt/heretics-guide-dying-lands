@@ -327,6 +327,36 @@ export const additionalStockTable: Table = {
 // Enhanced NPC Names (d100 vs original d12)
 export { npcFirstNamesTable, npcSurnamesTable, villageNamesTable };
 
+// Re-export city tables from Recluse oracles
+export {
+  cityMoodTable,
+  neighborhoodTypeTable,
+  streetActivityTable,
+  buildingTypeTable,
+  cityRumorsTable,
+  cityThreatsTable,
+  streetSurfaceTable,
+  streetSmellTable,
+  streetFeatureTable,
+  buildingInteriorTable,
+  buildingHiddenElementTable,
+  cityOriginTable,
+  cityGatekeeperTable,
+  cityConditionTable,
+  neighborhoodMoodTable,
+  neighborhoodProblemTable,
+  cityDiscoveriesTable,
+  cityUrbanOdditiesTable,
+  citySignsEnteringTable,
+  neighborhoodAttitudeTable,
+  neighborhoodSecretTable,
+  streetNoiseTable,
+  buildingExteriorTable,
+  buildingNotableObjectTable,
+  socialDiscoveriesTable,
+  signsOfUndercityTable,
+} from './oracles/recluse_city';
+
 // Enhanced NPC Details  
 export { npcSummaryTable, npcMotivationTable, npcAppearanceTable, npcTraitsTable };
 

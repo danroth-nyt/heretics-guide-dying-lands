@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, DoorOpen, Map, Users } from 'lucide-react';
+import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2 } from 'lucide-react';
 import { rollDice } from '../utils/diceUtils';
 import {
   lootTable,
@@ -41,10 +41,28 @@ import {
   adventureDangerHeartTable,
   adventureTwistTable,
 } from '../data/oracles/recluse_adventure';
+import {
+  cityOriginTable,
+  cityConditionTable,
+  citySignsEnteringTable,
+  cityGatekeeperTable,
+  cityDiscoveriesTable,
+  cityUrbanOdditiesTable,
+  neighborhoodMoodTable,
+  neighborhoodAttitudeTable,
+  neighborhoodProblemTable,
+  neighborhoodSecretTable,
+  streetNoiseTable,
+  buildingExteriorTable,
+  buildingNotableObjectTable,
+  socialDiscoveriesTable,
+  signsOfUndercityTable,
+  cityThreatsTable,
+} from '../data/globalTables';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction';
-  result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city';
+  result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult | CityResult;
 }
 
 interface NPCResult {
@@ -87,6 +105,25 @@ interface FactionResult {
   resources: string;
   weakness: string;
   plotHook: string;
+}
+
+interface CityResult {
+  origin: string;
+  condition: string;
+  signsEntering: string;
+  gatekeeper: string;
+  discoveries: string;
+  urbanOddity: string;
+  neighborhoodMood: string;
+  neighborhoodAttitude: string;
+  neighborhoodProblem: string;
+  neighborhoodSecret: string;
+  streetNoise: string;
+  buildingExterior: string;
+  buildingNotableObject: string;
+  socialDiscovery: string;
+  signsOfUndercity: string;
+  threat: string;
 }
 
 const QuickRollers: React.FC = () => {
@@ -213,6 +250,64 @@ const QuickRollers: React.FC = () => {
     });
   };
 
+  const rollCity = () => {
+    const originRoll = rollDice(6);
+    const conditionRoll = rollDice(12);
+    const signsRoll = rollDice(20);
+    const gatekeeperRoll = rollDice(12);
+    const discoveriesRoll = rollDice(20);
+    const urbanOddityRoll = rollDice(20);
+    const moodRoll = rollDice(12);
+    const attitudeRoll = rollDice(6);
+    const problemRoll = rollDice(20);
+    const secretRoll = rollDice(12);
+    const noiseRoll = rollDice(12);
+    const exteriorRoll = rollDice(20);
+    const notableObjectRoll = rollDice(20);
+    const socialDiscoveryRoll = rollDice(12);
+    const undercityRoll = rollDice(12);
+    const threatRoll = rollDice(20);
+
+    const origin = cityOriginTable.entries.find((e) => e.roll === originRoll)?.result || 'Unknown';
+    const condition = cityConditionTable.entries.find((e) => e.roll === conditionRoll)?.result || 'Unknown';
+    const signsEntering = citySignsEnteringTable.entries.find((e) => e.roll === signsRoll)?.result || 'Unknown';
+    const gatekeeper = cityGatekeeperTable.entries.find((e) => e.roll === gatekeeperRoll)?.result || 'Unknown';
+    const discoveries = cityDiscoveriesTable.entries.find((e) => e.roll === discoveriesRoll)?.result || 'Unknown';
+    const urbanOddity = cityUrbanOdditiesTable.entries.find((e) => e.roll === urbanOddityRoll)?.result || 'Unknown';
+    const neighborhoodMood = neighborhoodMoodTable.entries.find((e) => e.roll === moodRoll)?.result || 'Unknown';
+    const neighborhoodAttitude = neighborhoodAttitudeTable.entries.find((e) => e.roll === attitudeRoll)?.result || 'Unknown';
+    const neighborhoodProblem = neighborhoodProblemTable.entries.find((e) => e.roll === problemRoll)?.result || 'Unknown';
+    const neighborhoodSecret = neighborhoodSecretTable.entries.find((e) => e.roll === secretRoll)?.result || 'Unknown';
+    const streetNoise = streetNoiseTable.entries.find((e) => e.roll === noiseRoll)?.result || 'Unknown';
+    const buildingExterior = buildingExteriorTable.entries.find((e) => e.roll === exteriorRoll)?.result || 'Unknown';
+    const buildingNotableObject = buildingNotableObjectTable.entries.find((e) => e.roll === notableObjectRoll)?.result || 'Unknown';
+    const socialDiscovery = socialDiscoveriesTable.entries.find((e) => e.roll === socialDiscoveryRoll)?.result || 'Unknown';
+    const signsOfUndercity = signsOfUndercityTable.entries.find((e) => e.roll === undercityRoll)?.result || 'Unknown';
+    const threat = cityThreatsTable.entries.find((e) => e.roll === threatRoll)?.result || 'Unknown';
+
+    setLastRoll({
+      type: 'city',
+      result: { 
+        origin, 
+        condition, 
+        signsEntering, 
+        gatekeeper, 
+        discoveries, 
+        urbanOddity, 
+        neighborhoodMood, 
+        neighborhoodAttitude, 
+        neighborhoodProblem, 
+        neighborhoodSecret, 
+        streetNoise, 
+        buildingExterior, 
+        buildingNotableObject, 
+        socialDiscovery, 
+        signsOfUndercity, 
+        threat 
+      },
+    });
+  };
+
   const renderResult = () => {
     if (!lastRoll) return null;
 
@@ -298,6 +393,33 @@ const QuickRollers: React.FC = () => {
       );
     }
 
+    if (lastRoll.type === 'city' && typeof lastRoll.result === 'object' && 'threat' in lastRoll.result) {
+      const city = lastRoll.result as CityResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">City:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Origin:</strong> {city.origin}</p>
+            <p><strong>Condition:</strong> {city.condition}</p>
+            <p><strong>Signs Entering:</strong> {city.signsEntering}</p>
+            <p><strong>Gatekeeper:</strong> {city.gatekeeper}</p>
+            <p><strong>Discoveries:</strong> {city.discoveries}</p>
+            <p><strong>Urban Oddity:</strong> {city.urbanOddity}</p>
+            <p><strong>Neighborhood Mood:</strong> {city.neighborhoodMood}</p>
+            <p><strong>Neighborhood Attitude:</strong> {city.neighborhoodAttitude}</p>
+            <p><strong>Problem:</strong> {city.neighborhoodProblem}</p>
+            <p><strong>Secret:</strong> {city.neighborhoodSecret}</p>
+            <p><strong>Street Noise:</strong> {city.streetNoise}</p>
+            <p><strong>Building Exterior:</strong> {city.buildingExterior}</p>
+            <p><strong>Notable Object:</strong> {city.buildingNotableObject}</p>
+            <p><strong>Social Discovery:</strong> {city.socialDiscovery}</p>
+            <p><strong>Signs of Undercity:</strong> {city.signsOfUndercity}</p>
+            <p><strong>Threat:</strong> {city.threat}</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="mork-panel">
         <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">
@@ -365,6 +487,14 @@ const QuickRollers: React.FC = () => {
         >
           <Users size={16} />
           Roll Faction
+        </button>
+
+        <button
+          onClick={rollCity}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Building2 size={16} />
+          Roll City
         </button>
       </div>
 
