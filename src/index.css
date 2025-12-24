@@ -252,10 +252,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (min-width: 768px) {
+  /* Adjust modal backdrop to prevent overlap with header */
+  .mork-modal-backdrop {
+    align-items: flex-start !important;
+    padding-top: 8rem;
+  }
+  
   .modal-responsive-container {
     margin-top: 0;
     height: auto;
-    max-height: 90vh;
+    max-height: calc(100vh - 9rem);
     border-top: none;
   }
 }
