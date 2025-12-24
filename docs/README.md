@@ -10,6 +10,7 @@ This directory contains all project documentation for the Heretic Map Generator.
 - **[CONTRIBUTING.md](CONTRIBUTING.md)** - How to contribute to the project
 - **[DATA_TEMPLATE.md](DATA_TEMPLATE.md)** - Data structure and template reference
 - **[DIRECTORY_STRUCTURE.md](DIRECTORY_STRUCTURE.md)** - Project organization guide
+- **[ORACLE_SYSTEM.md](ORACLE_SYSTEM.md)** - Comprehensive oracle system documentation (200+ tables)
 
 ## Implementation Details
 - **[AESTHETIC_IMPROVEMENTS.md](AESTHETIC_IMPROVEMENTS.md)** - Recent visual enhancements (Phase 1-5)

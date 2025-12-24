@@ -14,13 +14,27 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
 - **Print-Ready**: Export maps to A4 format for physical use
 
 ### Reference Tools
-- **Oracles**: Instant access to frequently used tables
-  - Roll random Loot (d66)
+- **General Oracles**: Instant access to frequently used tables
+  - Roll Loot (d66)
+  - Roll Wander motivation
   - Generate complete NPCs with all attributes
-  - Roll character motivations (Why do you wander?)
-- **Full Table Browser**: Comprehensive modal with 100+ game tables
+  - Roll Encounters with complications
+  - Roll Complications (5 types)
+  - Roll Beasts/Creatures (7 attributes)
+  - Roll Signs (11 types: dungeon, city, wilderness, threats)
+  - Roll Hazards (11 types: natural, weather, terrain, unnatural, wildlife, resource loss, travel cost, misleading, dungeon entrance/room, city street)
+  - Roll Adventures (4 components)
+  - Roll Factions (8 attributes)
+- **Location Oracles**: Comprehensive location generation
+  - Roll Dungeon (overall characteristics)
+  - Roll Dungeon Room (room-specific details)
+  - Roll City (full city generation)
+  - Roll Neighborhood (sounds, smells, activity)
+  - Roll Street (size, shape, quality, buildings, encounters, exits)
+  - Roll Wilderness (temperature, visibility, discoveries, landmarks)
+- **Full Table Browser**: Comprehensive modal with 200+ game tables
   - Searchable by name or category
-  - Organized by type (Global, Character, Items, Roads, Locations)
+  - Organized by type (Encounters, Creatures, Hazards, Signs, Wilderness, City, Dungeon, NPCs, Adventures, Names, Items, and more)
   - Inline dice roller for any table
 - **Omens**: Roll for Oracle, Landscape, and Weather to set the scene
 
@@ -102,16 +116,32 @@ src/
 │   ├── AccordionSection.tsx   # Collapsible panel component
 │   ├── LocationModal.tsx      # Responsive location detail modal
 │   ├── LocationNode.tsx       # Individual location nodes
+│   ├── LocationOracles.tsx    # Location generation oracles (dungeon, city, wilderness)
 │   ├── MapCanvas.tsx          # SVG map with zoom/pan controls
 │   ├── MobileNav.tsx          # Mobile hamburger menu
-│   ├── Oracles.tsx            # Quick table rollers
+│   ├── NameOracles.tsx        # Name generation oracles
+│   ├── Oracles.tsx            # General oracles (encounters, beasts, signs, hazards, etc.)
 │   ├── ReferenceModal.tsx     # Full table browser modal
 │   ├── Road.tsx               # Road connections
 │   ├── RoadTooltip.tsx        # Responsive road detail popup
+│   ├── SaveLoadModal.tsx      # Save/load map functionality
 │   ├── Sidebar.tsx            # Main sidebar / mobile drawer
 │   ├── TableBrowser.tsx       # Table category navigation
 │   └── TableDisplay.tsx       # Table content viewer
 ├── data/              # Complete game tables and data
+│   ├── oracles/               # Oracle tables from Recluse supplement
+│   │   ├── recluse_adventure.ts   # Adventure generation
+│   │   ├── recluse_city.ts        # City, neighborhood, and street generation
+│   │   ├── recluse_creature.ts    # Beast and creature generation
+│   │   ├── recluse_dungeon.ts     # Dungeon and room generation
+│   │   ├── recluse_encounter.ts   # Encounter and complication tables
+│   │   ├── recluse_faction.ts     # Faction generation
+│   │   ├── recluse_general.ts     # General oracle tables (loot, wander, fate)
+│   │   ├── recluse_hazards.ts     # Comprehensive hazard tables
+│   │   ├── recluse_names.ts       # Name generation tables
+│   │   ├── recluse_npc.ts         # NPC generation
+│   │   ├── recluse_signs.ts       # Signs and omens (11 types)
+│   │   └── recluse_wilderness.ts  # Wilderness generation
 │   ├── regionTables.ts        # Territory-specific locations (d12)
 │   ├── locationTables.ts      # All 20 location sub-tables
 │   ├── roadTables.ts          # Road encounters & aesthetics
@@ -154,6 +184,7 @@ Comprehensive documentation is available in the [docs/](docs/) directory:
 
 - **[Quick Start Guide](docs/QUICKSTART.md)** - Get started quickly
 - **[Development Instructions](docs/INSTRUCTIONS.md)** - Detailed dev guide
+- **[Oracle System Guide](docs/ORACLE_SYSTEM.md)** - Complete oracle documentation (200+ tables)
 - **[Contributing Guide](docs/CONTRIBUTING.md)** - How to contribute
 - **[Data Templates](docs/DATA_TEMPLATE.md)** - Data structure reference
 - **[Implementation Notes](docs/AESTHETIC_IMPROVEMENTS.md)** - Recent changes
@@ -186,7 +217,11 @@ This project was created as a tool for MÖRK BORG players. Feel free to modify a
 - [x] ~~Add comprehensive table reference browser~~ ✅ Complete!
 - [x] ~~Add quick roller tools~~ ✅ Complete!
 - [x] ~~Create mobile-responsive design~~ ✅ Complete!
-- [ ] Implement save/load map functionality
+- [x] ~~Implement save/load map functionality~~ ✅ Complete!
+- [x] ~~Add comprehensive oracle system~~ ✅ Complete!
+  - [x] General oracles (encounters, beasts, signs, hazards, adventures, factions)
+  - [x] Location oracles (dungeon, city, neighborhood, street, wilderness)
+  - [x] Name generation oracles
 - [ ] Add map sharing via URL
 - [ ] Export maps as images
 - [ ] Add campaign tracking/notes
