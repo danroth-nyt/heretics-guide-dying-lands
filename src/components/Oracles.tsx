@@ -65,10 +65,27 @@ import {
   lostPeopleSignsTable,
   strangeOmensTable,
 } from '../data/oracles/recluse_signs';
+import {
+  naturalHazardsTable,
+  weatherDrivenHazardsTable,
+  terrainDangersTable,
+  unnaturalHazardsTable,
+  wildlifeHazardsTable,
+  resourceLossHazardsTable,
+  travelCostHazardsTable,
+  misleadingHazardsTable,
+} from '../data/oracles/recluse_hazards';
+import {
+  dungeonEntranceHazardsTable,
+  dungeonHazardsTable,
+} from '../data/oracles/recluse_dungeon';
+import {
+  streetHazardTable,
+} from '../data/oracles/recluse_city';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction' | 'complication' | 'beast' | 'signs';
-  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult | ComplicationResult | BeastResult | SignsResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction' | 'complication' | 'beast' | 'signs' | 'hazards';
+  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult | ComplicationResult | BeastResult | SignsResult | HazardsResult;
 }
 
 interface NPCResult {
@@ -139,6 +156,20 @@ interface SignsResult {
   traveler: string;
   lostPeople: string;
   strangeOmen: string;
+}
+
+interface HazardsResult {
+  natural: string;
+  weatherDriven: string;
+  terrain: string;
+  unnatural: string;
+  wildlife: string;
+  resourceLoss: string;
+  travelCost: string;
+  misleading: string;
+  dungeonEntrance: string;
+  dungeonRoom: string;
+  cityStreet: string;
 }
 
 const Oracles: React.FC = () => {
@@ -235,6 +266,25 @@ const Oracles: React.FC = () => {
     setLastRoll({
       type: 'signs',
       result: { dungeonEntrance, cityApproach, undercity, largeCreature, humanThreat, infestation, ambush, stalking, traveler, lostPeople, strangeOmen },
+    });
+  };
+
+  const rollHazards = () => {
+    const natural = rollOnTable(naturalHazardsTable);
+    const weatherDriven = rollOnTable(weatherDrivenHazardsTable);
+    const terrain = rollOnTable(terrainDangersTable);
+    const unnatural = rollOnTable(unnaturalHazardsTable);
+    const wildlife = rollOnTable(wildlifeHazardsTable);
+    const resourceLoss = rollOnTable(resourceLossHazardsTable);
+    const travelCost = rollOnTable(travelCostHazardsTable);
+    const misleading = rollOnTable(misleadingHazardsTable);
+    const dungeonEntrance = rollOnTable(dungeonEntranceHazardsTable);
+    const dungeonRoom = rollOnTable(dungeonHazardsTable);
+    const cityStreet = rollOnTable(streetHazardTable);
+
+    setLastRoll({
+      type: 'hazards',
+      result: { natural, weatherDriven, terrain, unnatural, wildlife, resourceLoss, travelCost, misleading, dungeonEntrance, dungeonRoom, cityStreet },
     });
   };
 
@@ -361,6 +411,28 @@ const Oracles: React.FC = () => {
       );
     }
 
+    if (lastRoll.type === 'hazards' && typeof lastRoll.result === 'object' && 'natural' in lastRoll.result) {
+      const hazards = lastRoll.result as HazardsResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Hazards:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Natural:</strong> {hazards.natural}</p>
+            <p><strong>Weather-Driven:</strong> {hazards.weatherDriven}</p>
+            <p><strong>Terrain:</strong> {hazards.terrain}</p>
+            <p><strong>Unnatural:</strong> {hazards.unnatural}</p>
+            <p><strong>Wildlife:</strong> {hazards.wildlife}</p>
+            <p><strong>Resource Loss:</strong> {hazards.resourceLoss}</p>
+            <p><strong>Travel Cost:</strong> {hazards.travelCost}</p>
+            <p><strong>Misleading:</strong> {hazards.misleading}</p>
+            <p><strong>Dungeon Entrance:</strong> {hazards.dungeonEntrance}</p>
+            <p><strong>Dungeon Room:</strong> {hazards.dungeonRoom}</p>
+            <p><strong>City Street:</strong> {hazards.cityStreet}</p>
+          </div>
+        </div>
+      );
+    }
+
     if (lastRoll.type === 'adventure' && typeof lastRoll.result === 'object' && 'incitingIncident' in lastRoll.result) {
       const adventure = lastRoll.result as AdventureResult;
       return (
@@ -454,6 +526,14 @@ const Oracles: React.FC = () => {
         >
           <Compass size={16} />
           Roll Signs
+        </button>
+
+        <button
+          onClick={rollHazards}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Swords size={16} />
+          Roll Hazards
         </button>
         
         <button

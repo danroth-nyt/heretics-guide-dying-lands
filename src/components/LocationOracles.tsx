@@ -76,7 +76,6 @@ import {
   remainsAndRuinsTable,
   strangeOmensTable,
   wildResourcesTable,
-  wildernessTerrainDangersTable,
   weatherShiftTable,
   weatherOmenSignsTable,
   naturalOdditiesTable,
@@ -85,8 +84,6 @@ import {
   signsOfLostPeopleTable,
   creatureSignsLargeTable,
   signsOfAmbushTable,
-  wildlifeHazardsTable,
-  resourceLossHazardsTable,
 } from '../data/oracles/recluse_wilderness';
 
 interface RollResult {
@@ -155,7 +152,6 @@ interface WildernessResult {
   remainsAndRuins: string;
   strangeOmen: string;
   wildResource: string;
-  terrainDanger: string;
   weatherShift: string;
   weatherOmenSign: string;
   naturalOddity: string;
@@ -164,8 +160,6 @@ interface WildernessResult {
   signsOfLostPeople: string;
   creatureSignsLarge: string;
   signsOfAmbush: string;
-  wildlifeHazard: string;
-  resourceLossHazard: string;
 }
 
 interface NeighborhoodResult {
@@ -322,7 +316,6 @@ const LocationOracles: React.FC = () => {
     const remainsAndRuins = rollOnTable(remainsAndRuinsTable);
     const strangeOmen = rollOnTable(strangeOmensTable);
     const wildResource = rollOnTable(wildResourcesTable);
-    const terrainDanger = rollOnTable(wildernessTerrainDangersTable);
     const weatherShift = rollOnTable(weatherShiftTable);
     const weatherOmenSign = rollOnTable(weatherOmenSignsTable);
     const naturalOddity = rollOnTable(naturalOdditiesTable);
@@ -331,8 +324,6 @@ const LocationOracles: React.FC = () => {
     const signsOfLostPeople = rollOnTable(signsOfLostPeopleTable);
     const creatureSignsLarge = rollOnTable(creatureSignsLargeTable);
     const signsOfAmbush = rollOnTable(signsOfAmbushTable);
-    const wildlifeHazard = rollOnTable(wildlifeHazardsTable);
-    const resourceLossHazard = rollOnTable(resourceLossHazardsTable);
 
     setLastRoll({
       type: 'wilderness',
@@ -345,7 +336,6 @@ const LocationOracles: React.FC = () => {
         remainsAndRuins,
         strangeOmen,
         wildResource,
-        terrainDanger,
         weatherShift,
         weatherOmenSign,
         naturalOddity,
@@ -354,8 +344,6 @@ const LocationOracles: React.FC = () => {
         signsOfLostPeople,
         creatureSignsLarge,
         signsOfAmbush,
-        wildlifeHazard,
-        resourceLossHazard,
       },
     });
   };
@@ -517,7 +505,6 @@ const LocationOracles: React.FC = () => {
             <p><strong>Remains & Ruins:</strong> {wild.remainsAndRuins}</p>
             <p><strong>Strange Omen:</strong> {wild.strangeOmen}</p>
             <p><strong>Wild Resource:</strong> {wild.wildResource}</p>
-            <p><strong>Terrain Danger:</strong> {wild.terrainDanger}</p>
             <p><strong>Weather Shift:</strong> {wild.weatherShift}</p>
             <p><strong>Weather Omen Sign:</strong> {wild.weatherOmenSign}</p>
             <p><strong>Natural Oddity:</strong> {wild.naturalOddity}</p>
@@ -526,8 +513,6 @@ const LocationOracles: React.FC = () => {
             <p><strong>Signs of Lost People:</strong> {wild.signsOfLostPeople}</p>
             <p><strong>Creature Signs:</strong> {wild.creatureSignsLarge}</p>
             <p><strong>Signs of Ambush:</strong> {wild.signsOfAmbush}</p>
-            <p><strong>Wildlife Hazard:</strong> {wild.wildlifeHazard}</p>
-            <p><strong>Resource Loss Hazard:</strong> {wild.resourceLossHazard}</p>
           </div>
         </div>
       );
