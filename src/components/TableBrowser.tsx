@@ -119,7 +119,6 @@ import {
   encounterContextTable,
   encounterDispositionTable,
   encounterGoalTable,
-  encounterComplicationsTable,
   socialNarrativeComplicationsTable,
   strangeMeetingsTable,
   arcaneEncountersTable,
