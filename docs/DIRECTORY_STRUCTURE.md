@@ -25,8 +25,9 @@ heretics-guide-dying-lands/
 │   ├── DEPLOYMENT.md           # Deployment guide
 │   ├── PROJECT_SUMMARY.md      # Project overview
 │   ├── IMPLEMENTATION_COMPLETE.md  # Feature notes
-│   ├── AESTHETIC_IMPROVEMENTS.md   # Visual enhancements
-│   ├── HORIZONTAL_OPTIMIZATION.md  # Landscape display optimization
+│   ├── AESTHETIC_IMPROVEMENTS.md   # Visual enhancements (Phase 1-6)
+│   ├── HORIZONTAL_OPTIMIZATION.md  # Desktop & mobile landscape optimization
+│   ├── ORACLE_SYSTEM.md        # Comprehensive oracle documentation
 │   └── DIRECTORY_STRUCTURE.md  # This file
 │
 ├── src/                        # 📁 SOURCE CODE
@@ -53,7 +54,7 @@ heretics-guide-dying-lands/
 │   │   └── TableDisplay.tsx     # Table content viewer
 │   │
 │   ├── data/                   # Game data tables
-│   │   ├── oracles/            # Recluse supplement oracle tables
+│   │   ├── oracles/            # Reclvse Version 1.9 oracle tables
 │   │   │   ├── recluse_adventure.ts   # Adventure generation
 │   │   │   ├── recluse_city.ts        # City, neighborhood, street generation
 │   │   │   ├── recluse_creature.ts    # Beast/creature generation
@@ -127,9 +128,10 @@ heretics-guide-dying-lands/
 - Config: `vite.config.ts`
 
 ### Recent Changes
-- Visual updates: `docs/AESTHETIC_IMPROVEMENTS.md`
-- Display optimization: `docs/HORIZONTAL_OPTIMIZATION.md`
+- Visual updates: `docs/AESTHETIC_IMPROVEMENTS.md` (Phase 1-6, includes landscape mobile optimization)
+- Display optimization: `docs/HORIZONTAL_OPTIMIZATION.md` (Desktop wide-screen + mobile landscape)
 - Features: `docs/IMPLEMENTATION_COMPLETE.md`
+- Oracle system: `docs/ORACLE_SYSTEM.md` (200+ tables from Reclvse Version 1.9)
 
 ## Navigation Tips
 

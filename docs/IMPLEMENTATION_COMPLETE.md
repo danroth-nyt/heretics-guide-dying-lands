@@ -54,9 +54,11 @@ The **HERETIC MAP GENERATOR** has been successfully implemented according to the
 ### 📱 Mobile Responsiveness
 - Full mobile and tablet support
 - Touch-optimized interface (44px minimum tap targets)
-- Mobile drawer navigation with hamburger menu
+- Mobile drawer navigation with hamburger menu (bottom-left portrait, top-left landscape)
 - Zoom and pan controls for map interaction
 - Responsive modals with bottom-sheet design
+- **Landscape Mobile Optimization** with 2-column modal layouts
+- Compact UI elements for horizontal viewing on small screens
 - Safe area support for notched devices
 - CSS media query-based responsive design (no runtime window checks)
 
@@ -101,8 +103,13 @@ Follow the step-by-step instructions in [INSTRUCTIONS.md](INSTRUCTIONS.md).
 ✅ **Responsive Design** - Works on desktop, tablet, and mobile  
 ✅ **Touch Controls** - Zoom, pan, and tap optimized for touch devices  
 ✅ **Mobile Navigation** - Slide-out drawer menu for mobile  
+✅ **Landscape Mobile Optimization** - 2-column layouts and compact UI for horizontal viewing  
 
 ---
+
+## Attribution
+
+Oracle tables are from **Reclvse Version 1.9**, properly credited in the application footer.
 
 ## Optional: Add PDF Data
 

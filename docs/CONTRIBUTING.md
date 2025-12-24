@@ -25,8 +25,8 @@ Thank you for your interest in improving this project!
 ### High Priority
 
 - **Complete PDF Data**: Fill in all location tables from the source material
-- **Mobile Responsiveness**: Improve layout for smaller screens
-- **Map Persistence**: Save/load maps to localStorage or JSON
+- ~~**Mobile Responsiveness**: Improve layout for smaller screens~~ ✅ Complete (including landscape optimization)!
+- ~~**Map Persistence**: Save/load maps to localStorage or JSON~~ ✅ Complete!
 
 ### Medium Priority
 
@@ -49,6 +49,7 @@ Before submitting:
 - [ ] No TypeScript errors
 - [ ] ESLint passes
 - [ ] All features work in Chrome, Firefox, Safari
+- [ ] Responsive design works on mobile (portrait and landscape)
 - [ ] Print functionality works correctly
 - [ ] No console errors
 

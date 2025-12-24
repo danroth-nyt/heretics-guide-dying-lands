@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Heretic Map Generator includes a comprehensive oracle system with 200+ tables from the Recluse supplement for MÖRK BORG's "Heretic's Guide to Dying Lands". This system provides instant random generation for virtually any game element you need during solo or GM-guided play.
+The Heretic Map Generator includes a comprehensive oracle system with 200+ tables from Reclvse Version 1.9 for MÖRK BORG's "Heretic's Guide to Dying Lands". This system provides instant random generation for virtually any game element you need during solo or GM-guided play.
 
 ## Oracle Categories
 

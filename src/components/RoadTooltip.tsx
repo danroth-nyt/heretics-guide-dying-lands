@@ -115,17 +115,17 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
     <>
       {/* Mobile: Full-screen modal with backdrop */}
       <div 
-        className="md:hidden fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in"
+        className="md:hidden fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop landscape-show-drawer fade-in"
         onClick={handleBackdropClick}
       >
-        <div className="mork-modal modal-responsive-container w-full flex flex-col overflow-hidden">
-          {/* Pull indicator */}
-          <div className="px-6 pt-2 pb-3">
+        <div className="mork-modal modal-responsive-container landscape-modal-container w-full flex flex-col overflow-hidden">
+          {/* Pull indicator - hidden in landscape */}
+          <div className="px-6 pt-2 pb-3 landscape-hide">
             <div className="pull-indicator"></div>
           </div>
 
-          {/* Sticky Header */}
-          <div className="flex-shrink-0 px-6 pb-4 border-b-2 border-mork-yellow">
+          {/* Sticky Header - Compact in landscape */}
+          <div className="flex-shrink-0 landscape-modal-header px-6 pb-4 border-b-2 border-mork-yellow">
             <div className="flex justify-between items-center gap-4">
               <h3 className="text-2xl font-pirata flex-1">Road Details</h3>
               <button
@@ -138,65 +138,67 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
             </div>
           </div>
 
-          {/* Scrollable Content */}
-          <div className="flex-1 overflow-y-auto px-6 py-4">
-            {/* Difficulty */}
-            <div className="mb-4 pb-4 border-b-2 border-mork-yellow">
-              <span className="text-base opacity-75">Difficulty: </span>
-              <span className={`text-xl font-bold uppercase ${getDifficultyColor()}`}>
-                {road.difficulty}
-              </span>
-            </div>
+          {/* Scrollable Content - 2 columns in landscape */}
+          <div className="flex-1 overflow-y-auto landscape-modal-body px-6 py-4">
+            <div className="landscape-modal-content">
+              {/* Difficulty */}
+              <div className="mb-4 pb-4 border-b-2 border-mork-yellow">
+                <span className="text-base opacity-75">Difficulty: </span>
+                <span className={`text-xl font-bold uppercase ${getDifficultyColor()}`}>
+                  {road.difficulty}
+                </span>
+              </div>
 
-            {/* Encounter */}
-            <div className="mb-4 pb-4 border-b-2 border-mork-yellow">
-              <h4 className="text-xl font-pirata text-mork-pink mb-2">Encounter:</h4>
-              <p className="text-base leading-relaxed">{road.encounter}</p>
-            </div>
+              {/* Encounter */}
+              <div className="mb-4 pb-4 border-b-2 border-mork-yellow">
+                <h4 className="text-xl font-pirata text-mork-pink mb-2">Encounter:</h4>
+                <p className="text-base leading-relaxed">{road.encounter}</p>
+              </div>
 
-            {/* Opportunity */}
-            <div className="mb-4 pb-4 border-b-2 border-mork-yellow">
-              <h4 className="text-xl font-pirata text-mork-pink mb-2">Opportunity:</h4>
-              <p className="text-base leading-relaxed">{road.opportunity}</p>
-            </div>
+              {/* Opportunity */}
+              <div className="mb-4 pb-4 border-b-2 border-mork-yellow">
+                <h4 className="text-xl font-pirata text-mork-pink mb-2">Opportunity:</h4>
+                <p className="text-base leading-relaxed">{road.opportunity}</p>
+              </div>
 
-            {/* Aesthetics */}
-            <div className="mb-4">
-              <h4 className="text-xl font-pirata text-mork-pink mb-3">Aesthetics:</h4>
-              <div className="grid grid-cols-2 gap-3 text-sm">
-                <div>
-                  <span className="opacity-75 block mb-1">Usage:</span>
-                  <p className="font-semibold">{road.aesthetics.usage}</p>
-                </div>
-                <div>
-                  <span className="opacity-75 block mb-1">Age:</span>
-                  <p className="font-semibold">{road.aesthetics.age}</p>
-                </div>
-                <div>
-                  <span className="opacity-75 block mb-1">Smell:</span>
-                  <p className="font-semibold">{road.aesthetics.smell}</p>
-                </div>
-                <div>
-                  <span className="opacity-75 block mb-1">Wanderers:</span>
-                  <p className="font-semibold">{road.aesthetics.wanderers}</p>
-                </div>
-                <div className="col-span-2">
-                  <span className="opacity-75 block mb-1">Surface:</span>
-                  <p className="font-semibold">{road.aesthetics.surface}</p>
+              {/* Aesthetics */}
+              <div className="mb-4">
+                <h4 className="text-xl font-pirata text-mork-pink mb-3">Aesthetics:</h4>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <span className="opacity-75 block mb-1">Usage:</span>
+                    <p className="font-semibold">{road.aesthetics.usage}</p>
+                  </div>
+                  <div>
+                    <span className="opacity-75 block mb-1">Age:</span>
+                    <p className="font-semibold">{road.aesthetics.age}</p>
+                  </div>
+                  <div>
+                    <span className="opacity-75 block mb-1">Smell:</span>
+                    <p className="font-semibold">{road.aesthetics.smell}</p>
+                  </div>
+                  <div>
+                    <span className="opacity-75 block mb-1">Wanderers:</span>
+                    <p className="font-semibold">{road.aesthetics.wanderers}</p>
+                  </div>
+                  <div className="col-span-2">
+                    <span className="opacity-75 block mb-1">Surface:</span>
+                    <p className="font-semibold">{road.aesthetics.surface}</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Sticky Actions Footer */}
-          <div className="flex-shrink-0 modal-footer-responsive px-6 pt-4 border-t-2 border-mork-yellow bg-mork-black">
+          {/* Sticky Actions Footer - Compact in landscape */}
+          <div className="flex-shrink-0 modal-footer-responsive landscape-compact-buttons px-6 pt-4 border-t-2 border-mork-yellow bg-mork-black">
             <div className="flex gap-3">
               <button
                 onClick={() => onReroll(road)}
                 className="mork-button flex-1 flex items-center justify-center gap-2"
               >
                 <RefreshCw size={16} />
-                Reroll
+                <span className="landscape-button-text">Reroll</span>
               </button>
               <button
                 onClick={onClose}

@@ -13,8 +13,8 @@ This directory contains all project documentation for the Heretic Map Generator.
 - **[ORACLE_SYSTEM.md](ORACLE_SYSTEM.md)** - Comprehensive oracle system documentation (200+ tables)
 
 ## Implementation Details
-- **[AESTHETIC_IMPROVEMENTS.md](AESTHETIC_IMPROVEMENTS.md)** - Recent visual enhancements (Phase 1-5)
-- **[HORIZONTAL_OPTIMIZATION.md](HORIZONTAL_OPTIMIZATION.md)** - Landscape display optimization
+- **[AESTHETIC_IMPROVEMENTS.md](AESTHETIC_IMPROVEMENTS.md)** - Recent visual enhancements (Phase 1-6)
+- **[HORIZONTAL_OPTIMIZATION.md](HORIZONTAL_OPTIMIZATION.md)** - Desktop wide-screen & mobile landscape optimization
 - **[IMPLEMENTATION_COMPLETE.md](IMPLEMENTATION_COMPLETE.md)** - Feature completion notes
 - **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - Overall project summary
 

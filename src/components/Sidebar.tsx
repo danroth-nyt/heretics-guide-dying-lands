@@ -260,6 +260,9 @@ const Sidebar: React.FC<SidebarProps> = ({
           Based on Heretic's Guide to Dying Lands
         </p>
         <p className="text-xs opacity-50 mt-1">
+          Oracle tables from Reclvse Version 1.9
+        </p>
+        <p className="text-xs opacity-50 mt-1">
           For MÖRK BORG
         </p>
       </div>

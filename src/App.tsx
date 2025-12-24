@@ -107,8 +107,8 @@ function App() {
 
   return (
     <div className="flex h-full min-h-screen overflow-hidden">
-      {/* Desktop Sidebar - Hidden on mobile */}
-      <div className="hidden md:block">
+      {/* Desktop Sidebar - Hidden on mobile and landscape mobile */}
+      <div className="hidden md:block landscape-hide-sidebar">
         <Sidebar
           selectedTerritory={selectedTerritory}
           onTerritoryChange={handleTerritoryChange}
@@ -125,7 +125,7 @@ function App() {
       {/* Mobile Drawer Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/80 md:hidden fade-in"
+          className="fixed inset-0 bg-black/80 md:hidden landscape-show-drawer fade-in"
           style={{ zIndex: 9998 }}
           onClick={() => setIsMobileMenuOpen(false)}
         >
@@ -186,18 +186,20 @@ function App() {
       />
       
       <main className="flex-1 relative overflow-hidden h-full">
-        {/* Title Bar */}
-        <div className="absolute top-0 left-0 right-0 bg-mork-black text-mork-yellow p-3 md:p-6 border-b-4 border-mork-black no-print" style={{ zIndex: 5 }}>
-          <h1 className="mork-title text-center text-2xl md:text-4xl lg:text-5xl">
-            HERETIC MAP GENERATOR
-          </h1>
-          <p className="text-center text-xs md:text-sm mt-1 md:mt-2 opacity-75 font-elite">
-            FOR THE DYING LANDS
-          </p>
+        {/* Title Bar - Compact in landscape */}
+        <div className="absolute top-0 left-0 right-0 bg-mork-black text-mork-yellow p-3 md:p-6 border-b-4 border-mork-black no-print landscape-compact-header" style={{ zIndex: 5 }}>
+          <div className="landscape-inline-header">
+            <h1 className="mork-title text-center text-2xl md:text-4xl lg:text-5xl">
+              HERETIC MAP GENERATOR
+            </h1>
+            <p className="text-center text-xs md:text-sm mt-1 md:mt-2 opacity-75 font-elite">
+              FOR THE DYING LANDS
+            </p>
+          </div>
         </div>
 
         {/* Map Canvas - Full coverage to bottom with padding for UI elements */}
-        <div className="absolute top-16 md:top-28 left-0 right-0 bottom-0 mork-background overflow-hidden">
+        <div className="absolute top-16 md:top-28 landscape-map-offset left-0 right-0 bottom-0 mork-background overflow-hidden">
           {nodes.length === 0 ? (
             <div className="w-full h-full flex items-center justify-center px-8 py-12">
               <div className="text-center mork-panel max-w-md mx-auto" style={{ marginTop: '2rem' }}>
