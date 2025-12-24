@@ -581,3 +581,287 @@ export const signsOfUndercityTable: Table = {
   ],
 };
 
+// --- NEIGHBORHOOD GENERATION (Pages 70-71) ---
+
+export const neighborhoodSoundTable: Table = {
+  name: 'Neighborhood Sound (d12)',
+  entries: [
+    { roll: 1, result: 'Vendors shouting' },
+    { roll: 2, result: 'Children playing' },
+    { roll: 3, result: 'Chanting' },
+    { roll: 4, result: 'Hammers striking metal' },
+    { roll: 5, result: 'Rumbling machinery' },
+    { roll: 6, result: 'Fighting in the distance' },
+    { roll: 7, result: 'Prayers' },
+    { roll: 8, result: 'Wind through alleys' },
+    { roll: 9, result: 'Music' },
+    { roll: 10, result: 'Animal noise' },
+    { roll: 11, result: 'Screaming' },
+    { roll: 12, result: 'Unsettling silence' },
+  ],
+};
+
+export const neighborhoodSmellTable: Table = {
+  name: 'Neighborhood Smell (d12)',
+  entries: [
+    { roll: 1, result: 'Boiling stew' },
+    { roll: 2, result: 'Rotting fish' },
+    { roll: 3, result: 'Burning refuse' },
+    { roll: 4, result: 'Incense' },
+    { roll: 5, result: 'Blood' },
+    { roll: 6, result: 'Ale and sweat' },
+    { roll: 7, result: 'Chemical chemicals' },
+    { roll: 8, result: 'Mud and filth' },
+    { roll: 9, result: 'Oils and perfumes' },
+    { roll: 10, result: 'Smoke' },
+    { roll: 11, result: 'Miasma and sickness' },
+    { roll: 12, result: 'Fresh flowers (suspiciously pleasant)' },
+  ],
+};
+
+export const neighborhoodActivityTable: Table = {
+  name: 'Neighborhood Activity (d10)',
+  entries: [
+    { roll: 1, result: 'Street festival' },
+    { roll: 2, result: 'Protests or crowd gathering' },
+    { roll: 3, result: 'Guard patrols in formation' },
+    { roll: 4, result: 'A chase underway' },
+    { roll: 5, result: 'People hiding indoors' },
+    { roll: 6, result: 'Merchants loudly competing' },
+    { roll: 7, result: 'Workers hauling goods' },
+    { roll: 8, result: 'Religious procession' },
+    { roll: 9, result: 'A tense standoff' },
+    { roll: 10, result: 'A strange stillness' },
+  ],
+};
+
+// --- STREET GENERATION (Pages 72-75) ---
+
+export const streetSizeTable: Table = {
+  name: 'Street Size (d6)',
+  entries: [
+    { roll: 1, result: 'Extremely narrow passage' },
+    { roll: 2, result: 'Narrow alley' },
+    { roll: 3, result: 'Average street' },
+    { roll: 4, result: 'Broad, busy road' },
+    { roll: 5, result: 'Large open thoroughfare' },
+    { roll: 6, result: 'Massive intersection or plaza' },
+  ],
+};
+
+export const streetShapeTable: Table = {
+  name: 'Street Shape (d12)',
+  entries: [
+    { roll: 1, result: 'Straight line' },
+    { roll: 2, result: 'Gentle curve' },
+    { roll: 3, result: 'Sharp turn' },
+    { roll: 4, result: 'Steep incline' },
+    { roll: 5, result: 'Steps up' },
+    { roll: 6, result: 'Steps down' },
+    { roll: 7, result: 'Forking \'Y\' shape' },
+    { roll: 8, result: 'T-intersection' },
+    { roll: 9, result: 'Circular courtyard' },
+    { roll: 10, result: 'Winding maze-like path' },
+    { roll: 11, result: 'Elevated walkway' },
+    { roll: 12, result: 'Lower pit-like street' },
+  ],
+};
+
+export const streetQualityTable: Table = {
+  name: 'Street Quality (d20)',
+  entries: [
+    { roll: 1, result: 'Crumbling' },
+    { roll: 2, result: 'Heavily damaged' },
+    { roll: 3, result: 'Flooded' },
+    { roll: 4, result: 'Smoke-filled' },
+    { roll: 5, result: 'Light debris' },
+    { roll: 6, result: 'Ruinous' },
+    { roll: 7, result: 'Well-maintained' },
+    { roll: 8, result: 'Recently rebuilt' },
+    { roll: 9, result: 'Slick and dangerous' },
+    { roll: 10, result: 'Rubble-strewn' },
+    { roll: 11, result: 'Oil-smeared' },
+    { roll: 12, result: 'Filth-choked' },
+    { roll: 13, result: 'Rough but usable' },
+    { roll: 14, result: 'Stacked with junk' },
+    { roll: 15, result: 'Graffiti-covered' },
+    { roll: 16, result: 'Battered by riots' },
+    { roll: 17, result: 'Haunted by strange lights' },
+    { roll: 18, result: 'Corpses or remains present' },
+    { roll: 19, result: 'Deserted or eerie' },
+    { roll: 20, result: 'Festive or decorated' },
+  ],
+};
+
+export const streetLightLevelTable: Table = {
+  name: 'Street Light Level (d6)',
+  entries: [
+    { roll: 1, result: 'Bright' },
+    { roll: 2, result: 'Dim lanterns' },
+    { roll: 3, result: 'Flickering torchlight' },
+    { roll: 4, result: 'Patchy light' },
+    { roll: 5, result: 'Shadow-covered' },
+    { roll: 6, result: 'Fully dark' },
+  ],
+};
+
+export const streetNoiseLevelTable: Table = {
+  name: 'Street Noise Level (d12)',
+  entries: [
+    { roll: 1, result: 'Loud shouting' },
+    { roll: 2, result: 'Merchant cries' },
+    { roll: 3, result: 'Crowd noise' },
+    { roll: 4, result: 'Music' },
+    { roll: 5, result: 'Arguments' },
+    { roll: 6, result: 'Clashing metal' },
+    { roll: 7, result: 'Running footsteps' },
+    { roll: 8, result: 'Whispering' },
+    { roll: 9, result: 'Distant screams' },
+    { roll: 10, result: 'Rumbling' },
+    { roll: 11, result: 'Strange chanting' },
+    { roll: 12, result: 'Complete silence' },
+  ],
+};
+
+export const streetBuildingsTable: Table = {
+  name: 'Street Buildings (d36)',
+  entries: [
+    { roll: 1, result: 'Tavern' },
+    { roll: 2, result: 'Inn' },
+    { roll: 3, result: 'Butcher' },
+    { roll: 4, result: 'Tailor' },
+    { roll: 5, result: 'Smithy' },
+    { roll: 6, result: 'Market stall' },
+    { roll: 7, result: 'Healer' },
+    { roll: 8, result: 'Bookshop' },
+    { roll: 9, result: 'Bakery' },
+    { roll: 10, result: 'Temple' },
+    { roll: 11, result: 'Gambling den' },
+    { roll: 12, result: 'Bathhouse' },
+    { roll: 13, result: 'Guard post' },
+    { roll: 14, result: 'Warehouse' },
+    { roll: 15, result: 'Abandoned home' },
+    { roll: 16, result: 'Merchant shop' },
+    { roll: 17, result: 'Courtyard' },
+    { roll: 18, result: 'Barracks' },
+    { roll: 19, result: 'Makeshift shanty' },
+    { roll: 20, result: 'Ruined structure' },
+    { roll: 21, result: 'Mansion' },
+    { roll: 22, result: 'Guildhouse' },
+    { roll: 23, result: 'School / academy' },
+    { roll: 24, result: 'Watchtower' },
+    { roll: 25, result: 'Hidden shrine' },
+    { roll: 26, result: 'Secret room' },
+    { roll: 27, result: 'Cult site' },
+    { roll: 28, result: 'Underground entrance' },
+    { roll: 29, result: 'Black market stall' },
+    { roll: 30, result: 'Room for rent' },
+    { roll: 31, result: 'Craftsman workshop' },
+    { roll: 32, result: 'Carpenter' },
+    { roll: 33, result: 'Stable' },
+    { roll: 34, result: 'Clinic' },
+    { roll: 35, result: 'Library' },
+    { roll: 36, result: 'Fortune teller' },
+  ],
+};
+
+export const streetHazardTable: Table = {
+  name: 'Street Hazard (d19)',
+  entries: [
+    { roll: 1, result: 'Falling debris' },
+    { roll: 2, result: 'Loose stones' },
+    { roll: 3, result: 'Flooded street' },
+    { roll: 4, result: 'Riot nearby' },
+    { roll: 5, result: 'Guard crackdown' },
+    { roll: 6, result: 'Mugging attempt' },
+    { roll: 7, result: 'Wagon out of control' },
+    { roll: 8, result: 'Fire outbreak' },
+    { roll: 9, result: 'Gas leak or fumes' },
+    { roll: 10, result: 'Sudden crowd surge' },
+    { roll: 11, result: 'Magic misfire' },
+    { roll: 12, result: 'Collapsing balcony' },
+    { roll: 13, result: 'Hidden drop' },
+    { roll: 14, result: 'Slippery muck' },
+    { roll: 15, result: 'Knife fight spills into street' },
+    { roll: 16, result: 'Disease cloud' },
+    { roll: 17, result: 'Unstable scaffolding' },
+    { roll: 18, result: 'Tangle of barbed wire' },
+    { roll: 19, result: 'Strange blackout' },
+  ],
+};
+
+export const streetDiscoveryTable: Table = {
+  name: 'Street Discovery (d19)',
+  entries: [
+    { roll: 1, result: 'Hidden alley' },
+    { roll: 2, result: 'Secret note' },
+    { roll: 3, result: 'Abandoned satchel' },
+    { roll: 4, result: 'Blood trail' },
+    { roll: 5, result: 'Map fragment' },
+    { roll: 6, result: 'Magical residue' },
+    { roll: 7, result: 'Lost key' },
+    { roll: 8, result: 'Wanted poster' },
+    { roll: 9, result: 'Strange footprints' },
+    { roll: 10, result: 'Whispered rumor' },
+    { roll: 11, result: 'Marked doorway' },
+    { roll: 12, result: 'Unusual coin' },
+    { roll: 13, result: 'Broken amulet' },
+    { roll: 14, result: 'Ritual signal' },
+    { roll: 15, result: 'Clue about someone missing' },
+    { roll: 16, result: 'Hidden grate' },
+    { roll: 17, result: 'Item someone dropped recently' },
+    { roll: 18, result: 'Someone watching from above' },
+    { roll: 19, result: 'A clue pointing to a quest reveal' },
+  ],
+};
+
+export const streetEncounterTable: Table = {
+  name: 'Street Encounter (d20)',
+  entries: [
+    { roll: 1, result: 'Pickpocket' },
+    { roll: 2, result: 'Street preacher' },
+    { roll: 3, result: 'Cultist' },
+    { roll: 4, result: 'Guard' },
+    { roll: 5, result: 'Merchant' },
+    { roll: 6, result: 'Drunk troublemaker' },
+    { roll: 7, result: 'Gang members' },
+    { roll: 8, result: 'Beggar' },
+    { roll: 9, result: 'Spy' },
+    { roll: 10, result: 'Child thief' },
+    { roll: 11, result: 'Wounded person' },
+    { roll: 12, result: 'Assassin' },
+    { roll: 13, result: 'Animal' },
+    { roll: 14, result: 'Rival wanderer' },
+    { roll: 15, result: 'Monster in disguise' },
+    { roll: 16, result: 'Corrupt official' },
+    { roll: 17, result: 'Apprentice mage' },
+    { roll: 18, result: 'Runaway prisoner' },
+    { roll: 19, result: 'Frantic messenger' },
+    { roll: 20, result: 'Something dangerous from below' },
+  ],
+};
+
+export const streetExitsCountTable: Table = {
+  name: 'Street Exits Count (d6)',
+  entries: [
+    { roll: 1, result: 'One' },
+    { roll: 2, result: 'One' },
+    { roll: 3, result: 'Two' },
+    { roll: 4, result: 'Two' },
+    { roll: 5, result: 'Three' },
+    { roll: 6, result: 'Many (3 or more)' },
+  ],
+};
+
+export const streetExitTypeTable: Table = {
+  name: 'Street Exit Type (d6)',
+  entries: [
+    { roll: 1, result: 'Alleyway' },
+    { roll: 2, result: 'Main road' },
+    { roll: 3, result: 'Stairs up' },
+    { roll: 4, result: 'Stairs down' },
+    { roll: 5, result: 'Archway or gate' },
+    { roll: 6, result: 'Hidden/concealed path' },
+  ],
+};
+

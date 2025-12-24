@@ -32,7 +32,26 @@ import {
   neighborhoodAttitudeTable,
   neighborhoodProblemTable,
   neighborhoodSecretTable,
+  neighborhoodTypeTable,
+  neighborhoodSoundTable,
+  neighborhoodSmellTable,
+  neighborhoodActivityTable,
   streetNoiseTable,
+  streetSizeTable,
+  streetShapeTable,
+  streetQualityTable,
+  streetSurfaceTable,
+  streetSmellTable,
+  streetFeatureTable,
+  streetLightLevelTable,
+  streetNoiseLevelTable,
+  streetActivityTable,
+  streetBuildingsTable,
+  streetHazardTable,
+  streetDiscoveryTable,
+  streetEncounterTable,
+  streetExitsCountTable,
+  streetExitTypeTable,
   buildingExteriorTable,
   buildingNotableObjectTable,
   socialDiscoveriesTable,
@@ -62,8 +81,8 @@ import {
 } from '../data/oracles/recluse_wilderness';
 
 interface RollResult {
-  type: 'dungeonRoom' | 'city' | 'wilderness';
-  result: DungeonRoomResult | CityResult | WildernessResult;
+  type: 'dungeonRoom' | 'city' | 'wilderness' | 'neighborhood' | 'street';
+  result: DungeonRoomResult | CityResult | WildernessResult | NeighborhoodResult | StreetResult;
 }
 
 interface DungeonRoomResult {
@@ -126,6 +145,35 @@ interface WildernessResult {
   signsOfAmbush: string;
   wildlifeHazard: string;
   resourceLossHazard: string;
+}
+
+interface NeighborhoodResult {
+  type: string;
+  mood: string;
+  sound: string;
+  smell: string;
+  activity: string;
+  problem: string;
+  secret: string;
+  attitude: string;
+}
+
+interface StreetResult {
+  size: string;
+  shape: string;
+  quality: string;
+  surface: string;
+  lightLevel: string;
+  noiseLevel: string;
+  smell: string;
+  features: string;
+  activity: string;
+  buildings: string;
+  hazard: string;
+  discovery: string;
+  encounter: string;
+  exitsCount: string;
+  exitType: string;
 }
 
 const LocationOracles: React.FC = () => {
@@ -264,6 +312,70 @@ const LocationOracles: React.FC = () => {
     });
   };
 
+  const rollNeighborhood = () => {
+    const type = rollOnTable(neighborhoodTypeTable);
+    const mood = rollOnTable(neighborhoodMoodTable);
+    const sound = rollOnTable(neighborhoodSoundTable);
+    const smell = rollOnTable(neighborhoodSmellTable);
+    const activity = rollOnTable(neighborhoodActivityTable);
+    const problem = rollOnTable(neighborhoodProblemTable);
+    const secret = rollOnTable(neighborhoodSecretTable);
+    const attitude = rollOnTable(neighborhoodAttitudeTable);
+
+    setLastRoll({
+      type: 'neighborhood',
+      result: {
+        type,
+        mood,
+        sound,
+        smell,
+        activity,
+        problem,
+        secret,
+        attitude,
+      },
+    });
+  };
+
+  const rollStreet = () => {
+    const size = rollOnTable(streetSizeTable);
+    const shape = rollOnTable(streetShapeTable);
+    const quality = rollOnTable(streetQualityTable);
+    const surface = rollOnTable(streetSurfaceTable);
+    const lightLevel = rollOnTable(streetLightLevelTable);
+    const noiseLevel = rollOnTable(streetNoiseLevelTable);
+    const smell = rollOnTable(streetSmellTable);
+    const features = rollOnTable(streetFeatureTable);
+    const activity = rollOnTable(streetActivityTable);
+    const buildings = rollOnTable(streetBuildingsTable);
+    const hazard = rollOnTable(streetHazardTable);
+    const discovery = rollOnTable(streetDiscoveryTable);
+    const encounter = rollOnTable(streetEncounterTable);
+    const exitsCount = rollOnTable(streetExitsCountTable);
+    const exitType = rollOnTable(streetExitTypeTable);
+
+    setLastRoll({
+      type: 'street',
+      result: {
+        size,
+        shape,
+        quality,
+        surface,
+        lightLevel,
+        noiseLevel,
+        smell,
+        features,
+        activity,
+        buildings,
+        hazard,
+        discovery,
+        encounter,
+        exitsCount,
+        exitType,
+      },
+    });
+  };
+
   const renderResult = () => {
     if (!lastRoll) return null;
 
@@ -352,6 +464,51 @@ const LocationOracles: React.FC = () => {
         </div>
       );
     }
+
+    if (lastRoll.type === 'neighborhood') {
+      const neighborhood = lastRoll.result as NeighborhoodResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Neighborhood:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Type:</strong> {neighborhood.type}</p>
+            <p><strong>Mood:</strong> {neighborhood.mood}</p>
+            <p><strong>Sound:</strong> {neighborhood.sound}</p>
+            <p><strong>Smell:</strong> {neighborhood.smell}</p>
+            <p><strong>Activity:</strong> {neighborhood.activity}</p>
+            <p><strong>Problem:</strong> {neighborhood.problem}</p>
+            <p><strong>Secret:</strong> {neighborhood.secret}</p>
+            <p><strong>Attitude:</strong> {neighborhood.attitude}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (lastRoll.type === 'street') {
+      const street = lastRoll.result as StreetResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Street:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Size:</strong> {street.size}</p>
+            <p><strong>Shape:</strong> {street.shape}</p>
+            <p><strong>Quality:</strong> {street.quality}</p>
+            <p><strong>Surface:</strong> {street.surface}</p>
+            <p><strong>Light Level:</strong> {street.lightLevel}</p>
+            <p><strong>Noise Level:</strong> {street.noiseLevel}</p>
+            <p><strong>Smell:</strong> {street.smell}</p>
+            <p><strong>Features:</strong> {street.features}</p>
+            <p><strong>Activity:</strong> {street.activity}</p>
+            <p><strong>Buildings:</strong> {street.buildings}</p>
+            <p><strong>Hazard:</strong> {street.hazard}</p>
+            <p><strong>Discovery:</strong> {street.discovery}</p>
+            <p><strong>Encounter:</strong> {street.encounter}</p>
+            <p><strong>Exits Count:</strong> {street.exitsCount}</p>
+            <p><strong>Exit Type:</strong> {street.exitType}</p>
+          </div>
+        </div>
+      );
+    }
   };
 
   return (
@@ -374,6 +531,22 @@ const LocationOracles: React.FC = () => {
         </button>
 
         <button
+          onClick={rollNeighborhood}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Building2 size={16} />
+          Roll Neighborhood
+        </button>
+
+        <button
+          onClick={rollStreet}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Building2 size={16} />
+          Roll Street
+        </button>
+
+        <button
           onClick={rollWilderness}
           className="mork-button text-sm flex items-center justify-center gap-2"
         >
@@ -388,4 +561,5 @@ const LocationOracles: React.FC = () => {
 };
 
 export default LocationOracles;
+
 
