@@ -262,7 +262,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     height: auto;
     max-height: calc(100vh - 9rem);
-    border-top: none;
+    border-top: 6px solid var(--mork-yellow);
   }
 }
 
