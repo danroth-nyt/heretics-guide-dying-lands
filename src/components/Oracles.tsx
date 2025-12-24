@@ -52,10 +52,23 @@ import {
   beastAppearanceTable,
   wildlifeTypeTable,
 } from '../data/oracles/recluse_creature';
+import {
+  dungeonEntranceSignsTable,
+  cityApproachSignsTable,
+  undercitySignsTable,
+  largeCreatureSignsTable,
+  humanThreatSignsTable,
+  infestationSignsTable,
+  ambushSignsTable,
+  stalkingSignsTable,
+  travelerSignsTable,
+  lostPeopleSignsTable,
+  strangeOmensTable,
+} from '../data/oracles/recluse_signs';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction' | 'complication' | 'beast';
-  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult | ComplicationResult | BeastResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction' | 'complication' | 'beast' | 'signs';
+  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult | ComplicationResult | BeastResult | SignsResult;
 }
 
 interface NPCResult {
@@ -112,6 +125,20 @@ interface BeastResult {
   behavior: string;
   appearance: string;
   wildlife: string;
+}
+
+interface SignsResult {
+  dungeonEntrance: string;
+  cityApproach: string;
+  undercity: string;
+  largeCreature: string;
+  humanThreat: string;
+  infestation: string;
+  ambush: string;
+  stalking: string;
+  traveler: string;
+  lostPeople: string;
+  strangeOmen: string;
 }
 
 const Oracles: React.FC = () => {
@@ -189,6 +216,25 @@ const Oracles: React.FC = () => {
     setLastRoll({
       type: 'beast',
       result: { creatureType, armor, morale, damage, behavior, appearance, wildlife },
+    });
+  };
+
+  const rollSigns = () => {
+    const dungeonEntrance = rollOnTable(dungeonEntranceSignsTable);
+    const cityApproach = rollOnTable(cityApproachSignsTable);
+    const undercity = rollOnTable(undercitySignsTable);
+    const largeCreature = rollOnTable(largeCreatureSignsTable);
+    const humanThreat = rollOnTable(humanThreatSignsTable);
+    const infestation = rollOnTable(infestationSignsTable);
+    const ambush = rollOnTable(ambushSignsTable);
+    const stalking = rollOnTable(stalkingSignsTable);
+    const traveler = rollOnTable(travelerSignsTable);
+    const lostPeople = rollOnTable(lostPeopleSignsTable);
+    const strangeOmen = rollOnTable(strangeOmensTable);
+
+    setLastRoll({
+      type: 'signs',
+      result: { dungeonEntrance, cityApproach, undercity, largeCreature, humanThreat, infestation, ambush, stalking, traveler, lostPeople, strangeOmen },
     });
   };
 
@@ -293,6 +339,28 @@ const Oracles: React.FC = () => {
       );
     }
 
+    if (lastRoll.type === 'signs' && typeof lastRoll.result === 'object' && 'dungeonEntrance' in lastRoll.result) {
+      const signs = lastRoll.result as SignsResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Signs:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Dungeon Entrance:</strong> {signs.dungeonEntrance}</p>
+            <p><strong>City Approach:</strong> {signs.cityApproach}</p>
+            <p><strong>Undercity:</strong> {signs.undercity}</p>
+            <p><strong>Large Creature:</strong> {signs.largeCreature}</p>
+            <p><strong>Human Threat:</strong> {signs.humanThreat}</p>
+            <p><strong>Infestation:</strong> {signs.infestation}</p>
+            <p><strong>Ambush:</strong> {signs.ambush}</p>
+            <p><strong>Stalking:</strong> {signs.stalking}</p>
+            <p><strong>Traveler:</strong> {signs.traveler}</p>
+            <p><strong>Lost People:</strong> {signs.lostPeople}</p>
+            <p><strong>Strange Omen:</strong> {signs.strangeOmen}</p>
+          </div>
+        </div>
+      );
+    }
+
     if (lastRoll.type === 'adventure' && typeof lastRoll.result === 'object' && 'incitingIncident' in lastRoll.result) {
       const adventure = lastRoll.result as AdventureResult;
       return (
@@ -378,6 +446,14 @@ const Oracles: React.FC = () => {
         >
           <Swords size={16} />
           Roll Beast
+        </button>
+
+        <button
+          onClick={rollSigns}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Compass size={16} />
+          Roll Signs
         </button>
         
         <button
