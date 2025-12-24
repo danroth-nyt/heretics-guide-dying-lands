@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2, Trees, MapPin, Type } from 'lucide-react';
+import { Dices, User, Compass, Swords, Users } from 'lucide-react';
 import { rollOnTable } from '../utils/tableLookup';
 import {
   lootTable,
@@ -21,26 +21,6 @@ import {
   encounterGoalTable,
 } from '../data/oracles/recluse_encounter';
 import {
-  dungeonOriginTable,
-  dungeonThemeTable,
-  dungeonRoomArchitectureTable,
-  dungeonRoomDressingTable,
-  dungeonInhabitantsTable,
-  dungeonPrimaryMotiveTable,
-  entranceFirstImpressionTable,
-  entranceImmediateChallengeTable,
-  entrancePossibleHelpTable,
-  roomAtmosphereTable,
-  roomSizeDetailedTable,
-  roomExitCountTable,
-  roomExitTypeTable,
-  roomShapeTable,
-  roomSoundsTable,
-  roomSmellsTable,
-  roomEncounterTable,
-  roomLootTable,
-} from '../data/oracles/recluse_dungeon';
-import {
   factionPlotHooksTable,
   factionOriginsTable,
   factionPurposeTable,
@@ -55,56 +35,10 @@ import {
   adventureDangerHeartTable,
   adventureTwistTable,
 } from '../data/oracles/recluse_adventure';
-import {
-  wildernessTemperatureTable,
-  wildernessVisibilityTable,
-  unnaturalWeatherTable,
-  minorNaturalDiscoveriesTable,
-  signsOfTravelersTable,
-  remainsAndRuinsTable,
-  strangeOmensTable,
-  wildResourcesTable,
-  wildernessTerrainDangersTable,
-  weatherShiftTable,
-  weatherOmenSignsTable,
-  naturalOdditiesTable,
-  landmarkWaterTable,
-  landmarkDetailsTable,
-  signsOfLostPeopleTable,
-  creatureSignsLargeTable,
-  signsOfAmbushTable,
-  wildlifeHazardsTable,
-  resourceLossHazardsTable,
-} from '../data/oracles/recluse_wilderness';
-import {
-  cityOriginTable,
-  cityConditionTable,
-  citySignsEnteringTable,
-  cityGatekeeperTable,
-  cityDiscoveriesTable,
-  cityUrbanOdditiesTable,
-  neighborhoodMoodTable,
-  neighborhoodAttitudeTable,
-  neighborhoodProblemTable,
-  neighborhoodSecretTable,
-  streetNoiseTable,
-  buildingExteriorTable,
-  buildingNotableObjectTable,
-  socialDiscoveriesTable,
-  signsOfUndercityTable,
-  cityThreatsTable,
-} from '../data/oracles/recluse_city';
-import {
-  villageNamesTable,
-  cityNamesTable,
-  regionNamesTable,
-  landmarkNamesTable,
-  tavernNamesTable,
-} from '../data/oracles/recluse_names';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city' | 'wilderness' | 'villageName' | 'cityName' | 'regionName' | 'landmarkName' | 'tavernName';
-  result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult | CityResult | WildernessResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction';
+  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult;
 }
 
 interface NPCResult {
@@ -125,27 +59,6 @@ interface EncounterResult {
   goal: string;
 }
 
-interface DungeonRoomResult {
-  origin: string;
-  theme: string;
-  architecture: string;
-  dressing: string;
-  inhabitants: string;
-  motive: string;
-  firstImpression: string;
-  immediateChallenge: string;
-  possibleHelp: string;
-  atmosphere: string;
-  sizeDetailed: string;
-  exitCount: string;
-  exitType: string;
-  shape: string;
-  sounds: string;
-  smells: string;
-  encounter: string;
-  loot: string;
-}
-
 interface AdventureResult {
   incitingIncident: string;
   destination: string;
@@ -161,47 +74,6 @@ interface FactionResult {
   resources: string;
   weakness: string;
   plotHook: string;
-}
-
-interface CityResult {
-  origin: string;
-  condition: string;
-  signsEntering: string;
-  gatekeeper: string;
-  discoveries: string;
-  urbanOddity: string;
-  neighborhoodMood: string;
-  neighborhoodAttitude: string;
-  neighborhoodProblem: string;
-  neighborhoodSecret: string;
-  streetNoise: string;
-  buildingExterior: string;
-  buildingNotableObject: string;
-  socialDiscovery: string;
-  signsOfUndercity: string;
-  threat: string;
-}
-
-interface WildernessResult {
-  temperature: string;
-  visibility: string;
-  unnaturalWeather: string;
-  minorDiscovery: string;
-  signsOfTravelers: string;
-  remainsAndRuins: string;
-  strangeOmen: string;
-  wildResource: string;
-  terrainDanger: string;
-  weatherShift: string;
-  weatherOmenSign: string;
-  naturalOddity: string;
-  landmarkWater: string;
-  landmarkDetail: string;
-  signsOfLostPeople: string;
-  creatureSignsLarge: string;
-  signsOfAmbush: string;
-  wildlifeHazard: string;
-  resourceLossHazard: string;
 }
 
 const Oracles: React.FC = () => {
@@ -251,51 +123,6 @@ const Oracles: React.FC = () => {
     });
   };
 
-  const rollDungeonRoom = () => {
-    const origin = rollOnTable(dungeonOriginTable);
-    const theme = rollOnTable(dungeonThemeTable);
-    const architecture = rollOnTable(dungeonRoomArchitectureTable);
-    const dressing = rollOnTable(dungeonRoomDressingTable);
-    const inhabitants = rollOnTable(dungeonInhabitantsTable);
-    const motive = rollOnTable(dungeonPrimaryMotiveTable);
-    const firstImpression = rollOnTable(entranceFirstImpressionTable);
-    const immediateChallenge = rollOnTable(entranceImmediateChallengeTable);
-    const possibleHelp = rollOnTable(entrancePossibleHelpTable);
-    const atmosphere = rollOnTable(roomAtmosphereTable);
-    const sizeDetailed = rollOnTable(roomSizeDetailedTable);
-    const exitCount = rollOnTable(roomExitCountTable);
-    const exitType = rollOnTable(roomExitTypeTable);
-    const shape = rollOnTable(roomShapeTable);
-    const sounds = rollOnTable(roomSoundsTable);
-    const smells = rollOnTable(roomSmellsTable);
-    const encounter = rollOnTable(roomEncounterTable);
-    const loot = rollOnTable(roomLootTable);
-
-    setLastRoll({
-      type: 'dungeonRoom',
-      result: { 
-        origin, 
-        theme, 
-        architecture, 
-        dressing, 
-        inhabitants, 
-        motive, 
-        firstImpression, 
-        immediateChallenge, 
-        possibleHelp, 
-        atmosphere, 
-        sizeDetailed, 
-        exitCount, 
-        exitType,
-        shape,
-        sounds,
-        smells,
-        encounter,
-        loot
-      },
-    });
-  };
-
   const rollAdventure = () => {
     const incitingIncident = rollOnTable(adventureIncitingIncidentTable);
     const destination = rollOnTable(adventureDestinationTable);
@@ -320,134 +147,6 @@ const Oracles: React.FC = () => {
     setLastRoll({
       type: 'faction',
       result: { origin, purpose, attitude, power, resources, weakness, plotHook },
-    });
-  };
-
-  const rollCity = () => {
-    const origin = rollOnTable(cityOriginTable);
-    const condition = rollOnTable(cityConditionTable);
-    const signsEntering = rollOnTable(citySignsEnteringTable);
-    const gatekeeper = rollOnTable(cityGatekeeperTable);
-    const discoveries = rollOnTable(cityDiscoveriesTable);
-    const urbanOddity = rollOnTable(cityUrbanOdditiesTable);
-    const neighborhoodMood = rollOnTable(neighborhoodMoodTable);
-    const neighborhoodAttitude = rollOnTable(neighborhoodAttitudeTable);
-    const neighborhoodProblem = rollOnTable(neighborhoodProblemTable);
-    const neighborhoodSecret = rollOnTable(neighborhoodSecretTable);
-    const streetNoise = rollOnTable(streetNoiseTable);
-    const buildingExterior = rollOnTable(buildingExteriorTable);
-    const buildingNotableObject = rollOnTable(buildingNotableObjectTable);
-    const socialDiscovery = rollOnTable(socialDiscoveriesTable);
-    const signsOfUndercity = rollOnTable(signsOfUndercityTable);
-    const threat = rollOnTable(cityThreatsTable);
-
-    setLastRoll({
-      type: 'city',
-      result: { 
-        origin, 
-        condition, 
-        signsEntering, 
-        gatekeeper, 
-        discoveries, 
-        urbanOddity, 
-        neighborhoodMood, 
-        neighborhoodAttitude, 
-        neighborhoodProblem, 
-        neighborhoodSecret, 
-        streetNoise, 
-        buildingExterior, 
-        buildingNotableObject, 
-        socialDiscovery, 
-        signsOfUndercity, 
-        threat 
-      },
-    });
-  };
-
-  const rollWilderness = () => {
-    const temperature = rollOnTable(wildernessTemperatureTable);
-    const visibility = rollOnTable(wildernessVisibilityTable);
-    const unnaturalWeather = rollOnTable(unnaturalWeatherTable);
-    const minorDiscovery = rollOnTable(minorNaturalDiscoveriesTable);
-    const signsOfTravelers = rollOnTable(signsOfTravelersTable);
-    const remainsAndRuins = rollOnTable(remainsAndRuinsTable);
-    const strangeOmen = rollOnTable(strangeOmensTable);
-    const wildResource = rollOnTable(wildResourcesTable);
-    const terrainDanger = rollOnTable(wildernessTerrainDangersTable);
-    const weatherShift = rollOnTable(weatherShiftTable);
-    const weatherOmenSign = rollOnTable(weatherOmenSignsTable);
-    const naturalOddity = rollOnTable(naturalOdditiesTable);
-    const landmarkWater = rollOnTable(landmarkWaterTable);
-    const landmarkDetail = rollOnTable(landmarkDetailsTable);
-    const signsOfLostPeople = rollOnTable(signsOfLostPeopleTable);
-    const creatureSignsLarge = rollOnTable(creatureSignsLargeTable);
-    const signsOfAmbush = rollOnTable(signsOfAmbushTable);
-    const wildlifeHazard = rollOnTable(wildlifeHazardsTable);
-    const resourceLossHazard = rollOnTable(resourceLossHazardsTable);
-
-    setLastRoll({
-      type: 'wilderness',
-      result: {
-        temperature,
-        visibility,
-        unnaturalWeather,
-        minorDiscovery,
-        signsOfTravelers,
-        remainsAndRuins,
-        strangeOmen,
-        wildResource,
-        terrainDanger,
-        weatherShift,
-        weatherOmenSign,
-        naturalOddity,
-        landmarkWater,
-        landmarkDetail,
-        signsOfLostPeople,
-        creatureSignsLarge,
-        signsOfAmbush,
-        wildlifeHazard,
-        resourceLossHazard,
-      },
-    });
-  };
-
-  const rollVillageName = () => {
-    const name = rollOnTable(villageNamesTable);
-    setLastRoll({
-      type: 'villageName',
-      result: name,
-    });
-  };
-
-  const rollCityName = () => {
-    const name = rollOnTable(cityNamesTable);
-    setLastRoll({
-      type: 'cityName',
-      result: name,
-    });
-  };
-
-  const rollRegionName = () => {
-    const name = rollOnTable(regionNamesTable);
-    setLastRoll({
-      type: 'regionName',
-      result: name,
-    });
-  };
-
-  const rollLandmarkName = () => {
-    const name = rollOnTable(landmarkNamesTable);
-    setLastRoll({
-      type: 'landmarkName',
-      result: name,
-    });
-  };
-
-  const rollTavernName = () => {
-    const name = rollOnTable(tavernNamesTable);
-    setLastRoll({
-      type: 'tavernName',
-      result: name,
     });
   };
 
@@ -478,40 +177,11 @@ const Oracles: React.FC = () => {
       const encounter = lastRoll.result as EncounterResult;
       return (
         <div className="mork-panel space-y-2">
-          <h3 className="text-sm font-bold uppercase text-mork-pink">Random Encounter:</h3>
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Encounter:</h3>
           <div className="text-xs space-y-1">
             <p><strong>Context:</strong> {encounter.context}</p>
             <p><strong>Disposition:</strong> {encounter.disposition}</p>
             <p><strong>Goal:</strong> {encounter.goal}</p>
-          </div>
-        </div>
-      );
-    }
-
-    if (lastRoll.type === 'dungeonRoom' && typeof lastRoll.result === 'object' && 'origin' in lastRoll.result) {
-      const room = lastRoll.result as DungeonRoomResult;
-      return (
-        <div className="mork-panel space-y-2">
-          <h3 className="text-sm font-bold uppercase text-mork-pink">Dungeon:</h3>
-          <div className="text-xs space-y-1">
-            <p><strong>Origin:</strong> {room.origin}</p>
-            <p><strong>Theme:</strong> {room.theme}</p>
-            <p><strong>Inhabitants:</strong> {room.inhabitants}</p>
-            <p><strong>Motive:</strong> {room.motive}</p>
-            <p><strong>First Impression:</strong> {room.firstImpression}</p>
-            <p><strong>Immediate Challenge:</strong> {room.immediateChallenge}</p>
-            <p><strong>Possible Help:</strong> {room.possibleHelp}</p>
-            <p><strong>Atmosphere:</strong> {room.atmosphere}</p>
-            <p><strong>Size:</strong> {room.sizeDetailed}</p>
-            <p><strong>Shape:</strong> {room.shape}</p>
-            <p><strong>Architecture:</strong> {room.architecture}</p>
-            <p><strong>Dressing:</strong> {room.dressing}</p>
-            <p><strong>Sounds:</strong> {room.sounds}</p>
-            <p><strong>Smells:</strong> {room.smells}</p>
-            <p><strong>Encounter:</strong> {room.encounter}</p>
-            <p><strong>Loot:</strong> {room.loot}</p>
-            <p><strong>Exit Count:</strong> {room.exitCount}</p>
-            <p><strong>Exit Type:</strong> {room.exitType}</p>
           </div>
         </div>
       );
@@ -550,84 +220,6 @@ const Oracles: React.FC = () => {
       );
     }
 
-    if (lastRoll.type === 'city' && typeof lastRoll.result === 'object' && 'threat' in lastRoll.result) {
-      const city = lastRoll.result as CityResult;
-      return (
-        <div className="mork-panel space-y-2">
-          <h3 className="text-sm font-bold uppercase text-mork-pink">City:</h3>
-          <div className="text-xs space-y-1">
-            <p><strong>Origin:</strong> {city.origin}</p>
-            <p><strong>Condition:</strong> {city.condition}</p>
-            <p><strong>Signs Entering:</strong> {city.signsEntering}</p>
-            <p><strong>Gatekeeper:</strong> {city.gatekeeper}</p>
-            <p><strong>Discoveries:</strong> {city.discoveries}</p>
-            <p><strong>Urban Oddity:</strong> {city.urbanOddity}</p>
-            <p><strong>Neighborhood Mood:</strong> {city.neighborhoodMood}</p>
-            <p><strong>Neighborhood Attitude:</strong> {city.neighborhoodAttitude}</p>
-            <p><strong>Problem:</strong> {city.neighborhoodProblem}</p>
-            <p><strong>Secret:</strong> {city.neighborhoodSecret}</p>
-            <p><strong>Street Noise:</strong> {city.streetNoise}</p>
-            <p><strong>Building Exterior:</strong> {city.buildingExterior}</p>
-            <p><strong>Notable Object:</strong> {city.buildingNotableObject}</p>
-            <p><strong>Social Discovery:</strong> {city.socialDiscovery}</p>
-            <p><strong>Signs of Undercity:</strong> {city.signsOfUndercity}</p>
-            <p><strong>Threat:</strong> {city.threat}</p>
-          </div>
-        </div>
-      );
-    }
-
-    if (lastRoll.type === 'wilderness' && typeof lastRoll.result === 'object' && 'temperature' in lastRoll.result) {
-      const wild = lastRoll.result as WildernessResult;
-      return (
-        <div className="mork-panel space-y-2">
-          <h3 className="text-sm font-bold uppercase text-mork-pink">Wilderness:</h3>
-          <div className="text-xs space-y-1">
-            <p><strong>Temperature:</strong> {wild.temperature}</p>
-            <p><strong>Visibility:</strong> {wild.visibility}</p>
-            <p><strong>Unnatural Weather:</strong> {wild.unnaturalWeather}</p>
-            <p><strong>Minor Discovery:</strong> {wild.minorDiscovery}</p>
-            <p><strong>Signs of Travelers:</strong> {wild.signsOfTravelers}</p>
-            <p><strong>Remains & Ruins:</strong> {wild.remainsAndRuins}</p>
-            <p><strong>Strange Omen:</strong> {wild.strangeOmen}</p>
-            <p><strong>Wild Resource:</strong> {wild.wildResource}</p>
-            <p><strong>Terrain Danger:</strong> {wild.terrainDanger}</p>
-            <p><strong>Weather Shift:</strong> {wild.weatherShift}</p>
-            <p><strong>Weather Omen Sign:</strong> {wild.weatherOmenSign}</p>
-            <p><strong>Natural Oddity:</strong> {wild.naturalOddity}</p>
-            <p><strong>Landmark Water:</strong> {wild.landmarkWater}</p>
-            <p><strong>Landmark Detail:</strong> {wild.landmarkDetail}</p>
-            <p><strong>Signs of Lost People:</strong> {wild.signsOfLostPeople}</p>
-            <p><strong>Creature Signs (Large):</strong> {wild.creatureSignsLarge}</p>
-            <p><strong>Signs of Ambush:</strong> {wild.signsOfAmbush}</p>
-            <p><strong>Wildlife Hazard:</strong> {wild.wildlifeHazard}</p>
-            <p><strong>Resource Loss Hazard:</strong> {wild.resourceLossHazard}</p>
-          </div>
-        </div>
-      );
-    }
-
-    // Handle name oracles
-    if (['villageName', 'cityName', 'regionName', 'landmarkName', 'tavernName'].includes(lastRoll.type)) {
-      const nameTypeMap: Record<string, string> = {
-        villageName: 'Village Name',
-        cityName: 'City Name',
-        regionName: 'Region Name',
-        landmarkName: 'Landmark Name',
-        tavernName: 'Tavern Name',
-      };
-      const nameType = nameTypeMap[lastRoll.type];
-
-      return (
-        <div className="mork-panel">
-          <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">
-            {nameType}:
-          </h3>
-          <p className="text-xs">{lastRoll.result as string}</p>
-        </div>
-      );
-    }
-
     return (
       <div className="mork-panel">
         <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">
@@ -654,7 +246,7 @@ const Oracles: React.FC = () => {
           onClick={rollAdventure}
           className="mork-button text-sm flex items-center justify-center gap-2"
         >
-          <Map size={16} />
+          <Compass size={16} />
           Roll Adventure
         </button>
 
@@ -689,86 +281,6 @@ const Oracles: React.FC = () => {
           <Dices size={16} />
           Roll Loot
         </button>
-      </div>
-
-      {/* Location Oracles */}
-      <div className="border-2 border-mork-black p-3">
-        <h4 className="text-sm font-bold uppercase tracking-wider mb-2 text-center opacity-75">
-          Locations
-        </h4>
-        <div className="grid grid-cols-1 gap-2">
-          <button
-            onClick={rollDungeonRoom}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <DoorOpen size={16} />
-            Roll Dungeon
-          </button>
-
-          <button
-            onClick={rollCity}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <Building2 size={16} />
-            Roll City
-          </button>
-
-          <button
-            onClick={rollWilderness}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <Trees size={16} />
-            Roll Wilderness
-          </button>
-        </div>
-      </div>
-
-      {/* Name Oracles */}
-      <div className="border-2 border-mork-black p-3">
-        <h4 className="text-sm font-bold uppercase tracking-wider mb-2 text-center opacity-75">
-          Names
-        </h4>
-        <div className="grid grid-cols-1 gap-2">
-          <button
-            onClick={rollVillageName}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <MapPin size={16} />
-            Village Name
-          </button>
-
-          <button
-            onClick={rollCityName}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <Building2 size={16} />
-            City Name
-          </button>
-
-          <button
-            onClick={rollRegionName}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <Map size={16} />
-            Region Name
-          </button>
-
-          <button
-            onClick={rollLandmarkName}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <Compass size={16} />
-            Landmark Name
-          </button>
-
-          <button
-            onClick={rollTavernName}
-            className="mork-button text-sm flex items-center justify-center gap-2"
-          >
-            <Type size={16} />
-            Tavern Name
-          </button>
-        </div>
       </div>
 
       {lastRoll && <div className="mt-4">{renderResult()}</div>}
