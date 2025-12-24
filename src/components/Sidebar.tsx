@@ -157,6 +157,14 @@ const Sidebar: React.FC<SidebarProps> = ({
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Descriptor:</h3>
               <p className="text-sm">{omens.descriptor}</p>
             </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Focus:</h3>
+              <p className="text-sm">{omens.focus}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Detail:</h3>
+              <p className="text-sm">{omens.detail}</p>
+            </div>
           </div>
         ) : (
           <div className="mork-panel text-center py-6 opacity-50">

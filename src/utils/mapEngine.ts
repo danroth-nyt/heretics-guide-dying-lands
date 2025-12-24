@@ -23,6 +23,8 @@ import {
   actionOracleTable,
   themeOracleTable,
   descriptorOracleTable,
+  focusOracleTable,
+  detailOracleTable,
 } from '../data/globalTables';
 
 /**
@@ -437,6 +439,8 @@ export function generateOmens(): Omens {
     action: rollOnTable(actionOracleTable),
     theme: rollOnTable(themeOracleTable),
     descriptor: rollOnTable(descriptorOracleTable),
+    focus: rollOnTable(focusOracleTable),
+    detail: rollOnTable(detailOracleTable),
   };
 }
 

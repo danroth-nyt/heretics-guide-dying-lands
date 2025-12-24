@@ -29,6 +29,8 @@ import {
   actionOracleTable,
   themeOracleTable,
   descriptorOracleTable,
+  focusOracleTable,
+  detailOracleTable,
 } from '../data/globalTables';
 import {
   dungeonOriginTable,
@@ -339,6 +341,9 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Action Oracle (d100)', table: actionOracleTable },
         { name: 'Theme Oracle (d100)', table: themeOracleTable },
         { name: 'Descriptor Oracle (d100)', table: descriptorOracleTable },
+        // Omen oracles (Roll both for complete omen)
+        { name: 'Omen: Focus Oracle (d101)', table: focusOracleTable },
+        { name: 'Omen: Detail Oracle (d98)', table: detailOracleTable },
         // Names
         { name: 'Village Names (d100)', table: villageNamesTable },
         { name: 'City Names (d95)', table: cityNamesTable },

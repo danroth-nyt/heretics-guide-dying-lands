@@ -60,6 +60,8 @@ export interface Omens {
   action: string;
   theme: string;
   descriptor: string;
+  focus: string;
+  detail: string;
 }
 
 // Table entry

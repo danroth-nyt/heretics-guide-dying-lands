@@ -28,7 +28,9 @@ import {
 import {
   actionOracleTable,
   themeOracleTable,
-  descriptorOracleTable
+  descriptorOracleTable,
+  focusOracleTable,
+  detailOracleTable
 } from './oracles/recluse_general';
 
 export const oracleTable: Table = {
@@ -364,5 +366,5 @@ export { npcSummaryTable, npcMotivationTable, npcAppearanceTable, npcTraitsTable
 export { weatherPrecipitationTable, weatherWindTable, weatherTemperatureTable };
 
 // General Oracles for improvisation
-export { actionOracleTable, themeOracleTable, descriptorOracleTable };
+export { actionOracleTable, themeOracleTable, descriptorOracleTable, focusOracleTable, detailOracleTable };
 
