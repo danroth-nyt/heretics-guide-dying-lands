@@ -134,6 +134,18 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </p>
               </div>
             </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Action:</h3>
+              <p className="text-sm">{globalOmens.action}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Theme:</h3>
+              <p className="text-sm">{globalOmens.theme}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Descriptor:</h3>
+              <p className="text-sm">{globalOmens.descriptor}</p>
+            </div>
           </div>
         ) : (
           <div className="mork-panel text-center py-6 opacity-50">
