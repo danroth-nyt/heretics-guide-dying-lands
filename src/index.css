@@ -574,8 +574,10 @@ h1, h2, h3, h4, h5, h6 {
   /* Adjust modal backdrop alignment to prevent top cutoff */
   .mork-modal-backdrop {
     align-items: flex-start !important;
-    padding-top: 3rem;
-    padding-bottom: 0.5rem;
+    justify-content: center !important;
+    padding-top: 3rem !important;
+    padding-bottom: 0.5rem !important;
+    overflow-y: auto !important;
   }
   
   .landscape-modal-content {
@@ -604,8 +606,10 @@ h1, h2, h3, h4, h5, h6 {
     max-height: calc(100vh - 3.5rem) !important;
     height: auto;
     
-    /* Ensure proper positioning */
+    /* Ensure proper positioning and prevent overflow */
     position: relative;
+    top: 0;
+    overflow: hidden;
     
     /* Keep the yellow border */
     border-top: 6px solid var(--mork-yellow) !important;

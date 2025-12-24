@@ -115,7 +115,7 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
     <>
       {/* Mobile: Full-screen modal with backdrop */}
       <div 
-        className="md:hidden fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in"
+        className="md:hidden fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop landscape-show-drawer fade-in"
         onClick={handleBackdropClick}
       >
         <div className="mork-modal modal-responsive-container landscape-modal-container w-full flex flex-col overflow-hidden">
