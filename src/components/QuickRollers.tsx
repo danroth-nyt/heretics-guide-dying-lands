@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, DoorOpen } from 'lucide-react';
+import { Dices, User, Compass, Swords, DoorOpen, Map, Users } from 'lucide-react';
 import { rollDice } from '../utils/diceUtils';
 import {
   lootTable,
@@ -26,10 +26,25 @@ import {
   dungeonRoomArchitectureTable,
   dungeonRoomDressingTable,
 } from '../data/oracles/recluse_dungeon';
+import {
+  factionPlotHooksTable,
+  factionOriginsTable,
+  factionPurposeTable,
+  factionAttitudeTable,
+  factionPowerTable,
+  factionResourcesTable,
+  factionWeaknessTable,
+} from '../data/oracles/recluse_npc';
+import {
+  adventureIncitingIncidentTable,
+  adventureDestinationTable,
+  adventureDangerHeartTable,
+  adventureTwistTable,
+} from '../data/oracles/recluse_adventure';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom';
-  result: string | NPCResult | EncounterResult | DungeonRoomResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction';
+  result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult;
 }
 
 interface NPCResult {
@@ -55,6 +70,23 @@ interface DungeonRoomResult {
   theme: string;
   architecture: string;
   dressing: string;
+}
+
+interface AdventureResult {
+  incitingIncident: string;
+  destination: string;
+  dangerHeart: string;
+  twist: string;
+}
+
+interface FactionResult {
+  origin: string;
+  purpose: string;
+  attitude: string;
+  power: string;
+  resources: string;
+  weakness: string;
+  plotHook: string;
 }
 
 const QuickRollers: React.FC = () => {
@@ -141,6 +173,46 @@ const QuickRollers: React.FC = () => {
     });
   };
 
+  const rollAdventure = () => {
+    const incidentRoll = rollDice(20);
+    const destinationRoll = rollDice(20);
+    const dangerRoll = rollDice(20);
+    const twistRoll = rollDice(20);
+
+    const incitingIncident = adventureIncitingIncidentTable.entries.find((e) => e.roll === incidentRoll)?.result || 'Unknown';
+    const destination = adventureDestinationTable.entries.find((e) => e.roll === destinationRoll)?.result || 'Unknown';
+    const dangerHeart = adventureDangerHeartTable.entries.find((e) => e.roll === dangerRoll)?.result || 'Unknown';
+    const twist = adventureTwistTable.entries.find((e) => e.roll === twistRoll)?.result || 'Unknown';
+
+    setLastRoll({
+      type: 'adventure',
+      result: { incitingIncident, destination, dangerHeart, twist },
+    });
+  };
+
+  const rollFaction = () => {
+    const originRoll = rollDice(20);
+    const purposeRoll = rollDice(20);
+    const attitudeRoll = rollDice(20);
+    const powerRoll = rollDice(20);
+    const resourcesRoll = rollDice(20);
+    const weaknessRoll = rollDice(20);
+    const plotHookRoll = rollDice(20);
+
+    const origin = factionOriginsTable.entries.find((e) => e.roll === originRoll)?.result || 'Unknown';
+    const purpose = factionPurposeTable.entries.find((e) => e.roll === purposeRoll)?.result || 'Unknown';
+    const attitude = factionAttitudeTable.entries.find((e) => e.roll === attitudeRoll)?.result || 'Unknown';
+    const power = factionPowerTable.entries.find((e) => e.roll === powerRoll)?.result || 'Unknown';
+    const resources = factionResourcesTable.entries.find((e) => e.roll === resourcesRoll)?.result || 'Unknown';
+    const weakness = factionWeaknessTable.entries.find((e) => e.roll === weaknessRoll)?.result || 'Unknown';
+    const plotHook = factionPlotHooksTable.entries.find((e) => e.roll === plotHookRoll)?.result || 'Unknown';
+
+    setLastRoll({
+      type: 'faction',
+      result: { origin, purpose, attitude, power, resources, weakness, plotHook },
+    });
+  };
+
   const renderResult = () => {
     if (!lastRoll) return null;
 
@@ -188,6 +260,39 @@ const QuickRollers: React.FC = () => {
             <p><strong>Theme:</strong> {room.theme}</p>
             <p><strong>Architecture:</strong> {room.architecture}</p>
             <p><strong>Dressing:</strong> {room.dressing}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (lastRoll.type === 'adventure' && typeof lastRoll.result === 'object' && 'incitingIncident' in lastRoll.result) {
+      const adventure = lastRoll.result as AdventureResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Adventure Hook:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Inciting Incident:</strong> {adventure.incitingIncident}</p>
+            <p><strong>Destination:</strong> {adventure.destination}</p>
+            <p><strong>Danger:</strong> {adventure.dangerHeart}</p>
+            <p><strong>Twist:</strong> {adventure.twist}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (lastRoll.type === 'faction' && typeof lastRoll.result === 'object' && 'plotHook' in lastRoll.result) {
+      const faction = lastRoll.result as FactionResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Faction:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Origin:</strong> {faction.origin}</p>
+            <p><strong>Purpose:</strong> {faction.purpose}</p>
+            <p><strong>Power:</strong> {faction.power}</p>
+            <p><strong>Resources:</strong> {faction.resources}</p>
+            <p><strong>Weakness:</strong> {faction.weakness}</p>
+            <p><strong>Attitude:</strong> {faction.attitude}</p>
+            <p><strong>Plot Hook:</strong> {faction.plotHook}</p>
           </div>
         </div>
       );
@@ -244,6 +349,22 @@ const QuickRollers: React.FC = () => {
         >
           <DoorOpen size={16} />
           Roll Dungeon Room
+        </button>
+
+        <button
+          onClick={rollAdventure}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Map size={16} />
+          Roll Adventure
+        </button>
+
+        <button
+          onClick={rollFaction}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Users size={16} />
+          Roll Faction
         </button>
       </div>
 

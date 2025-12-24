@@ -74,7 +74,18 @@ import {
 import {
   factionPlotHooksTable,
   factionOriginsTable,
+  factionPurposeTable,
+  factionAttitudeTable,
+  factionPowerTable,
+  factionResourcesTable,
+  factionWeaknessTable,
 } from '../data/oracles/recluse_npc';
+import {
+  adventureIncitingIncidentTable,
+  adventureDestinationTable,
+  adventureDangerHeartTable,
+  adventureTwistTable,
+} from '../data/oracles/recluse_adventure';
 import { locationTables } from '../data/locationTables';
 import {
   difficultyTable,
@@ -213,10 +224,24 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
       ],
     },
     {
+      name: 'Adventures',
+      tables: [
+        { name: 'Inciting Incident', table: adventureIncitingIncidentTable },
+        { name: 'Destination', table: adventureDestinationTable },
+        { name: 'Danger at Heart', table: adventureDangerHeartTable },
+        { name: 'Twist', table: adventureTwistTable },
+      ],
+    },
+    {
       name: 'Factions',
       tables: [
-        { name: 'Faction Plot Hooks', table: factionPlotHooksTable },
         { name: 'Faction Origins', table: factionOriginsTable },
+        { name: 'Faction Purpose', table: factionPurposeTable },
+        { name: 'Faction Attitude', table: factionAttitudeTable },
+        { name: 'Faction Power Level', table: factionPowerTable },
+        { name: 'Faction Resources', table: factionResourcesTable },
+        { name: 'Faction Weakness', table: factionWeaknessTable },
+        { name: 'Faction Plot Hooks', table: factionPlotHooksTable },
       ],
     },
     {
