@@ -1,7 +1,7 @@
 import React from 'react';
 import { Territory, Omens } from '../types';
 import { territoryNames, territoryDescriptions } from '../data/regionTables';
-import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen } from 'lucide-react';
+import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save } from 'lucide-react';
 import AccordionSection from './AccordionSection';
 import Oracles from './Oracles';
 
@@ -13,6 +13,7 @@ interface SidebarProps {
   omens: Omens | null;
   onPrint: () => void;
   onOpenReference?: () => void;
+  onOpenSaveLoad?: () => void;
   isGenerating?: boolean;
   isMobileDrawer?: boolean;
 }
@@ -25,6 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   omens,
   onPrint,
   onOpenReference,
+  onOpenSaveLoad,
   isGenerating,
   isMobileDrawer = false,
 }) => {
@@ -79,6 +81,15 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             <Map size={20} />
             {isGenerating ? 'Generating...' : 'Generate Map'}
+          </button>
+
+          {/* Campaign Maps Button */}
+          <button
+            onClick={onOpenSaveLoad}
+            className="mork-button w-full flex items-center justify-center gap-2"
+          >
+            <Save size={20} />
+            Campaign Maps
           </button>
 
           {/* Print Button */}
