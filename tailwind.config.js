@@ -15,6 +15,9 @@ export default {
         'mork-black': 'var(--mork-black)',
         'mork-pink': 'var(--mork-pink)',
       },
+      screens: {
+        'md': '1200px',
+      },
     },
   },
   plugins: [],
