@@ -29,6 +29,8 @@ import {
   actionOracleTable,
   themeOracleTable,
   descriptorOracleTable,
+  focusOracleTable,
+  detailOracleTable,
 } from '../data/globalTables';
 import {
   dungeonOriginTable,
@@ -52,6 +54,11 @@ import {
   roomSizeDetailedTable,
   roomExitCountTable,
   roomExitTypeTable,
+  roomShapeTable,
+  roomSoundsTable,
+  roomSmellsTable,
+  roomEncounterTable,
+  roomLootTable,
 } from '../data/oracles/recluse_dungeon';
 import {
   cityMoodTable,
@@ -113,7 +120,21 @@ import {
   encounterDispositionTable,
   encounterGoalTable,
   encounterComplicationsTable,
+  socialNarrativeComplicationsTable,
+  strangeMeetingsTable,
+  arcaneEncountersTable,
+  immediateAftermathTable,
+  positionalComplicationsTable,
+  tacticalComplicationsTable,
+  narrativeComplicationsTable,
+  multiEntityComplicationsTable,
 } from '../data/oracles/recluse_encounter';
+import {
+  cityNamesTable,
+  regionNamesTable,
+  landmarkNamesTable,
+  tavernNamesTable,
+} from '../data/oracles/recluse_names';
 import {
   factionPlotHooksTable,
   factionOriginsTable,
@@ -129,6 +150,15 @@ import {
   adventureDangerHeartTable,
   adventureTwistTable,
 } from '../data/oracles/recluse_adventure';
+import {
+  creatureTypeTable,
+  armorTierTable,
+  moraleTable,
+  damageTable,
+  beastBehaviorTable,
+  beastAppearanceTable,
+  wildlifeTypeTable,
+} from '../data/oracles/recluse_creature';
 import { locationTables } from '../data/locationTables';
 import {
   difficultyTable,
@@ -236,7 +266,31 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Encounter Context', table: encounterContextTable },
         { name: 'Encounter Disposition', table: encounterDispositionTable },
         { name: 'Encounter Goal', table: encounterGoalTable },
-        { name: 'Encounter Complications', table: encounterComplicationsTable },
+        { name: 'Strange Meetings', table: strangeMeetingsTable },
+        { name: 'Arcane Encounters', table: arcaneEncountersTable },
+        { name: 'Immediate Aftermath', table: immediateAftermathTable },
+      ],
+    },
+    {
+      name: 'Combat Complications',
+      tables: [
+        { name: 'Positional Complications', table: positionalComplicationsTable },
+        { name: 'Tactical Complications', table: tacticalComplicationsTable },
+        { name: 'Narrative Complications', table: narrativeComplicationsTable },
+        { name: 'Multi-Entity Complications', table: multiEntityComplicationsTable },
+        { name: 'Social/Narrative Complications', table: socialNarrativeComplicationsTable },
+      ],
+    },
+    {
+      name: 'Creatures & Beasts',
+      tables: [
+        { name: 'Creature Type', table: creatureTypeTable },
+        { name: 'Wildlife Type', table: wildlifeTypeTable },
+        { name: 'Armor Tier', table: armorTierTable },
+        { name: 'Damage Die', table: damageTable },
+        { name: 'Morale', table: moraleTable },
+        { name: 'Beast Behavior', table: beastBehaviorTable },
+        { name: 'Beast Appearance', table: beastAppearanceTable },
       ],
     },
     {
@@ -328,8 +382,15 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Action Oracle (d100)', table: actionOracleTable },
         { name: 'Theme Oracle (d100)', table: themeOracleTable },
         { name: 'Descriptor Oracle (d100)', table: descriptorOracleTable },
+        // Omen oracles (Roll both for complete omen)
+        { name: 'Omen: Focus Oracle (d101)', table: focusOracleTable },
+        { name: 'Omen: Detail Oracle (d98)', table: detailOracleTable },
         // Names
         { name: 'Village Names (d100)', table: villageNamesTable },
+        { name: 'City Names (d95)', table: cityNamesTable },
+        { name: 'Region Names (d97)', table: regionNamesTable },
+        { name: 'Landmark Names (d93)', table: landmarkNamesTable },
+        { name: 'Tavern Names (d95)', table: tavernNamesTable },
         // Dungeon
         { name: 'Dungeon Origin', table: dungeonOriginTable },
         { name: 'Dungeon Purpose Now', table: dungeonPurposeNowTable },
@@ -343,9 +404,14 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Dungeon Entrance Hazards', table: dungeonEntranceHazardsTable },
         { name: 'Room Atmosphere', table: roomAtmosphereTable },
         { name: 'Room Size (Detailed)', table: roomSizeDetailedTable },
+        { name: 'Room Shape', table: roomShapeTable },
         { name: 'Dungeon Room Architecture', table: dungeonRoomArchitectureTable },
         { name: 'Dungeon Room Dressing', table: dungeonRoomDressingTable },
         { name: 'Dungeon Room Purpose', table: dungeonRoomPurposeTable },
+        { name: 'Room Sounds', table: roomSoundsTable },
+        { name: 'Room Smells', table: roomSmellsTable },
+        { name: 'Room Encounter', table: roomEncounterTable },
+        { name: 'Room Loot', table: roomLootTable },
         { name: 'Room Exit Count', table: roomExitCountTable },
         { name: 'Room Exit Type', table: roomExitTypeTable },
         { name: 'Dungeon Hazards', table: dungeonHazardsTable },

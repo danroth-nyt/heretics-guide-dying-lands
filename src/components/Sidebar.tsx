@@ -1,9 +1,11 @@
 import React from 'react';
 import { Territory, Omens } from '../types';
 import { territoryNames, territoryDescriptions } from '../data/regionTables';
-import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save } from 'lucide-react';
+import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save, MapPin, Type } from 'lucide-react';
 import AccordionSection from './AccordionSection';
 import Oracles from './Oracles';
+import LocationOracles from './LocationOracles';
+import NameOracles from './NameOracles';
 
 interface SidebarProps {
   selectedTerritory: Territory;
@@ -157,6 +159,14 @@ const Sidebar: React.FC<SidebarProps> = ({
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Descriptor:</h3>
               <p className="text-sm">{omens.descriptor}</p>
             </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Focus:</h3>
+              <p className="text-sm">{omens.focus}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Detail:</h3>
+              <p className="text-sm">{omens.detail}</p>
+            </div>
           </div>
         ) : (
           <div className="mork-panel text-center py-6 opacity-50">
@@ -174,6 +184,26 @@ const Sidebar: React.FC<SidebarProps> = ({
         storageKey="accordion-oracles"
       >
         <Oracles />
+      </AccordionSection>
+
+      {/* Locations Accordion */}
+      <AccordionSection
+        title="Locations"
+        icon={<MapPin size={16} />}
+        defaultOpen={false}
+        storageKey="accordion-locations"
+      >
+        <LocationOracles />
+      </AccordionSection>
+
+      {/* Names Accordion */}
+      <AccordionSection
+        title="Names"
+        icon={<Type size={16} />}
+        defaultOpen={false}
+        storageKey="accordion-names"
+      >
+        <NameOracles />
       </AccordionSection>
 
       {/* Reference Tables Accordion */}

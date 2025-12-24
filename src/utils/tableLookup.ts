@@ -1,5 +1,5 @@
 import { Table } from '../types';
-import { rollD4, rollD6, rollD8, rollD10, rollD12, rollD20, rollD66 } from './diceUtils';
+import { rollD4, rollD6, rollD8, rollD10, rollD12, rollD20, rollD100, rollD66, rollDice } from './diceUtils';
 
 /**
  * Roll on a table and return the result
@@ -20,6 +20,10 @@ export function rollOnTable(table: Table): string {
   // d66 has both tens and ones digits between 1-6, so no ones digit should be > 6
   if (minRoll >= 11 && maxRoll <= 66 && rolls.every(r => r % 10 <= 6 && r % 10 >= 1)) {
     roll = rollD66();
+  }
+  // Detect d100
+  else if (maxRoll <= 100 && maxRoll > 20 && minRoll === 1) {
+    roll = rollD100();
   }
   // Detect d20
   else if (maxRoll <= 20 && minRoll === 1) {
@@ -45,9 +49,9 @@ export function rollOnTable(table: Table): string {
   else if (maxRoll <= 4 && minRoll === 1) {
     roll = rollD4();
   }
-  // Default to d6
+  // Default to generic roll based on maxRoll
   else {
-    roll = rollD6();
+    roll = rollDice(maxRoll);
   }
 
   // Find matching entry

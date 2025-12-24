@@ -220,6 +220,8 @@ function generateDefaultOmens(): Omens {
     action: 'Unknown',
     theme: 'Unknown',
     descriptor: 'Unknown',
+    focus: 'Unknown',
+    detail: 'Unknown',
   };
 }
 
