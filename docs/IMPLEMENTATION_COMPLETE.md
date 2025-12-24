@@ -41,14 +41,14 @@ The **HERETIC MAP GENERATOR** has been successfully implemented according to the
 - Click roads to see encounters and difficulty
 - Reroll any location or road details
 - Generate new maps on demand
-- Roll global omens independently
+- Roll omens independently
 - Keyboard shortcuts (Ctrl+G, Ctrl+O, Ctrl+P)
 
 ### 🖨️ Print Functionality
 - A4-optimized layout
 - Black and white conversion
 - Sidebar automatically hidden
-- Global omens included in header
+- Omens included in header
 - Professional output for tabletop use
 
 ### 📱 Mobile Responsiveness
@@ -93,7 +93,7 @@ Follow the step-by-step instructions in [INSTRUCTIONS.md](INSTRUCTIONS.md).
 ✅ **Territory Selection** - Choose from 4 territories  
 ✅ **Location Details** - Click nodes for full information  
 ✅ **Road Encounters** - Click roads for difficulty and events  
-✅ **Global Omens** - Roll for atmosphere and setting  
+✅ **Omens** - Roll for atmosphere and setting  
 ✅ **Print Maps** - Export to A4 paper  
 ✅ **Animations** - Shake effects and smooth transitions  
 ✅ **Keyboard Shortcuts** - Fast workflow  
@@ -133,7 +133,7 @@ The application works with **placeholder data** that demonstrates all functional
 - `LocationModal.tsx` - Responsive location details modal
 - `RoadTooltip.tsx` - Responsive road details popup
 - `AccordionSection.tsx` - Collapsible sections
-- `QuickRollers.tsx` - Quick reference tools
+- `Oracles.tsx` - Quick reference tools
 - `ReferenceModal.tsx` - Table browser modal
 - `TableBrowser.tsx` - Table navigation
 - `TableDisplay.tsx` - Table content display
@@ -193,7 +193,7 @@ Before using in your game, test these features:
 - [ ] Generate a map for each territory
 - [ ] Click on different location types
 - [ ] Click on roads to see encounters
-- [ ] Roll global omens
+- [ ] Roll omens
 - [ ] Use keyboard shortcuts
 - [ ] Print a map
 - [ ] Reroll location details
@@ -240,7 +240,7 @@ From the original specification:
 ✅ Procedural map generation (5-6 nodes)  
 ✅ Interactive location nodes  
 ✅ Road system with encounters  
-✅ Global omens (Oracle, Landscape, Weather)  
+✅ Omens (Oracle, Landscape, Weather)  
 ✅ MÖRK BORG visual aesthetic  
 ✅ Print-ready output  
 ✅ Animations and polish  

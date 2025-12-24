@@ -187,7 +187,7 @@ interface WildernessResult {
   resourceLossHazard: string;
 }
 
-const QuickRollers: React.FC = () => {
+const Oracles: React.FC = () => {
   const [lastRoll, setLastRoll] = useState<RollResult | null>(null);
 
   const rollLoot = () => {
@@ -509,7 +509,7 @@ const QuickRollers: React.FC = () => {
       const room = lastRoll.result as DungeonRoomResult;
       return (
         <div className="mork-panel space-y-2">
-          <h3 className="text-sm font-bold uppercase text-mork-pink">Dungeon Room:</h3>
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Dungeon:</h3>
           <div className="text-xs space-y-1">
             <p><strong>Origin:</strong> {room.origin}</p>
             <p><strong>Theme:</strong> {room.theme}</p>
@@ -631,45 +631,14 @@ const QuickRollers: React.FC = () => {
 
   return (
     <div className="space-y-4">
+      {/* General Oracles */}
       <div className="grid grid-cols-1 gap-2">
-        <button
-          onClick={rollLoot}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Dices size={16} />
-          Roll Loot
-        </button>
-        
-        <button
-          onClick={rollNPC}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <User size={16} />
-          Roll NPC
-        </button>
-        
         <button
           onClick={rollWander}
           className="mork-button text-sm flex items-center justify-center gap-2"
         >
           <Compass size={16} />
           Why Wander?
-        </button>
-
-        <button
-          onClick={rollEncounter}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Swords size={16} />
-          Roll Encounter
-        </button>
-
-        <button
-          onClick={rollDungeonRoom}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <DoorOpen size={16} />
-          Roll Dungeon Room
         </button>
 
         <button
@@ -681,6 +650,22 @@ const QuickRollers: React.FC = () => {
         </button>
 
         <button
+          onClick={rollEncounter}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Swords size={16} />
+          Roll Encounter
+        </button>
+        
+        <button
+          onClick={rollNPC}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <User size={16} />
+          Roll NPC
+        </button>
+
+        <button
           onClick={rollFaction}
           className="mork-button text-sm flex items-center justify-center gap-2"
         >
@@ -689,20 +674,44 @@ const QuickRollers: React.FC = () => {
         </button>
 
         <button
-          onClick={rollCity}
+          onClick={rollLoot}
           className="mork-button text-sm flex items-center justify-center gap-2"
         >
-          <Building2 size={16} />
-          Roll City
+          <Dices size={16} />
+          Roll Loot
         </button>
+      </div>
 
-        <button
-          onClick={rollWilderness}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Trees size={16} />
-          Roll Wilderness
-        </button>
+      {/* Location Oracles */}
+      <div className="border-2 border-mork-black p-3">
+        <h4 className="text-xs font-bold uppercase tracking-wider mb-2 text-center opacity-75">
+          Locations
+        </h4>
+        <div className="grid grid-cols-1 gap-2">
+          <button
+            onClick={rollDungeonRoom}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <DoorOpen size={16} />
+            Roll Dungeon
+          </button>
+
+          <button
+            onClick={rollCity}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <Building2 size={16} />
+            Roll City
+          </button>
+
+          <button
+            onClick={rollWilderness}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <Trees size={16} />
+            Roll Wilderness
+          </button>
+        </div>
       </div>
 
       {lastRoll && <div className="mt-4">{renderResult()}</div>}
@@ -710,5 +719,5 @@ const QuickRollers: React.FC = () => {
   );
 };
 
-export default QuickRollers;
+export default Oracles;
 

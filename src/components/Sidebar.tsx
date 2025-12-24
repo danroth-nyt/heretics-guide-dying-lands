@@ -1,16 +1,16 @@
 import React from 'react';
-import { Territory, GlobalOmens } from '../types';
+import { Territory, Omens } from '../types';
 import { territoryNames, territoryDescriptions } from '../data/regionTables';
 import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen } from 'lucide-react';
 import AccordionSection from './AccordionSection';
-import QuickRollers from './QuickRollers';
+import Oracles from './Oracles';
 
 interface SidebarProps {
   selectedTerritory: Territory;
   onTerritoryChange: (territory: Territory) => void;
   onGenerateMap: () => void;
   onGenerateOmens: () => void;
-  globalOmens: GlobalOmens | null;
+  omens: Omens | null;
   onPrint: () => void;
   onOpenReference?: () => void;
   isGenerating?: boolean;
@@ -22,7 +22,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onTerritoryChange,
   onGenerateMap,
   onGenerateOmens,
-  globalOmens,
+  omens,
   onPrint,
   onOpenReference,
   isGenerating,
@@ -92,9 +92,9 @@ const Sidebar: React.FC<SidebarProps> = ({
         </div>
       </AccordionSection>
 
-      {/* Global Omens Accordion */}
+      {/* Omens Accordion */}
       <AccordionSection
-        title="Global Omens"
+        title="Omens"
         icon={<Eye size={16} />}
         defaultOpen={false}
         storageKey="accordion-omens"
@@ -107,44 +107,44 @@ const Sidebar: React.FC<SidebarProps> = ({
           Roll Omens
         </button>
 
-        {globalOmens ? (
+        {omens ? (
           <div className="mork-panel space-y-3">
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Oracle:</h3>
-              <p className="text-sm">{globalOmens.oracle}</p>
+              <p className="text-sm">{omens.oracle}</p>
             </div>
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Landscape:</h3>
-              <p className="text-sm">{globalOmens.landscape}</p>
+              <p className="text-sm">{omens.landscape}</p>
             </div>
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Weather:</h3>
               <div className="text-sm space-y-1">
                 <p className="flex items-center gap-2">
                   <Cloud size={14} className="text-mork-pink" />
-                  {globalOmens.weatherDetailed.precipitation}
+                  {omens.weatherDetailed.precipitation}
                 </p>
                 <p className="flex items-center gap-2">
                   <Cloud size={14} className="text-mork-pink" />
-                  {globalOmens.weatherDetailed.wind}
+                  {omens.weatherDetailed.wind}
                 </p>
                 <p className="flex items-center gap-2">
                   <Cloud size={14} className="text-mork-pink" />
-                  {globalOmens.weatherDetailed.temperature}
+                  {omens.weatherDetailed.temperature}
                 </p>
               </div>
             </div>
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Action:</h3>
-              <p className="text-sm">{globalOmens.action}</p>
+              <p className="text-sm">{omens.action}</p>
             </div>
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Theme:</h3>
-              <p className="text-sm">{globalOmens.theme}</p>
+              <p className="text-sm">{omens.theme}</p>
             </div>
             <div>
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Descriptor:</h3>
-              <p className="text-sm">{globalOmens.descriptor}</p>
+              <p className="text-sm">{omens.descriptor}</p>
             </div>
           </div>
         ) : (
@@ -155,14 +155,14 @@ const Sidebar: React.FC<SidebarProps> = ({
         )}
       </AccordionSection>
 
-      {/* Quick Rollers Accordion */}
+      {/* Oracles Accordion */}
       <AccordionSection
-        title="Quick Rollers"
+        title="Oracles"
         icon={<Dices size={16} />}
         defaultOpen={false}
-        storageKey="accordion-quick-rollers"
+        storageKey="accordion-oracles"
       >
-        <QuickRollers />
+        <Oracles />
       </AccordionSection>
 
       {/* Reference Tables Accordion */}

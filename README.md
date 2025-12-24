@@ -14,7 +14,7 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
 - **Print-Ready**: Export maps to A4 format for physical use
 
 ### Reference Tools
-- **Quick Rollers**: Instant access to frequently used tables
+- **Oracles**: Instant access to frequently used tables
   - Roll random Loot (d66)
   - Generate complete NPCs with all attributes
   - Roll character motivations (Why do you wander?)
@@ -22,7 +22,7 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
   - Searchable by name or category
   - Organized by type (Global, Character, Items, Roads, Locations)
   - Inline dice roller for any table
-- **Global Omens**: Roll for Oracle, Landscape, and Weather to set the scene
+- **Omens**: Roll for Oracle, Landscape, and Weather to set the scene
 
 ### UI/UX
 - **Collapsible Sections**: Clean, organized sidebar with accordion panels
@@ -80,12 +80,12 @@ Quick setup:
 6. **Print**: Use the Print Map button to create a physical copy
 
 ### Quick Reference
-- **Quick Rollers**: Expand the section to instantly roll on common tables
+- **Oracles**: Expand the section to instantly roll on common tables
 - **Reference Browser**: Click "Browse All Tables" to access the full table modal
 - **Search**: Use the search bar to quickly find specific tables
 - **Keyboard Shortcuts** (Desktop):
   - `Ctrl/Cmd + G`: Generate new map
-  - `Ctrl/Cmd + O`: Roll global omens
+  - `Ctrl/Cmd + O`: Roll omens
   - `Ctrl/Cmd + P`: Print map
 
 ### Mobile & Touch Controls
@@ -104,7 +104,7 @@ src/
 │   ├── LocationNode.tsx       # Individual location nodes
 │   ├── MapCanvas.tsx          # SVG map with zoom/pan controls
 │   ├── MobileNav.tsx          # Mobile hamburger menu
-│   ├── QuickRollers.tsx       # Quick table rollers
+│   ├── Oracles.tsx            # Quick table rollers
 │   ├── ReferenceModal.tsx     # Full table browser modal
 │   ├── Road.tsx               # Road connections
 │   ├── RoadTooltip.tsx        # Responsive road detail popup

@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Territory, MapNode, Road, GlobalOmens } from './types';
+import { Territory, MapNode, Road, Omens } from './types';
 import Sidebar from './components/Sidebar';
 import MapCanvas from './components/MapCanvas';
 import ReferenceModal from './components/ReferenceModal';
 import MobileNav from './components/MobileNav';
-import { generateMap, generateGlobalOmens } from './utils/mapEngine';
+import { generateMap, generateOmens } from './utils/mapEngine';
 
 function App() {
   const [selectedTerritory, setSelectedTerritory] = useState<Territory>('kergus');
   const [nodes, setNodes] = useState<MapNode[]>([]);
   const [roads, setRoads] = useState<Road[]>([]);
-  const [globalOmens, setGlobalOmens] = useState<GlobalOmens | null>(null);
+  const [omens, setOmens] = useState<Omens | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isReferenceOpen, setIsReferenceOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -57,8 +57,8 @@ function App() {
 
   const handleGenerateOmens = () => {
     try {
-      const omens = generateGlobalOmens();
-      setGlobalOmens(omens);
+      const newOmens = generateOmens();
+      setOmens(newOmens);
     } catch (error) {
       console.error('Error generating omens:', error);
     }
@@ -81,7 +81,7 @@ function App() {
           onTerritoryChange={handleTerritoryChange}
           onGenerateMap={handleGenerateMap}
           onGenerateOmens={handleGenerateOmens}
-          globalOmens={globalOmens}
+          omens={omens}
           onPrint={handlePrint}
           onOpenReference={() => setIsReferenceOpen(true)}
           isGenerating={isGenerating}
@@ -110,7 +110,7 @@ function App() {
                 setIsMobileMenuOpen(false);
               }}
               onGenerateOmens={handleGenerateOmens}
-              globalOmens={globalOmens}
+              omens={omens}
               onPrint={() => {
                 handlePrint();
                 setIsMobileMenuOpen(false);
@@ -181,19 +181,19 @@ function App() {
           <h1 className="text-4xl font-pirata text-center mb-4">
             HERETIC MAP - {selectedTerritory.toUpperCase()}
           </h1>
-          {globalOmens && (
+          {omens && (
             <div className="text-sm mb-4 text-center">
-              <p><strong>Oracle:</strong> {globalOmens.oracle}</p>
-              <p><strong>Landscape:</strong> {globalOmens.landscape}</p>
+              <p><strong>Oracle:</strong> {omens.oracle}</p>
+              <p><strong>Landscape:</strong> {omens.landscape}</p>
               <p><strong>Weather:</strong></p>
               <ul className="text-xs space-y-1 mt-1">
-                <li>• {globalOmens.weatherDetailed.precipitation}</li>
-                <li>• {globalOmens.weatherDetailed.wind}</li>
-                <li>• {globalOmens.weatherDetailed.temperature}</li>
+                <li>• {omens.weatherDetailed.precipitation}</li>
+                <li>• {omens.weatherDetailed.wind}</li>
+                <li>• {omens.weatherDetailed.temperature}</li>
               </ul>
-              <p><strong>Action:</strong> {globalOmens.action}</p>
-              <p><strong>Theme:</strong> {globalOmens.theme}</p>
-              <p><strong>Descriptor:</strong> {globalOmens.descriptor}</p>
+              <p><strong>Action:</strong> {omens.action}</p>
+              <p><strong>Theme:</strong> {omens.theme}</p>
+              <p><strong>Descriptor:</strong> {omens.descriptor}</p>
             </div>
           )}
         </div>

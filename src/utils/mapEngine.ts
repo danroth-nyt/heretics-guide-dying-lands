@@ -1,4 +1,4 @@
-import { MapNode, Road, Territory, NodeShape, RoadDifficulty, RoadAesthetics, GlobalOmens } from '../types';
+import { MapNode, Road, Territory, NodeShape, RoadDifficulty, RoadAesthetics, Omens } from '../types';
 import { rollD12, rollD4, randomChoice } from './diceUtils';
 import { regionTables } from '../data/regionTables';
 import { getLocationTables } from '../data/locationTables';
@@ -422,9 +422,9 @@ function generateRoad(fromNodeId: string, toNodeId: string): Road {
 }
 
 /**
- * Generate global omens for the map
+ * Generate omens for the map
  */
-export function generateGlobalOmens(): GlobalOmens {
+export function generateOmens(): Omens {
   return {
     oracle: rollOnTable(oracleTable),
     landscape: rollOnTable(landscapeTable),

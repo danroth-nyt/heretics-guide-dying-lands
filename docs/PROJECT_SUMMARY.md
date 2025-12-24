@@ -42,7 +42,7 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Detail generation from location sub-tables
 
 6. **UI Components**
-   - **Sidebar**: Territory selector, generate buttons, global omens display
+   - **Sidebar**: Territory selector, generate buttons, omens display
    - **MobileNav**: Responsive hamburger menu for mobile devices
    - **MapCanvas**: SVG-based map rendering with zoom/pan controls
    - **LocationNode**: Interactive nodes with shape variants
@@ -55,13 +55,13 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Click roads to view encounters and difficulty
    - Reroll details for any location or road
    - Generate new maps on demand
-   - Roll global omens independently
+   - Roll omens independently
 
 8. **Print Functionality**
    - Print-optimized layout for A4 paper
    - Black and white conversion
    - Sidebar hidden in print view
-   - Global omens included in print header
+   - Omens included in print header
 
 9. **Polish & UX**
    - Shake animation on map generation
@@ -94,7 +94,7 @@ heretics-guide-dying-lands/
 │   │   ├── LocationNode.tsx        # SVG node rendering
 │   │   ├── MapCanvas.tsx           # Map with zoom/pan controls
 │   │   ├── MobileNav.tsx           # Mobile hamburger menu
-│   │   ├── QuickRollers.tsx        # Quick reference tools
+│   │   ├── Oracles.tsx             # Quick reference tools
 │   │   ├── ReferenceModal.tsx      # Table browser modal
 │   │   ├── Road.tsx                # SVG road rendering
 │   │   ├── RoadTooltip.tsx         # Responsive road detail popup
@@ -228,7 +228,7 @@ All original requirements met:
 - ✅ Procedural map generation (5-6 nodes)
 - ✅ Interactive nodes with detail modals
 - ✅ Road system with difficulty and encounters
-- ✅ Global omens (Oracle, Landscape, Weather)
+- ✅ Omens (Oracle, Landscape, Weather)
 - ✅ MÖRK BORG visual aesthetic
 - ✅ Print-ready output
 - ✅ Animations (shake, fade)

@@ -47,8 +47,8 @@ export interface RoadAesthetics {
   surface: string;
 }
 
-// Global omens
-export interface GlobalOmens {
+// Omens
+export interface Omens {
   oracle: string;
   landscape: string;
   weather: string; // Legacy simple weather
@@ -84,6 +84,6 @@ export interface MapState {
   territory: Territory;
   nodes: MapNode[];
   roads: Road[];
-  globalOmens: GlobalOmens;
+  omens: Omens;
 }
 

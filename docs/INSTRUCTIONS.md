@@ -57,7 +57,7 @@ Open this URL in your web browser.
 
 4. **Check Roads**: Click on the lines connecting locations to see road difficulty, encounters, and opportunities
 
-5. **Roll Global Omens**: Click "Roll Omens" to generate atmospheric elements (Oracle, Landscape, Weather)
+5. **Roll Omens**: Click "Roll Omens" to generate atmospheric elements (Oracle, Landscape, Weather)
 
 6. **Print the Map**: Click "Print Map" to create a print-friendly version optimized for A4 paper
 
