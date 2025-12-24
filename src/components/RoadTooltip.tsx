@@ -198,7 +198,7 @@ const RoadTooltip: React.FC<RoadTooltipProps> = ({ road, position, onClose, onRe
                 className="mork-button flex-1 flex items-center justify-center gap-2"
               >
                 <RefreshCw size={16} />
-                <span>Reroll</span>
+                <span className="landscape-button-text">Reroll</span>
               </button>
               <button
                 onClick={onClose}

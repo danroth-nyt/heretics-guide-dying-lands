@@ -17,6 +17,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onToggle }) => {
           minWidth: '56px', 
           minHeight: '56px',
           boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)',
+          // z-index: 45 - Below modals (50) but above map content, allows modals to appear on top
           zIndex: 45,
           pointerEvents: 'auto'
         }}

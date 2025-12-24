@@ -88,7 +88,7 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
               className="mork-button flex items-center justify-center gap-2 w-full sm:flex-1"
             >
               <RefreshCw size={18} />
-              <span>Reroll</span>
+              <span className="landscape-button-text">Reroll</span>
             </button>
             <button
               onClick={onClose}
