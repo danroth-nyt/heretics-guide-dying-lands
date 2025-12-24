@@ -518,3 +518,117 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--mork-pink);
 }
 
+/* ============================================
+   LANDSCAPE MOBILE OPTIMIZATIONS
+   ============================================ */
+
+/* Landscape Mobile: Force hamburger menu, hide desktop sidebar */
+@media (max-height: 500px) and (orientation: landscape) {
+  .landscape-hide-sidebar {
+    display: none !important;
+  }
+}
+
+/* Compact header for landscape mobile */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-compact-header {
+    padding: 0.5rem 0.75rem !important;
+    min-height: 40px;
+  }
+  
+  .landscape-compact-header h1 {
+    font-size: 1.25rem !important;
+    line-height: 1.2;
+  }
+  
+  .landscape-compact-header p {
+    font-size: 0.625rem !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Inline title and subtitle in landscape */
+  .landscape-inline-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .landscape-inline-header h1 {
+    margin-bottom: 0 !important;
+  }
+  
+  .landscape-inline-header p {
+    margin-top: 0 !important;
+    opacity: 0.75;
+  }
+}
+
+/* Landscape mobile: 2-column modal layout */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    column-gap: 2rem;
+  }
+  
+  .landscape-modal-container {
+    max-height: 75vh !important;
+  }
+  
+  .landscape-modal-header {
+    padding: 0.75rem 1rem !important;
+  }
+  
+  .landscape-modal-header h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  .landscape-modal-body {
+    max-height: calc(75vh - 140px);
+    overflow-y: auto;
+  }
+}
+
+/* Hamburger button positioning for landscape */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-hamburger-top {
+    top: 3rem !important;
+    bottom: auto !important;
+    left: 0.75rem !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+  }
+  
+  /* Force hamburger to show in landscape even on md screens */
+  .landscape-show-hamburger {
+    display: flex !important;
+  }
+  
+  /* Force drawer overlay to show in landscape even on md screens */
+  .landscape-show-drawer {
+    display: block !important;
+  }
+}
+
+/* Utility: Hide element in landscape mobile */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-hidden {
+    display: none !important;
+  }
+}
+
+/* Utility: Compact spacing in landscape */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-compact {
+    padding: 0.5rem !important;
+  }
+}
+
+/* Map canvas adjustments for landscape */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .landscape-map-offset {
+    top: 2.5rem !important;
+  }
+}
+

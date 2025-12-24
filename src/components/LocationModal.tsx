@@ -32,14 +32,14 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
       className="fixed inset-0 z-50 flex items-center justify-center mork-modal-backdrop fade-in md:pl-72"
       onClick={handleBackdropClick}
     >
-      <div className="mork-modal modal-responsive-container w-full md:max-w-2xl md:rounded-lg md:mx-4 flex flex-col overflow-hidden">
+      <div className="mork-modal modal-responsive-container landscape-modal-container w-full md:max-w-2xl md:rounded-lg md:mx-4 flex flex-col overflow-hidden">
         {/* Pull indicator - mobile only */}
         <div className="md:hidden px-6 pt-2 pb-3">
           <div className="pull-indicator"></div>
         </div>
 
         {/* Sticky Header */}
-        <div className="flex-shrink-0 modal-header-responsive px-6 pb-4 md:px-8 md:pb-4 border-b-2 border-mork-yellow">
+        <div className="flex-shrink-0 modal-header-responsive landscape-modal-header px-6 pb-4 md:px-8 md:pb-4 border-b-2 border-mork-yellow">
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1">
               <h2 className="text-2xl md:text-4xl font-pirata mb-2 leading-tight break-words">{node.locationType}</h2>
@@ -58,9 +58,9 @@ const LocationModal: React.FC<LocationModalProps> = ({ node, onClose, onReroll }
           </div>
         </div>
 
-        {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto px-6 py-4 md:px-8">
-          <div className="space-y-4">
+        {/* Scrollable Content - 2 columns in landscape */}
+        <div className="flex-1 overflow-y-auto landscape-modal-body px-6 py-4 md:px-8">
+          <div className="space-y-4 landscape-modal-content">
             {node.details && Object.keys(node.details).length > 0 ? (
               Object.entries(node.details).map(([key, value]) => (
                 <div key={key} className="border-t-2 border-mork-yellow pt-4 first:border-t-0 first:pt-0">

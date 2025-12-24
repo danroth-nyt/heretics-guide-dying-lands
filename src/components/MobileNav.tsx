@@ -9,10 +9,10 @@ interface MobileNavProps {
 const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onToggle }) => {
   return (
     <>
-      {/* Hamburger Button - Fixed bottom-left, only visible on mobile */}
+      {/* Hamburger Button - Bottom-left on portrait, top-left on landscape */}
       <button
         onClick={onToggle}
-        className="fixed bottom-4 left-4 md:hidden bg-mork-black text-mork-yellow border-3 border-mork-black p-3 rounded shadow-2xl flex items-center justify-center"
+        className="fixed bottom-4 left-4 md:hidden landscape-show-hamburger bg-mork-black text-mork-yellow border-3 border-mork-black p-3 rounded shadow-2xl flex items-center justify-center landscape-hamburger-top"
         style={{ 
           minWidth: '56px', 
           minHeight: '56px',
