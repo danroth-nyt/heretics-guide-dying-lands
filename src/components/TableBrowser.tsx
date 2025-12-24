@@ -52,6 +52,11 @@ import {
   roomSizeDetailedTable,
   roomExitCountTable,
   roomExitTypeTable,
+  roomShapeTable,
+  roomSoundsTable,
+  roomSmellsTable,
+  roomEncounterTable,
+  roomLootTable,
 } from '../data/oracles/recluse_dungeon';
 import {
   cityMoodTable,
@@ -114,6 +119,12 @@ import {
   encounterGoalTable,
   encounterComplicationsTable,
 } from '../data/oracles/recluse_encounter';
+import {
+  cityNamesTable,
+  regionNamesTable,
+  landmarkNamesTable,
+  tavernNamesTable,
+} from '../data/oracles/recluse_names';
 import {
   factionPlotHooksTable,
   factionOriginsTable,
@@ -330,6 +341,10 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Descriptor Oracle (d100)', table: descriptorOracleTable },
         // Names
         { name: 'Village Names (d100)', table: villageNamesTable },
+        { name: 'City Names (d95)', table: cityNamesTable },
+        { name: 'Region Names (d97)', table: regionNamesTable },
+        { name: 'Landmark Names (d93)', table: landmarkNamesTable },
+        { name: 'Tavern Names (d95)', table: tavernNamesTable },
         // Dungeon
         { name: 'Dungeon Origin', table: dungeonOriginTable },
         { name: 'Dungeon Purpose Now', table: dungeonPurposeNowTable },
@@ -343,9 +358,14 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Dungeon Entrance Hazards', table: dungeonEntranceHazardsTable },
         { name: 'Room Atmosphere', table: roomAtmosphereTable },
         { name: 'Room Size (Detailed)', table: roomSizeDetailedTable },
+        { name: 'Room Shape', table: roomShapeTable },
         { name: 'Dungeon Room Architecture', table: dungeonRoomArchitectureTable },
         { name: 'Dungeon Room Dressing', table: dungeonRoomDressingTable },
         { name: 'Dungeon Room Purpose', table: dungeonRoomPurposeTable },
+        { name: 'Room Sounds', table: roomSoundsTable },
+        { name: 'Room Smells', table: roomSmellsTable },
+        { name: 'Room Encounter', table: roomEncounterTable },
+        { name: 'Room Loot', table: roomLootTable },
         { name: 'Room Exit Count', table: roomExitCountTable },
         { name: 'Room Exit Type', table: roomExitTypeTable },
         { name: 'Dungeon Hazards', table: dungeonHazardsTable },

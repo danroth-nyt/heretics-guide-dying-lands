@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2, Trees } from 'lucide-react';
+import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2, Trees, MapPin, Type } from 'lucide-react';
 import { rollOnTable } from '../utils/tableLookup';
 import {
   lootTable,
@@ -34,6 +34,11 @@ import {
   roomSizeDetailedTable,
   roomExitCountTable,
   roomExitTypeTable,
+  roomShapeTable,
+  roomSoundsTable,
+  roomSmellsTable,
+  roomEncounterTable,
+  roomLootTable,
 } from '../data/oracles/recluse_dungeon';
 import {
   factionPlotHooksTable,
@@ -89,9 +94,16 @@ import {
   signsOfUndercityTable,
   cityThreatsTable,
 } from '../data/oracles/recluse_city';
+import {
+  villageNamesTable,
+  cityNamesTable,
+  regionNamesTable,
+  landmarkNamesTable,
+  tavernNamesTable,
+} from '../data/oracles/recluse_names';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city' | 'wilderness';
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city' | 'wilderness' | 'villageName' | 'cityName' | 'regionName' | 'landmarkName' | 'tavernName';
   result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult | CityResult | WildernessResult;
 }
 
@@ -127,6 +139,11 @@ interface DungeonRoomResult {
   sizeDetailed: string;
   exitCount: string;
   exitType: string;
+  shape: string;
+  sounds: string;
+  smells: string;
+  encounter: string;
+  loot: string;
 }
 
 interface AdventureResult {
@@ -248,6 +265,11 @@ const Oracles: React.FC = () => {
     const sizeDetailed = rollOnTable(roomSizeDetailedTable);
     const exitCount = rollOnTable(roomExitCountTable);
     const exitType = rollOnTable(roomExitTypeTable);
+    const shape = rollOnTable(roomShapeTable);
+    const sounds = rollOnTable(roomSoundsTable);
+    const smells = rollOnTable(roomSmellsTable);
+    const encounter = rollOnTable(roomEncounterTable);
+    const loot = rollOnTable(roomLootTable);
 
     setLastRoll({
       type: 'dungeonRoom',
@@ -264,7 +286,12 @@ const Oracles: React.FC = () => {
         atmosphere, 
         sizeDetailed, 
         exitCount, 
-        exitType 
+        exitType,
+        shape,
+        sounds,
+        smells,
+        encounter,
+        loot
       },
     });
   };
@@ -384,6 +411,46 @@ const Oracles: React.FC = () => {
     });
   };
 
+  const rollVillageName = () => {
+    const name = rollOnTable(villageNamesTable);
+    setLastRoll({
+      type: 'villageName',
+      result: name,
+    });
+  };
+
+  const rollCityName = () => {
+    const name = rollOnTable(cityNamesTable);
+    setLastRoll({
+      type: 'cityName',
+      result: name,
+    });
+  };
+
+  const rollRegionName = () => {
+    const name = rollOnTable(regionNamesTable);
+    setLastRoll({
+      type: 'regionName',
+      result: name,
+    });
+  };
+
+  const rollLandmarkName = () => {
+    const name = rollOnTable(landmarkNamesTable);
+    setLastRoll({
+      type: 'landmarkName',
+      result: name,
+    });
+  };
+
+  const rollTavernName = () => {
+    const name = rollOnTable(tavernNamesTable);
+    setLastRoll({
+      type: 'tavernName',
+      result: name,
+    });
+  };
+
   const renderResult = () => {
     if (!lastRoll) return null;
 
@@ -436,8 +503,13 @@ const Oracles: React.FC = () => {
             <p><strong>Possible Help:</strong> {room.possibleHelp}</p>
             <p><strong>Atmosphere:</strong> {room.atmosphere}</p>
             <p><strong>Size:</strong> {room.sizeDetailed}</p>
+            <p><strong>Shape:</strong> {room.shape}</p>
             <p><strong>Architecture:</strong> {room.architecture}</p>
             <p><strong>Dressing:</strong> {room.dressing}</p>
+            <p><strong>Sounds:</strong> {room.sounds}</p>
+            <p><strong>Smells:</strong> {room.smells}</p>
+            <p><strong>Encounter:</strong> {room.encounter}</p>
+            <p><strong>Loot:</strong> {room.loot}</p>
             <p><strong>Exit Count:</strong> {room.exitCount}</p>
             <p><strong>Exit Type:</strong> {room.exitType}</p>
           </div>
@@ -535,6 +607,27 @@ const Oracles: React.FC = () => {
       );
     }
 
+    // Handle name oracles
+    if (['villageName', 'cityName', 'regionName', 'landmarkName', 'tavernName'].includes(lastRoll.type)) {
+      const nameTypeMap: Record<string, string> = {
+        villageName: 'Village Name',
+        cityName: 'City Name',
+        regionName: 'Region Name',
+        landmarkName: 'Landmark Name',
+        tavernName: 'Tavern Name',
+      };
+      const nameType = nameTypeMap[lastRoll.type];
+
+      return (
+        <div className="mork-panel">
+          <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">
+            {nameType}:
+          </h3>
+          <p className="text-xs">{lastRoll.result as string}</p>
+        </div>
+      );
+    }
+
     return (
       <div className="mork-panel">
         <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">
@@ -626,6 +719,54 @@ const Oracles: React.FC = () => {
           >
             <Trees size={16} />
             Roll Wilderness
+          </button>
+        </div>
+      </div>
+
+      {/* Name Oracles */}
+      <div className="border-2 border-mork-black p-3">
+        <h4 className="text-sm font-bold uppercase tracking-wider mb-2 text-center opacity-75">
+          Names
+        </h4>
+        <div className="grid grid-cols-1 gap-2">
+          <button
+            onClick={rollVillageName}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <MapPin size={16} />
+            Village Name
+          </button>
+
+          <button
+            onClick={rollCityName}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <Building2 size={16} />
+            City Name
+          </button>
+
+          <button
+            onClick={rollRegionName}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <Map size={16} />
+            Region Name
+          </button>
+
+          <button
+            onClick={rollLandmarkName}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <Compass size={16} />
+            Landmark Name
+          </button>
+
+          <button
+            onClick={rollTavernName}
+            className="mork-button text-sm flex items-center justify-center gap-2"
+          >
+            <Type size={16} />
+            Tavern Name
           </button>
         </div>
       </div>
