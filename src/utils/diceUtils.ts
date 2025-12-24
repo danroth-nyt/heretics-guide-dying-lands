@@ -52,6 +52,13 @@ export function rollD20(): number {
 }
 
 /**
+ * Roll a d100 (1-100)
+ */
+export function rollD100(): number {
+  return rollDice(100);
+}
+
+/**
  * Roll a d66 (11-66)
  * This rolls two d6s and combines them as tens and units
  * Results: 11, 12, 13, 14, 15, 16, 21, 22, ..., 66
