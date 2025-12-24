@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2 } from 'lucide-react';
+import { Dices, User, Compass, Swords, DoorOpen, Map, Users, Building2, Trees } from 'lucide-react';
 import { rollDice } from '../utils/diceUtils';
 import {
   lootTable,
@@ -42,6 +42,27 @@ import {
   adventureTwistTable,
 } from '../data/oracles/recluse_adventure';
 import {
+  wildernessTemperatureTable,
+  wildernessVisibilityTable,
+  unnaturalWeatherTable,
+  minorNaturalDiscoveriesTable,
+  signsOfTravelersTable,
+  remainsAndRuinsTable,
+  strangeOmensTable,
+  wildResourcesTable,
+  wildernessTerrainDangersTable,
+  weatherShiftTable,
+  weatherOmenSignsTable,
+  naturalOdditiesTable,
+  landmarkWaterTable,
+  landmarkDetailsTable,
+  signsOfLostPeopleTable,
+  creatureSignsLargeTable,
+  signsOfAmbushTable,
+  wildlifeHazardsTable,
+  resourceLossHazardsTable,
+} from '../data/oracles/recluse_wilderness';
+import {
   cityOriginTable,
   cityConditionTable,
   citySignsEnteringTable,
@@ -61,8 +82,8 @@ import {
 } from '../data/globalTables';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city';
-  result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult | CityResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'dungeonRoom' | 'adventure' | 'faction' | 'city' | 'wilderness';
+  result: string | NPCResult | EncounterResult | DungeonRoomResult | AdventureResult | FactionResult | CityResult | WildernessResult;
 }
 
 interface NPCResult {
@@ -124,6 +145,28 @@ interface CityResult {
   socialDiscovery: string;
   signsOfUndercity: string;
   threat: string;
+}
+
+interface WildernessResult {
+  temperature: string;
+  visibility: string;
+  unnaturalWeather: string;
+  minorDiscovery: string;
+  signsOfTravelers: string;
+  remainsAndRuins: string;
+  strangeOmen: string;
+  wildResource: string;
+  terrainDanger: string;
+  weatherShift: string;
+  weatherOmenSign: string;
+  naturalOddity: string;
+  landmarkWater: string;
+  landmarkDetail: string;
+  signsOfLostPeople: string;
+  creatureSignsLarge: string;
+  signsOfAmbush: string;
+  wildlifeHazard: string;
+  resourceLossHazard: string;
 }
 
 const QuickRollers: React.FC = () => {
@@ -308,6 +351,73 @@ const QuickRollers: React.FC = () => {
     });
   };
 
+  const rollWilderness = () => {
+    const temperatureRoll = rollDice(20);
+    const visibilityRoll = rollDice(20);
+    const unnaturalWeatherRoll = rollDice(20);
+    const minorDiscoveryRoll = rollDice(20);
+    const travelersRoll = rollDice(20);
+    const ruinsRoll = rollDice(20);
+    const omenRoll = rollDice(20);
+    const resourceRoll = rollDice(12);
+    const terrainDangerRoll = rollDice(20);
+    const weatherShiftRoll = rollDice(12);
+    const weatherOmenRoll = rollDice(12);
+    const oddityRoll = rollDice(20);
+    const waterRoll = rollDice(12);
+    const detailRoll = rollDice(12);
+    const lostPeopleRoll = rollDice(12);
+    const creatureRoll = rollDice(20);
+    const ambushRoll = rollDice(12);
+    const wildlifeRoll = rollDice(20);
+    const resourceLossRoll = rollDice(12);
+
+    const temperature = wildernessTemperatureTable.entries.find((e) => e.roll === temperatureRoll)?.result || 'Unknown';
+    const visibility = wildernessVisibilityTable.entries.find((e) => e.roll === visibilityRoll)?.result || 'Unknown';
+    const unnaturalWeather = unnaturalWeatherTable.entries.find((e) => e.roll === unnaturalWeatherRoll)?.result || 'Unknown';
+    const minorDiscovery = minorNaturalDiscoveriesTable.entries.find((e) => e.roll === minorDiscoveryRoll)?.result || 'Unknown';
+    const signsOfTravelers = signsOfTravelersTable.entries.find((e) => e.roll === travelersRoll)?.result || 'Unknown';
+    const remainsAndRuins = remainsAndRuinsTable.entries.find((e) => e.roll === ruinsRoll)?.result || 'Unknown';
+    const strangeOmen = strangeOmensTable.entries.find((e) => e.roll === omenRoll)?.result || 'Unknown';
+    const wildResource = wildResourcesTable.entries.find((e) => e.roll === resourceRoll)?.result || 'Unknown';
+    const terrainDanger = wildernessTerrainDangersTable.entries.find((e) => e.roll === terrainDangerRoll)?.result || 'Unknown';
+    const weatherShift = weatherShiftTable.entries.find((e) => e.roll === weatherShiftRoll)?.result || 'Unknown';
+    const weatherOmenSign = weatherOmenSignsTable.entries.find((e) => e.roll === weatherOmenRoll)?.result || 'Unknown';
+    const naturalOddity = naturalOdditiesTable.entries.find((e) => e.roll === oddityRoll)?.result || 'Unknown';
+    const landmarkWater = landmarkWaterTable.entries.find((e) => e.roll === waterRoll)?.result || 'Unknown';
+    const landmarkDetail = landmarkDetailsTable.entries.find((e) => e.roll === detailRoll)?.result || 'Unknown';
+    const signsOfLostPeople = signsOfLostPeopleTable.entries.find((e) => e.roll === lostPeopleRoll)?.result || 'Unknown';
+    const creatureSignsLarge = creatureSignsLargeTable.entries.find((e) => e.roll === creatureRoll)?.result || 'Unknown';
+    const signsOfAmbush = signsOfAmbushTable.entries.find((e) => e.roll === ambushRoll)?.result || 'Unknown';
+    const wildlifeHazard = wildlifeHazardsTable.entries.find((e) => e.roll === wildlifeRoll)?.result || 'Unknown';
+    const resourceLossHazard = resourceLossHazardsTable.entries.find((e) => e.roll === resourceLossRoll)?.result || 'Unknown';
+
+    setLastRoll({
+      type: 'wilderness',
+      result: {
+        temperature,
+        visibility,
+        unnaturalWeather,
+        minorDiscovery,
+        signsOfTravelers,
+        remainsAndRuins,
+        strangeOmen,
+        wildResource,
+        terrainDanger,
+        weatherShift,
+        weatherOmenSign,
+        naturalOddity,
+        landmarkWater,
+        landmarkDetail,
+        signsOfLostPeople,
+        creatureSignsLarge,
+        signsOfAmbush,
+        wildlifeHazard,
+        resourceLossHazard,
+      },
+    });
+  };
+
   const renderResult = () => {
     if (!lastRoll) return null;
 
@@ -420,6 +530,36 @@ const QuickRollers: React.FC = () => {
       );
     }
 
+    if (lastRoll.type === 'wilderness' && typeof lastRoll.result === 'object' && 'temperature' in lastRoll.result) {
+      const wild = lastRoll.result as WildernessResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Wilderness:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Temperature:</strong> {wild.temperature}</p>
+            <p><strong>Visibility:</strong> {wild.visibility}</p>
+            <p><strong>Unnatural Weather:</strong> {wild.unnaturalWeather}</p>
+            <p><strong>Minor Discovery:</strong> {wild.minorDiscovery}</p>
+            <p><strong>Signs of Travelers:</strong> {wild.signsOfTravelers}</p>
+            <p><strong>Remains & Ruins:</strong> {wild.remainsAndRuins}</p>
+            <p><strong>Strange Omen:</strong> {wild.strangeOmen}</p>
+            <p><strong>Wild Resource:</strong> {wild.wildResource}</p>
+            <p><strong>Terrain Danger:</strong> {wild.terrainDanger}</p>
+            <p><strong>Weather Shift:</strong> {wild.weatherShift}</p>
+            <p><strong>Weather Omen Sign:</strong> {wild.weatherOmenSign}</p>
+            <p><strong>Natural Oddity:</strong> {wild.naturalOddity}</p>
+            <p><strong>Landmark Water:</strong> {wild.landmarkWater}</p>
+            <p><strong>Landmark Detail:</strong> {wild.landmarkDetail}</p>
+            <p><strong>Signs of Lost People:</strong> {wild.signsOfLostPeople}</p>
+            <p><strong>Creature Signs (Large):</strong> {wild.creatureSignsLarge}</p>
+            <p><strong>Signs of Ambush:</strong> {wild.signsOfAmbush}</p>
+            <p><strong>Wildlife Hazard:</strong> {wild.wildlifeHazard}</p>
+            <p><strong>Resource Loss Hazard:</strong> {wild.resourceLossHazard}</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="mork-panel">
         <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">
@@ -495,6 +635,14 @@ const QuickRollers: React.FC = () => {
         >
           <Building2 size={16} />
           Roll City
+        </button>
+
+        <button
+          onClick={rollWilderness}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Trees size={16} />
+          Roll Wilderness
         </button>
       </div>
 
