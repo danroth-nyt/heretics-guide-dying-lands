@@ -4,7 +4,9 @@ import Sidebar from './components/Sidebar';
 import MapCanvas from './components/MapCanvas';
 import ReferenceModal from './components/ReferenceModal';
 import MobileNav from './components/MobileNav';
+import SaveLoadModal from './components/SaveLoadModal';
 import { generateMap, generateOmens } from './utils/mapEngine';
+import { saveCurrentMapState, loadCurrentMapState } from './utils/mapStorage';
 
 function App() {
   const [selectedTerritory, setSelectedTerritory] = useState<Territory>('kergus');
@@ -14,6 +16,25 @@ function App() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isReferenceOpen, setIsReferenceOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSaveLoadOpen, setIsSaveLoadOpen] = useState(false);
+
+  // Auto-restore last map on mount
+  useEffect(() => {
+    const savedState = loadCurrentMapState();
+    if (savedState && savedState.nodes.length > 0) {
+      setSelectedTerritory(savedState.territory);
+      setNodes(savedState.nodes);
+      setRoads(savedState.roads);
+      setOmens(savedState.omens);
+    }
+  }, []);
+
+  // Auto-save current map state
+  useEffect(() => {
+    if (nodes.length > 0) {
+      saveCurrentMapState(selectedTerritory, nodes, roads, omens);
+    }
+  }, [nodes, roads, omens, selectedTerritory]);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -72,6 +93,18 @@ function App() {
     window.print();
   };
 
+  const handleLoadMap = (state: { 
+    territory: Territory; 
+    nodes: MapNode[]; 
+    roads: Road[]; 
+    omens: Omens | null 
+  }) => {
+    setSelectedTerritory(state.territory);
+    setNodes(state.nodes);
+    setRoads(state.roads);
+    setOmens(state.omens);
+  };
+
   return (
     <div className="flex h-full min-h-screen overflow-hidden">
       {/* Desktop Sidebar - Hidden on mobile */}
@@ -84,6 +117,7 @@ function App() {
           omens={omens}
           onPrint={handlePrint}
           onOpenReference={() => setIsReferenceOpen(true)}
+          onOpenSaveLoad={() => setIsSaveLoadOpen(true)}
           isGenerating={isGenerating}
         />
       </div>
@@ -119,6 +153,10 @@ function App() {
                 setIsReferenceOpen(true);
                 setIsMobileMenuOpen(false);
               }}
+              onOpenSaveLoad={() => {
+                setIsSaveLoadOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
               isGenerating={isGenerating}
               isMobileDrawer={true}
             />
@@ -135,6 +173,16 @@ function App() {
       <ReferenceModal
         isOpen={isReferenceOpen}
         onClose={() => setIsReferenceOpen(false)}
+      />
+
+      <SaveLoadModal
+        isOpen={isSaveLoadOpen}
+        onClose={() => setIsSaveLoadOpen(false)}
+        currentTerritory={selectedTerritory}
+        currentNodes={nodes}
+        currentRoads={roads}
+        currentOmens={omens}
+        onLoadMap={handleLoadMap}
       />
       
       <main className="flex-1 relative overflow-hidden h-full">
