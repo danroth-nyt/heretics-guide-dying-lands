@@ -519,3 +519,13 @@ export const roomLootTable: Table = {
   ],
 };
 
+export const roomContentsTypeTable: Table = {
+  name: 'Room Contents Type (d4)',
+  entries: [
+    { roll: 1, result: 'Discovery' },
+    { roll: 2, result: 'Hazard' },
+    { roll: 3, result: 'Encounter' },
+    { roll: 4, result: 'Loot' },
+  ],
+};
+
