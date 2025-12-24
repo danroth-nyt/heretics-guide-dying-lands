@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .mork-title {
     letter-spacing: 0.1em;
     text-shadow: 
@@ -198,7 +198,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Mobile Modal - Full screen on mobile, centered card on desktop */
 .mobile-modal-container {
   /* Mobile: full screen with safe area */
-  @media (max-width: 767px) {
+  @media (max-width: 1199px) {
     position: fixed;
     inset: 0;
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   /* Desktop: centered card */
-  @media (min-width: 768px) {
+  @media (min-width: 1200px) {
     max-width: 42rem;
     margin: 1rem;
     max-height: 90vh;
@@ -225,14 +225,14 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .pull-indicator {
     display: none;
   }
 }
 
 /* Landscape 2-column layout for modal content */
-@media (max-width: 767px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .modal-content-landscape {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -251,7 +251,7 @@ h1, h2, h3, h4, h5, h6 {
   border-top: 6px solid var(--mork-yellow);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   /* Adjust modal backdrop to prevent overlap with header */
   .mork-modal-backdrop {
     align-items: flex-start !important;
@@ -271,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .modal-header-responsive {
     padding-top: 2rem;
   }
@@ -282,7 +282,7 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   .modal-footer-responsive {
     padding-bottom: 2rem;
   }
@@ -529,14 +529,14 @@ h1, h2, h3, h4, h5, h6 {
    ============================================ */
 
 /* Landscape Mobile: Force hamburger menu, hide desktop sidebar */
-@media (max-height: 500px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .landscape-hide-sidebar {
     display: none !important;
   }
 }
 
 /* Compact header for landscape mobile */
-@media (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .landscape-compact-header {
     padding: 0.5rem 0.75rem !important;
     min-height: 40px;
@@ -570,7 +570,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Landscape mobile: 2-column modal layout */
-@media (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   /* Adjust modal backdrop alignment to prevent top cutoff */
   .mork-modal-backdrop {
     align-items: flex-start !important;
@@ -675,7 +675,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Hamburger button positioning for landscape */
-@media (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .landscape-hamburger-top {
     top: 3rem !important;
     bottom: auto !important;
@@ -696,21 +696,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Utility: Hide element in landscape mobile */
-@media (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .landscape-hidden {
     display: none !important;
   }
 }
 
 /* Utility: Compact spacing in landscape */
-@media (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .landscape-compact {
     padding: 0.5rem !important;
   }
 }
 
 /* Map canvas adjustments for landscape */
-@media (max-width: 1024px) and (orientation: landscape) {
+@media (max-width: 1199px) and (orientation: landscape) {
   .landscape-map-offset {
     top: 2.5rem !important;
   }
