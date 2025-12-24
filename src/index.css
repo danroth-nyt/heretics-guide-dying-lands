@@ -573,7 +573,21 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .landscape-modal-container {
-    max-height: 80vh !important;
+    /* Clear hamburger button area */
+    margin-left: 4rem !important;
+    width: calc(100% - 4rem) !important;
+    
+    /* Override the problematic top margin for landscape */
+    margin-top: 0.5rem !important;
+    
+    /* Constrain height properly */
+    max-height: calc(100vh - 1rem) !important;
+    height: auto;
+    
+    /* Ensure proper positioning */
+    position: relative;
+    
+    /* Keep the yellow border */
     border-top: 6px solid var(--mork-yellow) !important;
   }
   
@@ -589,13 +603,19 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0 !important;
   }
   
+  .landscape-modal-header h3 {
+    font-size: 1.25rem !important;
+    margin-bottom: 0 !important;
+  }
+  
   .landscape-modal-header p {
     font-size: 0.625rem !important;
     margin-top: 0.125rem !important;
   }
   
   .landscape-modal-body {
-    max-height: calc(80vh - 120px);
+    /* Reduce body max-height to account for header/footer */
+    max-height: calc(100vh - 8rem);
     overflow-y: auto;
     padding: 0.75rem 1rem !important;
   }
