@@ -93,8 +93,6 @@ import {
   ruinousLandmarksTable,
   wildernessThreatSignsTable,
   strangeLandmarksTable,
-  wildernessHazardsTable,
-  unnaturalHazardsTable,
   wildernessTemperatureTable,
   wildernessVisibilityTable,
   unnaturalWeatherTable,
@@ -103,7 +101,6 @@ import {
   remainsAndRuinsTable,
   strangeOmensTable,
   wildResourcesTable,
-  wildernessTerrainDangersTable,
   weatherShiftTable,
   weatherOmenSignsTable,
   naturalOdditiesTable,
@@ -112,14 +109,11 @@ import {
   signsOfLostPeopleTable,
   creatureSignsLargeTable,
   signsOfAmbushTable,
-  wildlifeHazardsTable,
-  resourceLossHazardsTable,
 } from '../data/oracles/recluse_wilderness';
 import {
   encounterContextTable,
   encounterDispositionTable,
   encounterGoalTable,
-  encounterComplicationsTable,
   socialNarrativeComplicationsTable,
   strangeMeetingsTable,
   arcaneEncountersTable,
@@ -159,6 +153,16 @@ import {
   beastAppearanceTable,
   wildlifeTypeTable,
 } from '../data/oracles/recluse_creature';
+import {
+  naturalHazardsTable,
+  weatherDrivenHazardsTable,
+  terrainDangersTable,
+  unnaturalHazardsTable,
+  wildlifeHazardsTable,
+  resourceLossHazardsTable,
+  travelCostHazardsTable,
+  misleadingHazardsTable,
+} from '../data/oracles/recluse_hazards';
 import { locationTables } from '../data/locationTables';
 import {
   difficultyTable,
@@ -294,6 +298,19 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
       ],
     },
     {
+      name: 'Hazards',
+      tables: [
+        { name: 'Natural Hazards', table: naturalHazardsTable },
+        { name: 'Weather-Driven Hazards', table: weatherDrivenHazardsTable },
+        { name: 'Terrain Dangers', table: terrainDangersTable },
+        { name: 'Unnatural Hazards', table: unnaturalHazardsTable },
+        { name: 'Wildlife Hazards', table: wildlifeHazardsTable },
+        { name: 'Resource Loss Hazards', table: resourceLossHazardsTable },
+        { name: 'Travel Cost Hazards', table: travelCostHazardsTable },
+        { name: 'Misleading Hazards', table: misleadingHazardsTable },
+      ],
+    },
+    {
       name: 'Wilderness',
       tables: [
         { name: 'Temperature', table: wildernessTemperatureTable },
@@ -314,13 +331,8 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Wild Resources', table: wildResourcesTable },
         { name: 'Natural Oddities', table: naturalOdditiesTable },
         { name: 'Threat Signs', table: wildernessThreatSignsTable },
-        { name: 'Natural Hazards', table: wildernessHazardsTable },
-        { name: 'Unnatural Hazards', table: unnaturalHazardsTable },
-        { name: 'Terrain Dangers', table: wildernessTerrainDangersTable },
         { name: 'Creature Signs: Large', table: creatureSignsLargeTable },
         { name: 'Signs of Ambush', table: signsOfAmbushTable },
-        { name: 'Wildlife Hazards', table: wildlifeHazardsTable },
-        { name: 'Resource Loss Hazards', table: resourceLossHazardsTable },
       ],
     },
     {

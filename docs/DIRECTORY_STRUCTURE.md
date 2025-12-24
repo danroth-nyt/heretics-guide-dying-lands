@@ -39,17 +39,33 @@ heretics-guide-dying-lands/
 │   │   ├── AccordionSection.tsx # Collapsible panel component
 │   │   ├── LocationModal.tsx    # Responsive location detail modal
 │   │   ├── LocationNode.tsx     # Map location markers
+│   │   ├── LocationOracles.tsx  # Location generation oracles (dungeon, city, wilderness)
 │   │   ├── MapCanvas.tsx        # SVG map with zoom/pan controls
 │   │   ├── MobileNav.tsx        # Mobile hamburger menu
-│   │   ├── Oracles.tsx          # Quick reference tools
+│   │   ├── NameOracles.tsx      # Name generation oracles
+│   │   ├── Oracles.tsx          # General oracles (encounters, beasts, signs, hazards, etc.)
 │   │   ├── ReferenceModal.tsx   # Full table browser modal
 │   │   ├── Road.tsx             # Road connections
 │   │   ├── RoadTooltip.tsx      # Responsive road detail popup
+│   │   ├── SaveLoadModal.tsx    # Save/load functionality
 │   │   ├── Sidebar.tsx          # Sidebar UI / mobile drawer
 │   │   ├── TableBrowser.tsx     # Table category navigation
 │   │   └── TableDisplay.tsx     # Table content viewer
 │   │
 │   ├── data/                   # Game data tables
+│   │   ├── oracles/            # Recluse supplement oracle tables
+│   │   │   ├── recluse_adventure.ts   # Adventure generation
+│   │   │   ├── recluse_city.ts        # City, neighborhood, street generation
+│   │   │   ├── recluse_creature.ts    # Beast/creature generation
+│   │   │   ├── recluse_dungeon.ts     # Dungeon and room generation
+│   │   │   ├── recluse_encounter.ts   # Encounters and complications
+│   │   │   ├── recluse_faction.ts     # Faction generation
+│   │   │   ├── recluse_general.ts     # General oracles (loot, wander, fate)
+│   │   │   ├── recluse_hazards.ts     # Comprehensive hazards (11 types)
+│   │   │   ├── recluse_names.ts       # Name generation
+│   │   │   ├── recluse_npc.ts         # NPC generation
+│   │   │   ├── recluse_signs.ts       # Signs and omens (11 types)
+│   │   │   └── recluse_wilderness.ts  # Wilderness generation
 │   │   ├── regionTables.ts     # Region-specific data
 │   │   ├── locationTables.ts   # Location type tables
 │   │   ├── roadTables.ts       # Road encounter tables

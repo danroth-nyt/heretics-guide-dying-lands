@@ -24,9 +24,25 @@ A complete web application for generating procedural hex-crawl maps based on the
 3. **Data Layer**
    - TypeScript interfaces for all game elements
    - Region tables for 4 territories (Kergüs, Wästland, Grift, Tveland)
-   - Location sub-tables for 20 location types (with placeholder data)
+   - Location sub-tables for 20 location types
    - Road tables (difficulty, encounters, opportunities, aesthetics)
    - Global tables (Oracle d66, Fate d20, Loot d66, Landscape d10, Weather d10)
+   - **Comprehensive Oracle System** (200+ tables from Recluse supplement):
+     - Adventures (inciting incident, destination, danger, twist)
+     - Cities (origin, condition, districts, governance, problems, secrets, discoveries)
+     - Neighborhoods (sounds, smells, activities)
+     - Streets (size, shape, quality, buildings, hazards, discoveries, encounters, exits)
+     - Creatures/Beasts (type, armor, morale, damage, behavior, appearance, wildlife type)
+     - Dungeons (origin, entrance, hazards, atmosphere, architecture, light, temperature)
+     - Dungeon Rooms (size, shape, purpose, architecture, dressing, atmosphere, sounds, smells, exits, contents, discoveries, hazards, encounters, loot)
+     - Encounters (context, disposition, goal, strange meetings, arcane encounters, aftermath)
+     - Complications (positional, tactical, narrative, multi-entity, social narrative)
+     - Factions (leader, structure, resources, goals, methods, reputation, weakness, symbol)
+     - Hazards (natural, weather-driven, terrain, unnatural, wildlife, resource loss, travel cost, misleading, dungeon, city)
+     - Names (given names, surnames, titles, epithets)
+     - NPCs (appearance, personality, motivation, secret, capability)
+     - Signs (dungeon entrance, city approach, undercity, large creature, human threat, infestation, ambush, stalking, traveler, lost people, strange omens)
+     - Wilderness (temperature, visibility, weather, discoveries, travelers, ruins, omens, resources, landmarks)
 
 4. **Dice System**
    - Complete dice rolling utilities (d4, d6, d8, d10, d12, d20, d66)
@@ -42,13 +58,21 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Detail generation from location sub-tables
 
 6. **UI Components**
-   - **Sidebar**: Territory selector, generate buttons, omens display
+   - **Sidebar**: Territory selector, generate buttons, omens display, oracle sections
    - **MobileNav**: Responsive hamburger menu for mobile devices
    - **MapCanvas**: SVG-based map rendering with zoom/pan controls
    - **LocationNode**: Interactive nodes with shape variants
    - **Road**: Curved SVG paths with difficulty-based styling
    - **LocationModal**: Responsive modal with mobile bottom-sheet design
    - **RoadTooltip**: Adaptive popup for desktop/mobile displays
+   - **Oracles**: General oracle rollers (encounters, beasts, signs, hazards, adventures, factions, NPCs)
+   - **LocationOracles**: Location-specific oracles (dungeon, city, neighborhood, street, wilderness)
+   - **NameOracles**: Name generation oracles (given, surname, title, epithet)
+   - **AccordionSection**: Collapsible sections for organized sidebar
+   - **SaveLoadModal**: Save and load map functionality
+   - **ReferenceModal**: Full table browser with search
+   - **TableBrowser**: Category navigation for all tables
+   - **TableDisplay**: Individual table viewer with inline dice roller
 
 7. **Interactivity**
    - Click nodes to view location details
@@ -92,16 +116,32 @@ heretics-guide-dying-lands/
 │   │   ├── AccordionSection.tsx    # Collapsible sections
 │   │   ├── LocationModal.tsx       # Responsive location detail modal
 │   │   ├── LocationNode.tsx        # SVG node rendering
+│   │   ├── LocationOracles.tsx     # Location generation oracles
 │   │   ├── MapCanvas.tsx           # Map with zoom/pan controls
 │   │   ├── MobileNav.tsx           # Mobile hamburger menu
-│   │   ├── Oracles.tsx             # Quick reference tools
+│   │   ├── NameOracles.tsx         # Name generation oracles
+│   │   ├── Oracles.tsx             # General oracles (encounters, beasts, signs, hazards, etc.)
 │   │   ├── ReferenceModal.tsx      # Table browser modal
 │   │   ├── Road.tsx                # SVG road rendering
 │   │   ├── RoadTooltip.tsx         # Responsive road detail popup
+│   │   ├── SaveLoadModal.tsx       # Save/load functionality
 │   │   ├── Sidebar.tsx             # Control panel / drawer
 │   │   ├── TableBrowser.tsx        # Table navigation
 │   │   └── TableDisplay.tsx        # Table content display
 │   ├── data/
+│   │   ├── oracles/                # Recluse supplement oracle tables
+│   │   │   ├── recluse_adventure.ts    # Adventure generation
+│   │   │   ├── recluse_city.ts         # City, neighborhood, street generation
+│   │   │   ├── recluse_creature.ts     # Beast/creature generation
+│   │   │   ├── recluse_dungeon.ts      # Dungeon and room generation
+│   │   │   ├── recluse_encounter.ts    # Encounters and complications
+│   │   │   ├── recluse_faction.ts      # Faction generation
+│   │   │   ├── recluse_general.ts      # General oracles (loot, wander, fate)
+│   │   │   ├── recluse_hazards.ts      # Comprehensive hazards (11 types)
+│   │   │   ├── recluse_names.ts        # Name generation
+│   │   │   ├── recluse_npc.ts          # NPC generation
+│   │   │   ├── recluse_signs.ts        # Signs and omens (11 types)
+│   │   │   └── recluse_wilderness.ts   # Wilderness generation
 │   │   ├── globalTables.ts         # Oracle, Fate, Loot, Weather
 │   │   ├── locationTables.ts       # Sub-tables for all locations
 │   │   ├── regionTables.ts         # Territory → Location mappings
@@ -150,12 +190,13 @@ heretics-guide-dying-lands/
 - Print functionality works
 - Keyboard shortcuts implemented
 - Error handling in place
-
-### Needs User Input 📝
-- **PDF Data**: Location tables contain placeholder data
-  - User needs to extract actual table entries from the PDF
-  - Template provided in DATA_TEMPLATE.md
-  - Placeholder data demonstrates structure and functionality
+- **Comprehensive Oracle System** with 200+ tables
+  - General oracles (encounters, beasts, signs, hazards, adventures, factions, NPCs)
+  - Location oracles (dungeon, city, neighborhood, street, wilderness)
+  - Name generation oracles
+  - Inline dice rollers for all tables
+- **Save/Load Functionality** for preserving maps
+- **Table Browser** with search and categorization
 
 ## Next Steps for User
 
@@ -204,21 +245,22 @@ heretics-guide-dying-lands/
 
 ## Known Limitations
 
-1. **No Persistence**: Maps are not saved between sessions (can be added later)
-2. **No Map Export**: Only print functionality (could add JSON/PNG export)
-3. **No Map History**: Cannot undo or view previous maps
+1. **No Image Export**: Only print functionality (could add PNG/SVG export)
+2. **No Map History**: Cannot undo or view previous maps (only current map saved)
+3. **No URL Sharing**: Cannot share maps via link
 
 ## Potential Enhancements
 
-- Save/load maps to localStorage
-- Export maps as PNG or JSON
-- Share maps via URL
+- ~~Save/load maps to localStorage~~ ✅ Complete!
+- Export maps as PNG or SVG
+- Share maps via URL with encoded data
+- Map history/undo functionality
 - More animation options
 - Sound effects (optional)
-- Additional territories
-- Custom location types
-- Map history/undo
+- Additional territories or custom territory creator
+- Campaign tracking with multiple saved maps
 - Offline PWA support
+- Community map sharing platform
 
 ## Success Criteria ✅
 
@@ -236,9 +278,20 @@ All original requirements met:
 
 ## Conclusion
 
-The HERETIC MAP GENERATOR is **fully functional and ready to use**. All core features are implemented, tested, and documented. The application successfully captures the MÖRK BORG aesthetic and provides an intuitive interface for generating procedural hex-crawl maps.
+The HERETIC MAP GENERATOR is **fully functional and feature-complete**. All core features are implemented, tested, and documented. The application successfully captures the MÖRK BORG aesthetic and provides an intuitive interface for:
 
-The only remaining task is populating the location tables with actual PDF data, which is straightforward using the provided template.
+- Generating procedural hex-crawl maps with 6 locations and roads
+- Comprehensive oracle system with 200+ tables from the Recluse supplement
+- Location-specific generation (dungeons, cities, neighborhoods, streets, wilderness)
+- Encounter, creature, hazard, and sign generation
+- NPC, faction, and adventure generation
+- Name generation with multiple types
+- Save/load functionality for map preservation
+- Full table browser with search and inline dice rollers
+- Mobile-responsive design with touch controls
+- Print-ready output
+
+The project has evolved from a basic map generator into a comprehensive solo/GM toolkit for the MÖRK BORG Heretic's Guide to Dying Lands supplement.
 
 **FOR THE DYING LANDS** ☠
 

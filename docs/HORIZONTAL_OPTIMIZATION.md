@@ -202,3 +202,4 @@ Verify on horizontal monitors:
 
 **Ctrl + F5** (Windows) or **Cmd + Shift + R** (Mac) to see the wide-screen optimized map!
 
+
