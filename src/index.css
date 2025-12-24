@@ -596,7 +596,9 @@ h1, h2, h3, h4, h5, h6 {
   .landscape-modal-container {
     /* Clear hamburger button area */
     margin-left: 4rem !important;
+    margin-right: 0 !important;
     width: calc(100% - 4rem) !important;
+    max-width: none !important;
     
     /* Remove top margin since backdrop now has padding-top */
     margin-top: 0 !important;
