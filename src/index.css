@@ -575,6 +575,7 @@ h1, h2, h3, h4, h5, h6 {
   .mork-modal-backdrop {
     align-items: flex-start !important;
     justify-content: center !important;
+    padding-left: 0 !important;
     padding-top: 3rem !important;
     padding-bottom: 0.5rem !important;
     overflow-y: auto !important;
