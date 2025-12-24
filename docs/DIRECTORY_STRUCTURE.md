@@ -26,7 +26,7 @@ heretics-guide-dying-lands/
 │   ├── PROJECT_SUMMARY.md      # Project overview
 │   ├── IMPLEMENTATION_COMPLETE.md  # Feature notes
 │   ├── AESTHETIC_IMPROVEMENTS.md   # Visual enhancements
-│   ├── MARGIN_FIXES.md         # Layout fixes
+│   ├── HORIZONTAL_OPTIMIZATION.md  # Landscape display optimization
 │   └── DIRECTORY_STRUCTURE.md  # This file
 │
 ├── src/                        # 📁 SOURCE CODE
@@ -41,7 +41,7 @@ heretics-guide-dying-lands/
 │   │   ├── LocationNode.tsx     # Map location markers
 │   │   ├── MapCanvas.tsx        # SVG map with zoom/pan controls
 │   │   ├── MobileNav.tsx        # Mobile hamburger menu
-│   │   ├── QuickRollers.tsx     # Quick reference tools
+│   │   ├── Oracles.tsx          # Quick reference tools
 │   │   ├── ReferenceModal.tsx   # Full table browser modal
 │   │   ├── Road.tsx             # Road connections
 │   │   ├── RoadTooltip.tsx      # Responsive road detail popup
@@ -53,7 +53,7 @@ heretics-guide-dying-lands/
 │   │   ├── regionTables.ts     # Region-specific data
 │   │   ├── locationTables.ts   # Location type tables
 │   │   ├── roadTables.ts       # Road encounter tables
-│   │   └── globalTables.ts     # Global omens
+│   │   └── globalTables.ts     # Omens tables
 │   │
 │   ├── utils/                  # Utility functions
 │   │   ├── diceUtils.ts        # Dice rolling logic
@@ -112,7 +112,7 @@ heretics-guide-dying-lands/
 
 ### Recent Changes
 - Visual updates: `docs/AESTHETIC_IMPROVEMENTS.md`
-- Layout fixes: `docs/MARGIN_FIXES.md`
+- Display optimization: `docs/HORIZONTAL_OPTIMIZATION.md`
 - Features: `docs/IMPLEMENTATION_COMPLETE.md`
 
 ## Navigation Tips

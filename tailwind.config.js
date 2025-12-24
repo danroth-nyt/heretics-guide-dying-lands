@@ -11,13 +11,11 @@ export default {
         'elite': ['"Special Elite"', 'monospace'],
       },
       colors: {
-        'mork-yellow': '#fde047',
-        'mork-black': '#000000',
-        'mork-pink': '#ec4899',
+        'mork-yellow': 'var(--mork-yellow)',
+        'mork-black': 'var(--mork-black)',
+        'mork-pink': 'var(--mork-pink)',
       },
     },
   },
   plugins: [],
 }
-
-

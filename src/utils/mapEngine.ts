@@ -1,4 +1,4 @@
-import { MapNode, Road, Territory, NodeShape, RoadDifficulty, RoadAesthetics, GlobalOmens } from '../types';
+import { MapNode, Road, Territory, NodeShape, RoadDifficulty, RoadAesthetics, Omens } from '../types';
 import { rollD12, rollD4, randomChoice } from './diceUtils';
 import { regionTables } from '../data/regionTables';
 import { getLocationTables } from '../data/locationTables';
@@ -16,7 +16,13 @@ import {
 import {
   oracleTable,
   landscapeTable,
-  weatherTable
+  weatherTable,
+  weatherPrecipitationTable,
+  weatherWindTable,
+  weatherTemperatureTable,
+  actionOracleTable,
+  themeOracleTable,
+  descriptorOracleTable,
 } from '../data/globalTables';
 
 /**
@@ -416,13 +422,21 @@ function generateRoad(fromNodeId: string, toNodeId: string): Road {
 }
 
 /**
- * Generate global omens for the map
+ * Generate omens for the map
  */
-export function generateGlobalOmens(): GlobalOmens {
+export function generateOmens(): Omens {
   return {
     oracle: rollOnTable(oracleTable),
     landscape: rollOnTable(landscapeTable),
-    weather: rollOnTable(weatherTable),
+    weather: rollOnTable(weatherTable), // Keep legacy for backwards compatibility
+    weatherDetailed: {
+      precipitation: rollOnTable(weatherPrecipitationTable),
+      wind: rollOnTable(weatherWindTable),
+      temperature: rollOnTable(weatherTemperatureTable),
+    },
+    action: rollOnTable(actionOracleTable),
+    theme: rollOnTable(themeOracleTable),
+    descriptor: rollOnTable(descriptorOracleTable),
   };
 }
 

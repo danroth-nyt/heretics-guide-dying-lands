@@ -412,4 +412,3 @@ const MapCanvas: React.FC<MapCanvasProps> = ({
 
 export default MapCanvas;
 
-

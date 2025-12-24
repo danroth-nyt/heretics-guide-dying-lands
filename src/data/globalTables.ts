@@ -4,7 +4,32 @@ import { Table } from '../types';
  * Global tables for setting the scene
  * Oracle (d66), Fate (d20), Loot (d66), Landscape (d10), Weather (d10)
  * Based on Pages 44-47 of the PDF
+ * 
+ * Enhanced with Recluse oracle tables for expanded options
  */
+
+// Import Recluse oracle tables for enhanced NPC generation
+import { 
+  npcFirstNamesTable, 
+  npcSurnamesTable,
+  villageNamesTable
+} from './oracles/recluse_names';
+import {
+  npcSummaryTable,
+  npcMotivationTable,
+  npcAppearanceTable,
+  npcTraitsTable
+} from './oracles/recluse_npc';
+import {
+  weatherPrecipitationTable,
+  weatherWindTable,
+  weatherTemperatureTable
+} from './oracles/recluse_wilderness';
+import {
+  actionOracleTable,
+  themeOracleTable,
+  descriptorOracleTable
+} from './oracles/recluse_general';
 
 export const oracleTable: Table = {
   name: 'Oracle (d66)',
@@ -293,4 +318,51 @@ export const additionalStockTable: Table = {
     { roll: 12, result: 'Bag of "magical" ash (999s): Not magical' },
   ],
 };
+
+/**
+ * Re-export Recluse oracle tables for easy access
+ * These provide expanded options beyond the original tables
+ */
+
+// Enhanced NPC Names (d100 vs original d12)
+export { npcFirstNamesTable, npcSurnamesTable, villageNamesTable };
+
+// Re-export city tables from Recluse oracles
+export {
+  cityMoodTable,
+  neighborhoodTypeTable,
+  streetActivityTable,
+  buildingTypeTable,
+  cityRumorsTable,
+  cityThreatsTable,
+  streetSurfaceTable,
+  streetSmellTable,
+  streetFeatureTable,
+  buildingInteriorTable,
+  buildingHiddenElementTable,
+  cityOriginTable,
+  cityGatekeeperTable,
+  cityConditionTable,
+  neighborhoodMoodTable,
+  neighborhoodProblemTable,
+  cityDiscoveriesTable,
+  cityUrbanOdditiesTable,
+  citySignsEnteringTable,
+  neighborhoodAttitudeTable,
+  neighborhoodSecretTable,
+  streetNoiseTable,
+  buildingExteriorTable,
+  buildingNotableObjectTable,
+  socialDiscoveriesTable,
+  signsOfUndercityTable,
+} from './oracles/recluse_city';
+
+// Enhanced NPC Details  
+export { npcSummaryTable, npcMotivationTable, npcAppearanceTable, npcTraitsTable };
+
+// Enhanced Weather Details
+export { weatherPrecipitationTable, weatherWindTable, weatherTemperatureTable };
+
+// General Oracles for improvisation
+export { actionOracleTable, themeOracleTable, descriptorOracleTable };
 
