@@ -57,6 +57,9 @@ export interface GlobalOmens {
     wind: string;
     temperature: string;
   };
+  action: string;
+  theme: string;
+  descriptor: string;
 }
 
 // Table entry

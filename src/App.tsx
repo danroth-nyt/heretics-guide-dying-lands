@@ -191,6 +191,9 @@ function App() {
                 <li>• {globalOmens.weatherDetailed.wind}</li>
                 <li>• {globalOmens.weatherDetailed.temperature}</li>
               </ul>
+              <p><strong>Action:</strong> {globalOmens.action}</p>
+              <p><strong>Theme:</strong> {globalOmens.theme}</p>
+              <p><strong>Descriptor:</strong> {globalOmens.descriptor}</p>
             </div>
           )}
         </div>

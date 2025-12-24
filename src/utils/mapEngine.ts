@@ -19,7 +19,10 @@ import {
   weatherTable,
   weatherPrecipitationTable,
   weatherWindTable,
-  weatherTemperatureTable
+  weatherTemperatureTable,
+  actionOracleTable,
+  themeOracleTable,
+  descriptorOracleTable,
 } from '../data/globalTables';
 
 /**
@@ -431,6 +434,9 @@ export function generateGlobalOmens(): GlobalOmens {
       wind: rollOnTable(weatherWindTable),
       temperature: rollOnTable(weatherTemperatureTable),
     },
+    action: rollOnTable(actionOracleTable),
+    theme: rollOnTable(themeOracleTable),
+    descriptor: rollOnTable(descriptorOracleTable),
   };
 }
 
