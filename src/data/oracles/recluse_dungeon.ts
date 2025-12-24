@@ -257,3 +257,143 @@ export const dungeonLightTable: Table = {
   ],
 };
 
+export const dungeonInhabitantsTable: Table = {
+  name: 'Dungeon Inhabitants (d20)',
+  entries: [
+    { roll: 1, result: 'Vermin and pests' },
+    { roll: 2, result: 'Hungry beasts' },
+    { roll: 3, result: 'Cultists' },
+    { roll: 4, result: 'Undead' },
+    { roll: 5, result: 'Bandits' },
+    { roll: 6, result: 'Sorcerers' },
+    { roll: 7, result: 'Strange constructs' },
+    { roll: 8, result: 'Demons' },
+    { roll: 9, result: 'Bone walkers' },
+    { roll: 10, result: 'Feral humans' },
+    { roll: 11, result: 'Slimes or molds' },
+    { roll: 12, result: 'Outsiders or spirits' },
+    { roll: 13, result: 'Mechanical horrors' },
+    { roll: 14, result: 'Cursed wretches' },
+    { roll: 15, result: 'Starved scavengers' },
+    { roll: 16, result: 'Fungus-hive creatures' },
+    { roll: 17, result: 'Rogue experiments' },
+    { roll: 18, result: 'Guard animals' },
+    { roll: 19, result: 'Ancient wardens' },
+    { roll: 20, result: 'Nothing... or something watching' },
+  ],
+};
+
+export const dungeonPrimaryMotiveTable: Table = {
+  name: 'Dungeon Primary Motive (d12)',
+  entries: [
+    { roll: 1, result: 'Hunger' },
+    { roll: 2, result: 'Protection' },
+    { roll: 3, result: 'Madness' },
+    { roll: 4, result: 'Worship' },
+    { roll: 5, result: 'Secrecy' },
+    { roll: 6, result: 'Forbidden knowledge' },
+    { roll: 7, result: 'Greed' },
+    { roll: 8, result: 'Patience' },
+    { roll: 9, result: 'Torment' },
+    { roll: 10, result: 'Restoration' },
+    { roll: 11, result: 'Escape' },
+    { roll: 12, result: 'Transformation' },
+  ],
+};
+
+export const entranceFirstImpressionTable: Table = {
+  name: 'Entrance: First Impression (d12)',
+  entries: [
+    { roll: 1, result: 'An unnatural chill' },
+    { roll: 2, result: 'A faint warm draft' },
+    { roll: 3, result: 'Silence too deep' },
+    { roll: 4, result: 'Whispering echoes' },
+    { roll: 5, result: 'The smell of rot' },
+    { roll: 6, result: 'Bitter metallic scent' },
+    { roll: 7, result: 'Flickering lights inside' },
+    { roll: 8, result: 'A smear of fresh blood' },
+    { roll: 9, result: 'Strange symbols nearby' },
+    { roll: 10, result: 'Pests crawling around the entrance' },
+    { roll: 11, result: 'A distant scream' },
+    { roll: 12, result: 'A slow, rhythmic thumping' },
+  ],
+};
+
+export const entranceImmediateChallengeTable: Table = {
+  name: 'Entrance: Immediate Challenge (d12)',
+  entries: [
+    { roll: 1, result: 'A blocked opening requiring effort' },
+    { roll: 2, result: 'A fork in the entrance tunnels' },
+    { roll: 3, result: 'A narrow squeeze' },
+    { roll: 4, result: 'A brittle bridge' },
+    { roll: 5, result: 'A ladder or rope descent' },
+    { roll: 6, result: 'A flooded passage' },
+    { roll: 7, result: 'A sudden drop' },
+    { roll: 8, result: 'A guarded threshold' },
+    { roll: 9, result: 'A dangerous climb down' },
+    { roll: 10, result: 'A puzzle-like seal' },
+    { roll: 11, result: 'A misdirection or illusion' },
+    { roll: 12, result: 'Something tries to stop you from entering' },
+  ],
+};
+
+export const entrancePossibleHelpTable: Table = {
+  name: 'Entrance: Possible Help (d6)',
+  entries: [
+    { roll: 1, result: 'A shaken wanderer offering a warning' },
+    { roll: 2, result: 'A survivor fleeing with a clue' },
+    { roll: 3, result: 'A hidden cache of supplies' },
+    { roll: 4, result: 'A crude map wedged under a stone' },
+    { roll: 5, result: 'A whispered hint from an unseen source' },
+    { roll: 6, result: 'A nearby lookout signaling safety or danger' },
+  ],
+};
+
+export const roomAtmosphereTable: Table = {
+  name: 'Room Atmosphere (d6)',
+  entries: [
+    { roll: 1, result: 'Dark and silent' },
+    { roll: 2, result: 'Damp and cold' },
+    { roll: 3, result: 'Foggy or dusty' },
+    { roll: 4, result: 'Flickering light' },
+    { roll: 5, result: 'Oppressively warm' },
+    { roll: 6, result: 'Echoing with strange sounds' },
+  ],
+};
+
+export const roomSizeDetailedTable: Table = {
+  name: 'Room Size (Detailed) (d6)',
+  entries: [
+    { roll: 1, result: 'Tiny (closet, cramped crawlspace)' },
+    { roll: 2, result: 'Small (cell, shrine)' },
+    { roll: 3, result: 'Medium (hall, chamber)' },
+    { roll: 4, result: 'Large (great hall, chamber with pillars)' },
+    { roll: 5, result: 'Huge (cathedral chamber, cavern)' },
+    { roll: 6, result: 'Enormous (vast expanse, echoing vault)' },
+  ],
+};
+
+export const roomExitCountTable: Table = {
+  name: 'Room Exit Count (d6)',
+  entries: [
+    { roll: 1, result: 'One' },
+    { roll: 2, result: 'One' },
+    { roll: 3, result: 'Two' },
+    { roll: 4, result: 'Two' },
+    { roll: 5, result: 'Three' },
+    { roll: 6, result: 'Three or more' },
+  ],
+};
+
+export const roomExitTypeTable: Table = {
+  name: 'Room Exit Type (d6)',
+  entries: [
+    { roll: 1, result: 'Hallway' },
+    { roll: 2, result: 'Doorway' },
+    { roll: 3, result: 'Tunnel' },
+    { roll: 4, result: 'Breach' },
+    { roll: 5, result: 'Stairway' },
+    { roll: 6, result: 'Hidden or concealed exit' },
+  ],
+};
+

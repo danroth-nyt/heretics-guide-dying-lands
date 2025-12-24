@@ -25,6 +25,15 @@ import {
   dungeonThemeTable,
   dungeonRoomArchitectureTable,
   dungeonRoomDressingTable,
+  dungeonInhabitantsTable,
+  dungeonPrimaryMotiveTable,
+  entranceFirstImpressionTable,
+  entranceImmediateChallengeTable,
+  entrancePossibleHelpTable,
+  roomAtmosphereTable,
+  roomSizeDetailedTable,
+  roomExitCountTable,
+  roomExitTypeTable,
 } from '../data/oracles/recluse_dungeon';
 import {
   factionPlotHooksTable,
@@ -109,6 +118,15 @@ interface DungeonRoomResult {
   theme: string;
   architecture: string;
   dressing: string;
+  inhabitants: string;
+  motive: string;
+  firstImpression: string;
+  immediateChallenge: string;
+  possibleHelp: string;
+  atmosphere: string;
+  sizeDetailed: string;
+  exitCount: string;
+  exitType: string;
 }
 
 interface AdventureResult {
@@ -241,15 +259,47 @@ const QuickRollers: React.FC = () => {
     const themeRoll = rollDice(12);
     const architectureRoll = rollDice(20);
     const dressingRoll = rollDice(20);
+    const inhabitantsRoll = rollDice(20);
+    const motiveRoll = rollDice(12);
+    const firstImpressionRoll = rollDice(12);
+    const challengeRoll = rollDice(12);
+    const helpRoll = rollDice(6);
+    const atmosphereRoll = rollDice(6);
+    const sizeRoll = rollDice(6);
+    const exitCountRoll = rollDice(6);
+    const exitTypeRoll = rollDice(6);
 
     const origin = dungeonOriginTable.entries.find((e) => e.roll === originRoll)?.result || 'Unknown';
     const theme = dungeonThemeTable.entries.find((e) => e.roll === themeRoll)?.result || 'Unknown';
     const architecture = dungeonRoomArchitectureTable.entries.find((e) => e.roll === architectureRoll)?.result || 'Unknown';
     const dressing = dungeonRoomDressingTable.entries.find((e) => e.roll === dressingRoll)?.result || 'Unknown';
+    const inhabitants = dungeonInhabitantsTable.entries.find((e) => e.roll === inhabitantsRoll)?.result || 'Unknown';
+    const motive = dungeonPrimaryMotiveTable.entries.find((e) => e.roll === motiveRoll)?.result || 'Unknown';
+    const firstImpression = entranceFirstImpressionTable.entries.find((e) => e.roll === firstImpressionRoll)?.result || 'Unknown';
+    const immediateChallenge = entranceImmediateChallengeTable.entries.find((e) => e.roll === challengeRoll)?.result || 'Unknown';
+    const possibleHelp = entrancePossibleHelpTable.entries.find((e) => e.roll === helpRoll)?.result || 'Unknown';
+    const atmosphere = roomAtmosphereTable.entries.find((e) => e.roll === atmosphereRoll)?.result || 'Unknown';
+    const sizeDetailed = roomSizeDetailedTable.entries.find((e) => e.roll === sizeRoll)?.result || 'Unknown';
+    const exitCount = roomExitCountTable.entries.find((e) => e.roll === exitCountRoll)?.result || 'Unknown';
+    const exitType = roomExitTypeTable.entries.find((e) => e.roll === exitTypeRoll)?.result || 'Unknown';
 
     setLastRoll({
       type: 'dungeonRoom',
-      result: { origin, theme, architecture, dressing },
+      result: { 
+        origin, 
+        theme, 
+        architecture, 
+        dressing, 
+        inhabitants, 
+        motive, 
+        firstImpression, 
+        immediateChallenge, 
+        possibleHelp, 
+        atmosphere, 
+        sizeDetailed, 
+        exitCount, 
+        exitType 
+      },
     });
   };
 
@@ -463,8 +513,17 @@ const QuickRollers: React.FC = () => {
           <div className="text-xs space-y-1">
             <p><strong>Origin:</strong> {room.origin}</p>
             <p><strong>Theme:</strong> {room.theme}</p>
+            <p><strong>Inhabitants:</strong> {room.inhabitants}</p>
+            <p><strong>Motive:</strong> {room.motive}</p>
+            <p><strong>First Impression:</strong> {room.firstImpression}</p>
+            <p><strong>Immediate Challenge:</strong> {room.immediateChallenge}</p>
+            <p><strong>Possible Help:</strong> {room.possibleHelp}</p>
+            <p><strong>Atmosphere:</strong> {room.atmosphere}</p>
+            <p><strong>Size:</strong> {room.sizeDetailed}</p>
             <p><strong>Architecture:</strong> {room.architecture}</p>
             <p><strong>Dressing:</strong> {room.dressing}</p>
+            <p><strong>Exit Count:</strong> {room.exitCount}</p>
+            <p><strong>Exit Type:</strong> {room.exitType}</p>
           </div>
         </div>
       );
