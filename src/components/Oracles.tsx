@@ -19,6 +19,14 @@ import {
   encounterContextTable,
   encounterDispositionTable,
   encounterGoalTable,
+  strangeMeetingsTable,
+  arcaneEncountersTable,
+  immediateAftermathTable,
+  positionalComplicationsTable,
+  tacticalComplicationsTable,
+  narrativeComplicationsTable,
+  multiEntityComplicationsTable,
+  socialNarrativeComplicationsTable,
 } from '../data/oracles/recluse_encounter';
 import {
   factionPlotHooksTable,
@@ -35,10 +43,19 @@ import {
   adventureDangerHeartTable,
   adventureTwistTable,
 } from '../data/oracles/recluse_adventure';
+import {
+  creatureTypeTable,
+  armorTierTable,
+  moraleTable,
+  damageTable,
+  beastBehaviorTable,
+  beastAppearanceTable,
+  wildlifeTypeTable,
+} from '../data/oracles/recluse_creature';
 
 interface RollResult {
-  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction';
-  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult;
+  type: 'loot' | 'wander' | 'npc' | 'encounter' | 'adventure' | 'faction' | 'complication' | 'beast';
+  result: string | NPCResult | EncounterResult | AdventureResult | FactionResult | ComplicationResult | BeastResult;
 }
 
 interface NPCResult {
@@ -57,6 +74,17 @@ interface EncounterResult {
   context: string;
   disposition: string;
   goal: string;
+  strangeMeeting?: string;
+  arcaneEncounter?: string;
+  aftermath?: string;
+}
+
+interface ComplicationResult {
+  positional: string;
+  tactical: string;
+  narrative: string;
+  multiEntity: string;
+  socialNarrative: string;
 }
 
 interface AdventureResult {
@@ -74,6 +102,16 @@ interface FactionResult {
   resources: string;
   weakness: string;
   plotHook: string;
+}
+
+interface BeastResult {
+  creatureType: string;
+  armor: string;
+  morale: string;
+  damage: string;
+  behavior: string;
+  appearance: string;
+  wildlife: string;
 }
 
 const Oracles: React.FC = () => {
@@ -116,10 +154,41 @@ const Oracles: React.FC = () => {
     const context = rollOnTable(encounterContextTable);
     const disposition = rollOnTable(encounterDispositionTable);
     const goal = rollOnTable(encounterGoalTable);
+    const strangeMeeting = rollOnTable(strangeMeetingsTable);
+    const arcaneEncounter = rollOnTable(arcaneEncountersTable);
+    const aftermath = rollOnTable(immediateAftermathTable);
 
     setLastRoll({
       type: 'encounter',
-      result: { context, disposition, goal },
+      result: { context, disposition, goal, strangeMeeting, arcaneEncounter, aftermath },
+    });
+  };
+
+  const rollComplication = () => {
+    const positional = rollOnTable(positionalComplicationsTable);
+    const tactical = rollOnTable(tacticalComplicationsTable);
+    const narrative = rollOnTable(narrativeComplicationsTable);
+    const multiEntity = rollOnTable(multiEntityComplicationsTable);
+    const socialNarrative = rollOnTable(socialNarrativeComplicationsTable);
+
+    setLastRoll({
+      type: 'complication',
+      result: { positional, tactical, narrative, multiEntity, socialNarrative },
+    });
+  };
+
+  const rollBeast = () => {
+    const creatureType = rollOnTable(creatureTypeTable);
+    const armor = rollOnTable(armorTierTable);
+    const morale = rollOnTable(moraleTable);
+    const damage = rollOnTable(damageTable);
+    const behavior = rollOnTable(beastBehaviorTable);
+    const appearance = rollOnTable(beastAppearanceTable);
+    const wildlife = rollOnTable(wildlifeTypeTable);
+
+    setLastRoll({
+      type: 'beast',
+      result: { creatureType, armor, morale, damage, behavior, appearance, wildlife },
     });
   };
 
@@ -182,6 +251,43 @@ const Oracles: React.FC = () => {
             <p><strong>Context:</strong> {encounter.context}</p>
             <p><strong>Disposition:</strong> {encounter.disposition}</p>
             <p><strong>Goal:</strong> {encounter.goal}</p>
+            {encounter.strangeMeeting && <p><strong>Strange Meeting:</strong> {encounter.strangeMeeting}</p>}
+            {encounter.arcaneEncounter && <p><strong>Arcane Encounter:</strong> {encounter.arcaneEncounter}</p>}
+            {encounter.aftermath && <p><strong>Aftermath:</strong> {encounter.aftermath}</p>}
+          </div>
+        </div>
+      );
+    }
+
+    if (lastRoll.type === 'complication' && typeof lastRoll.result === 'object' && 'positional' in lastRoll.result) {
+      const complication = lastRoll.result as ComplicationResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Complication:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Positional:</strong> {complication.positional}</p>
+            <p><strong>Tactical:</strong> {complication.tactical}</p>
+            <p><strong>Narrative:</strong> {complication.narrative}</p>
+            <p><strong>Multi-Entity:</strong> {complication.multiEntity}</p>
+            <p><strong>Social/Narrative:</strong> {complication.socialNarrative}</p>
+          </div>
+        </div>
+      );
+    }
+
+    if (lastRoll.type === 'beast' && typeof lastRoll.result === 'object' && 'creatureType' in lastRoll.result) {
+      const beast = lastRoll.result as BeastResult;
+      return (
+        <div className="mork-panel space-y-2">
+          <h3 className="text-sm font-bold uppercase text-mork-pink">Beast/Creature:</h3>
+          <div className="text-xs space-y-1">
+            <p><strong>Type:</strong> {beast.creatureType}</p>
+            <p><strong>Armor:</strong> {beast.armor}</p>
+            <p><strong>Damage:</strong> {beast.damage}</p>
+            <p><strong>Morale:</strong> {beast.morale}</p>
+            <p><strong>Behavior:</strong> {beast.behavior}</p>
+            <p><strong>Appearance:</strong> {beast.appearance}</p>
+            <p><strong>Wildlife (if natural):</strong> {beast.wildlife}</p>
           </div>
         </div>
       );
@@ -256,6 +362,22 @@ const Oracles: React.FC = () => {
         >
           <Swords size={16} />
           Roll Encounter
+        </button>
+
+        <button
+          onClick={rollComplication}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Swords size={16} />
+          Roll Complication
+        </button>
+
+        <button
+          onClick={rollBeast}
+          className="mork-button text-sm flex items-center justify-center gap-2"
+        >
+          <Swords size={16} />
+          Roll Beast
         </button>
         
         <button

@@ -120,6 +120,14 @@ import {
   encounterDispositionTable,
   encounterGoalTable,
   encounterComplicationsTable,
+  socialNarrativeComplicationsTable,
+  strangeMeetingsTable,
+  arcaneEncountersTable,
+  immediateAftermathTable,
+  positionalComplicationsTable,
+  tacticalComplicationsTable,
+  narrativeComplicationsTable,
+  multiEntityComplicationsTable,
 } from '../data/oracles/recluse_encounter';
 import {
   cityNamesTable,
@@ -142,6 +150,15 @@ import {
   adventureDangerHeartTable,
   adventureTwistTable,
 } from '../data/oracles/recluse_adventure';
+import {
+  creatureTypeTable,
+  armorTierTable,
+  moraleTable,
+  damageTable,
+  beastBehaviorTable,
+  beastAppearanceTable,
+  wildlifeTypeTable,
+} from '../data/oracles/recluse_creature';
 import { locationTables } from '../data/locationTables';
 import {
   difficultyTable,
@@ -249,7 +266,31 @@ const TableBrowser: React.FC<TableBrowserProps> = ({
         { name: 'Encounter Context', table: encounterContextTable },
         { name: 'Encounter Disposition', table: encounterDispositionTable },
         { name: 'Encounter Goal', table: encounterGoalTable },
-        { name: 'Encounter Complications', table: encounterComplicationsTable },
+        { name: 'Strange Meetings', table: strangeMeetingsTable },
+        { name: 'Arcane Encounters', table: arcaneEncountersTable },
+        { name: 'Immediate Aftermath', table: immediateAftermathTable },
+      ],
+    },
+    {
+      name: 'Combat Complications',
+      tables: [
+        { name: 'Positional Complications', table: positionalComplicationsTable },
+        { name: 'Tactical Complications', table: tacticalComplicationsTable },
+        { name: 'Narrative Complications', table: narrativeComplicationsTable },
+        { name: 'Multi-Entity Complications', table: multiEntityComplicationsTable },
+        { name: 'Social/Narrative Complications', table: socialNarrativeComplicationsTable },
+      ],
+    },
+    {
+      name: 'Creatures & Beasts',
+      tables: [
+        { name: 'Creature Type', table: creatureTypeTable },
+        { name: 'Wildlife Type', table: wildlifeTypeTable },
+        { name: 'Armor Tier', table: armorTierTable },
+        { name: 'Damage Die', table: damageTable },
+        { name: 'Morale', table: moraleTable },
+        { name: 'Beast Behavior', table: beastBehaviorTable },
+        { name: 'Beast Appearance', table: beastAppearanceTable },
       ],
     },
     {
