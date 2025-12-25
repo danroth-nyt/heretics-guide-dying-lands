@@ -1,7 +1,7 @@
 import React from 'react';
 import { Territory, Omens } from '../types';
 import { territoryNames, territoryDescriptions } from '../data/regionTables';
-import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save, MapPin, Type } from 'lucide-react';
+import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save, MapPin, Type, Swords } from 'lucide-react';
 import AccordionSection from './AccordionSection';
 import Oracles from './Oracles';
 import LocationOracles from './LocationOracles';
@@ -16,6 +16,7 @@ interface SidebarProps {
   onPrint: () => void;
   onOpenReference?: () => void;
   onOpenSaveLoad?: () => void;
+  onOpenMoves?: () => void;
   isGenerating?: boolean;
   isMobileDrawer?: boolean;
 }
@@ -29,6 +30,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onPrint,
   onOpenReference,
   onOpenSaveLoad,
+  onOpenMoves,
   isGenerating,
   isMobileDrawer = false,
 }) => {
@@ -174,6 +176,25 @@ const Sidebar: React.FC<SidebarProps> = ({
             <p className="text-sm italic">No omens yet...</p>
           </div>
         )}
+      </AccordionSection>
+
+      {/* Moves Accordion */}
+      <AccordionSection
+        title="Moves"
+        icon={<Swords size={16} />}
+        defaultOpen={false}
+        storageKey="accordion-moves"
+      >
+        <button
+          onClick={onOpenMoves}
+          className="mork-button-blood w-full flex items-center justify-center gap-2 bg-mork-blood text-mork-yellow border-2 border-mork-black hover:bg-mork-black hover:text-mork-blood transition-colors py-2 px-4 font-bold uppercase"
+        >
+          <Swords size={20} />
+          Browse Moves
+        </button>
+        <p className="text-xs mt-2 opacity-75 italic text-center">
+          PBtA-style character actions with integrated dice roller
+        </p>
       </AccordionSection>
 
       {/* Oracles Accordion */}

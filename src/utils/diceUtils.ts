@@ -109,3 +109,41 @@ export function shuffle<T>(array: T[]): T[] {
   }
   return result;
 }
+
+/**
+ * PBtA Move Roll Result
+ */
+export interface MoveRollResult {
+  dice: [number, number];
+  modifier: number;
+  total: number;
+  outcome: 'strong' | 'weak' | 'miss';
+}
+
+/**
+ * Roll 2d6 with a modifier for PBtA moves
+ * - Strong Hit: 10+
+ * - Weak Hit: 7-9
+ * - Miss: 6 or less
+ */
+export function roll2d6WithMod(modifier: number): MoveRollResult {
+  const die1 = rollD6();
+  const die2 = rollD6();
+  const total = die1 + die2 + modifier;
+  
+  let outcome: 'strong' | 'weak' | 'miss';
+  if (total >= 10) {
+    outcome = 'strong';
+  } else if (total >= 7) {
+    outcome = 'weak';
+  } else {
+    outcome = 'miss';
+  }
+  
+  return {
+    dice: [die1, die2],
+    modifier,
+    total,
+    outcome
+  };
+}

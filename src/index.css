@@ -6,6 +6,7 @@
   --mork-yellow: #fde047;
   --mork-black: #000000;
   --mork-pink: #ec4899;
+  --mork-blood: #8B0000;
 }
 
 * {
@@ -522,6 +523,66 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-mork-pink {
   background-color: var(--mork-pink);
+}
+
+.bg-mork-blood {
+  background-color: var(--mork-blood);
+}
+
+.text-mork-blood {
+  color: var(--mork-blood);
+}
+
+/* Moves-specific styles */
+.mork-button-blood {
+  background-color: var(--mork-blood);
+  border-color: var(--mork-black);
+  color: var(--mork-yellow);
+}
+
+.mork-button-blood:hover {
+  background-color: var(--mork-black);
+  color: var(--mork-blood);
+}
+
+/* Move outcome highlights */
+.outcome-strong {
+  animation: pulseGreen 0.5s ease-in-out;
+}
+
+.outcome-weak {
+  animation: pulseAmber 0.5s ease-in-out;
+}
+
+.outcome-miss {
+  animation: pulseRed 0.5s ease-in-out;
+}
+
+@keyframes pulseGreen {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.7);
+  }
+  50% { 
+    box-shadow: 0 0 20px 10px rgba(21, 128, 61, 0);
+  }
+}
+
+@keyframes pulseAmber {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7);
+  }
+  50% { 
+    box-shadow: 0 0 20px 10px rgba(217, 119, 6, 0);
+  }
+}
+
+@keyframes pulseRed {
+  0%, 100% { 
+    box-shadow: 0 0 0 0 rgba(185, 28, 28, 0.7);
+  }
+  50% { 
+    box-shadow: 0 0 20px 10px rgba(185, 28, 28, 0);
+  }
 }
 
 /* ============================================
