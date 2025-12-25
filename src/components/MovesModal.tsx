@@ -31,7 +31,7 @@ const MovesModal: React.FC<MovesModalProps> = ({ isOpen, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="mobile-modal-container mork-modal w-full modal-responsive-container overflow-hidden flex flex-col"
+        className="mobile-modal-container mork-modal w-full modal-responsive-container overflow-hidden flex flex-col lg:max-w-7xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Pull indicator for mobile */}
@@ -82,7 +82,7 @@ const MovesModal: React.FC<MovesModalProps> = ({ isOpen, onClose }) => {
               <p className="text-sm opacity-75">No moves found matching your criteria.</p>
             </div>
           ) : (
-            <div className="space-y-4 landscape-modal-content">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 landscape-modal-content">
               {filteredMoves.map((move) => (
                 <MoveCard key={move.id} move={move} />
               ))}
