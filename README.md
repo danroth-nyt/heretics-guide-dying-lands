@@ -17,7 +17,7 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
 - **General Oracles**: Instant access to frequently used tables
   - Roll Loot (d66)
   - Roll Wander motivation
-  - Generate complete NPCs with all attributes
+  - Generate complete NPCs with 11+ detailed attributes (gender, body features, hair/grooming, clothing, presence, item color/quality)
   - Roll Encounters with complications
   - Roll Complications (5 types)
   - Roll Beasts/Creatures (7 attributes)
@@ -37,11 +37,18 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
   - Organized by type (Encounters, Creatures, Hazards, Signs, Wilderness, City, Dungeon, NPCs, Adventures, Names, Items, and more)
   - Inline dice roller for any table
 - **Omens**: Roll for Oracle, Landscape, and Weather to set the scene
+- **PBtA Moves System**: Complete playbook moves with integrated dice roller
+  - 40+ character moves across 8 categories
+  - 2d6+modifier rolling with automatic outcome calculation
+  - Category filtering (Travel, Dungeon, City, Connection, Quest, Hearth, Advancement, Adventure)
+  - Animated outcome feedback (Strong Hit 10+, Weak Hit 7-9, Miss 6-)
+  - Searchable moves database
 
 ### UI/UX
 - **Collapsible Sections**: Clean, organized sidebar with accordion panels
 - **Persistent State**: Section preferences saved between sessions
-- **Authentic Theme**: Yellow and black high-contrast design with grunge textures
+- **Authentic Theme**: Yellow, black, and blood red high-contrast design with grunge textures
+- **Animated Feedback**: Pulse animations for move outcomes and interactive elements
 - **Complete Book Data**: All tables synced with Heretic's Guide to Dying Lands
 
 ## Getting Started
@@ -95,8 +102,9 @@ Quick setup:
 
 ### Quick Reference
 - **Oracles**: Expand the section to instantly roll on common tables
+- **Moves**: Access the PBtA moves system to roll character actions
 - **Reference Browser**: Click "Browse All Tables" to access the full table modal
-- **Search**: Use the search bar to quickly find specific tables
+- **Search**: Use the search bar to quickly find specific tables or moves
 - **Keyboard Shortcuts** (Desktop):
   - `Ctrl/Cmd + G`: Generate new map
   - `Ctrl/Cmd + O`: Roll omens
@@ -115,11 +123,14 @@ Quick setup:
 src/
 ├── components/         # React components
 │   ├── AccordionSection.tsx   # Collapsible panel component
+│   ├── CategoryFilter.tsx     # Move category filter
 │   ├── LocationModal.tsx      # Responsive location detail modal
 │   ├── LocationNode.tsx       # Individual location nodes
 │   ├── LocationOracles.tsx    # Location generation oracles (dungeon, city, wilderness)
 │   ├── MapCanvas.tsx          # SVG map with zoom/pan controls
 │   ├── MobileNav.tsx          # Mobile hamburger menu
+│   ├── MoveCard.tsx           # Individual move with dice roller
+│   ├── MovesModal.tsx         # PBtA moves browser
 │   ├── NameOracles.tsx        # Name generation oracles
 │   ├── Oracles.tsx            # General oracles (encounters, beasts, signs, hazards, etc.)
 │   ├── ReferenceModal.tsx     # Full table browser modal
@@ -140,16 +151,18 @@ src/
 │   │   ├── recluse_general.ts     # General oracle tables (loot, wander, fate)
 │   │   ├── recluse_hazards.ts     # Comprehensive hazard tables
 │   │   ├── recluse_names.ts       # Name generation tables
-│   │   ├── recluse_npc.ts         # NPC generation
+│   │   ├── recluse_npc.ts         # NPC generation + visual details
 │   │   ├── recluse_signs.ts       # Signs and omens (11 types)
 │   │   └── recluse_wilderness.ts  # Wilderness generation
 │   ├── regionTables.ts        # Territory-specific locations (d12)
 │   ├── locationTables.ts      # All 20 location sub-tables
+│   ├── moves.ts               # PBtA move definitions (40+ moves)
 │   ├── roadTables.ts          # Road encounters & aesthetics
-│   └── globalTables.ts        # Oracle, Fate, Loot, NPC, Items
+│   └── globalTables.ts        # Oracle, Fate, Loot, NPC, Items, Enhanced NPC tables
 ├── utils/             # Utilities and logic
-│   ├── diceUtils.ts           # Dice rolling functions
+│   ├── diceUtils.ts           # Dice rolling functions + PBtA 2d6+mod
 │   ├── mapEngine.ts           # Map generation engine
+│   ├── mapStorage.ts          # Save/load functionality
 │   └── tableLookup.ts         # Table rolling logic
 └── types/             # TypeScript interfaces
     └── index.ts
@@ -186,6 +199,7 @@ Comprehensive documentation is available in the [docs/](docs/) directory:
 - **[Quick Start Guide](docs/QUICKSTART.md)** - Get started quickly
 - **[Development Instructions](docs/INSTRUCTIONS.md)** - Detailed dev guide
 - **[Oracle System Guide](docs/ORACLE_SYSTEM.md)** - Complete oracle documentation (200+ tables)
+- **[Moves System Guide](docs/MOVES_SYSTEM.md)** - Complete PBtA moves documentation (40+ moves)
 - **[Contributing Guide](docs/CONTRIBUTING.md)** - How to contribute
 - **[Data Templates](docs/DATA_TEMPLATE.md)** - Data structure reference
 - **[Implementation Notes](docs/AESTHETIC_IMPROVEMENTS.md)** - Recent changes
@@ -223,10 +237,13 @@ This project was created as a tool for MÖRK BORG players. Feel free to modify a
   - [x] General oracles (encounters, beasts, signs, hazards, adventures, factions)
   - [x] Location oracles (dungeon, city, neighborhood, street, wilderness)
   - [x] Name generation oracles
+  - [x] Enhanced NPC generation with visual details
 - [x] ~~Optimize for landscape mobile devices~~ ✅ Complete!
+- [x] ~~Add PBtA Moves System with integrated dice roller~~ ✅ Complete!
 - [ ] Add map sharing via URL
 - [ ] Export maps as images
 - [ ] Add campaign tracking/notes
+- [ ] Add character sheet tracking
 - [ ] Implement advanced road pathfinding
 - [ ] Add PWA support for offline use
 

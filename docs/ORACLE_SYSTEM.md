@@ -17,12 +17,23 @@ Generates random treasure on a d66 table.
 Generates character motivation ("Why do you wander?") - perfect for quick character hooks.
 
 #### Roll NPC
-Generates a complete NPC with:
-- Appearance
-- Personality
-- Motivation
-- Secret
-- Capability
+Generates a complete NPC with 11+ detailed attributes:
+- **Name** (first + surname)
+- **Gender** (male, female, nonbinary, or obscured)
+- **Summary** (overall impression)
+- **Body Feature** (build and physique)
+- **Hair/Grooming** (hair style and maintenance)
+- **Clothing Detail** (attire description)
+- **Overall Presence** (demeanor and aura)
+- **Detailed Appearance** (specific physical traits)
+- **Traits** (personality characteristics)
+- **Motivation** (driving goals)
+- **Occupation** (profession or role)
+- **Habit** (notable behavior)
+- **Mood** (current emotional state)
+- **Wants** (immediate desires)
+- **Notable Item Color** (distinctive item color)
+- **Item Quality** (condition of notable item)
 
 #### Roll Encounter
 Generates a full encounter with:

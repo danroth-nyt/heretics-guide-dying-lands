@@ -39,7 +39,9 @@ The map generator is now running. Try:
 2. Click on any **location node** to see details
 3. Click on **roads** to see encounters
 4. Click **"Roll Omens"** for atmospheric elements
-5. Use **"Print Map"** when you're ready to use it in your game
+5. Open **"Moves"** to access 40+ PBtA character actions with dice roller
+6. Use **"Oracles"** to roll on 200+ game tables
+7. Use **"Print Map"** when you're ready to use it in your game
 
 ## Keyboard Shortcuts
 
