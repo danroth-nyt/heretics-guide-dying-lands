@@ -15,11 +15,12 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Complete folder structure
 
 2. **Visual Theme**
-   - MÖRK BORG aesthetic (yellow #fde047 / black #000000)
+   - MÖRK BORG aesthetic (yellow #fde047 / black #000000 / blood red #8B0000)
    - Grunge texture overlays
    - Gothic fonts (Pirata One) and typewriter fonts (Special Elite)
    - Heavy borders and distressed effects
    - Print-optimized styling
+   - Animated outcome feedback (pulse animations for move results)
 
 3. **Data Layer**
    - TypeScript interfaces for all game elements
@@ -40,12 +41,13 @@ A complete web application for generating procedural hex-crawl maps based on the
      - Factions (leader, structure, resources, goals, methods, reputation, weakness, symbol)
      - Hazards (natural, weather-driven, terrain, unnatural, wildlife, resource loss, travel cost, misleading, dungeon, city)
      - Names (given names, surnames, titles, epithets)
-     - NPCs (appearance, personality, motivation, secret, capability)
+     - NPCs (appearance, personality, motivation, secret, capability, gender, body features, hair/grooming, clothing details, presence, notable item color/quality)
      - Signs (dungeon entrance, city approach, undercity, large creature, human threat, infestation, ambush, stalking, traveler, lost people, strange omens)
      - Wilderness (temperature, visibility, weather, discoveries, travelers, ruins, omens, resources, landmarks)
 
 4. **Dice System**
    - Complete dice rolling utilities (d4, d6, d8, d10, d12, d20, d66)
+   - PBtA-style 2d6+modifier rolling with outcome calculation (Strong Hit 10+, Weak Hit 7-9, Miss 6-)
    - Table lookup system with automatic dice detection
    - Seed-based randomization for consistent results
 
@@ -58,16 +60,19 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Detail generation from location sub-tables
 
 6. **UI Components**
-   - **Sidebar**: Territory selector, generate buttons, omens display, oracle sections
+   - **Sidebar**: Territory selector, generate buttons, omens display, oracle sections, moves access
    - **MobileNav**: Responsive hamburger menu for mobile devices
    - **MapCanvas**: SVG-based map rendering with zoom/pan controls
    - **LocationNode**: Interactive nodes with shape variants
    - **Road**: Curved SVG paths with difficulty-based styling
    - **LocationModal**: Responsive modal with mobile bottom-sheet design
    - **RoadTooltip**: Adaptive popup for desktop/mobile displays
-   - **Oracles**: General oracle rollers (encounters, beasts, signs, hazards, adventures, factions, NPCs)
+   - **Oracles**: General oracle rollers (encounters, beasts, signs, hazards, adventures, factions, NPCs with enhanced details)
    - **LocationOracles**: Location-specific oracles (dungeon, city, neighborhood, street, wilderness)
    - **NameOracles**: Name generation oracles (given, surname, title, epithet)
+   - **MovesModal**: Comprehensive PBtA moves browser with search and category filters
+   - **MoveCard**: Individual move display with integrated dice roller and animated outcome feedback
+   - **CategoryFilter**: Filter moves by category (Travel, Dungeon, City, Connection, Quest, Hearth, Advancement, Adventure)
    - **AccordionSection**: Collapsible sections for organized sidebar
    - **SaveLoadModal**: Save and load map functionality
    - **ReferenceModal**: Full table browser with search
@@ -116,11 +121,14 @@ heretics-guide-dying-lands/
 ├── src/
 │   ├── components/
 │   │   ├── AccordionSection.tsx    # Collapsible sections
+│   │   ├── CategoryFilter.tsx      # Move category filter
 │   │   ├── LocationModal.tsx       # Responsive location detail modal
 │   │   ├── LocationNode.tsx        # SVG node rendering
 │   │   ├── LocationOracles.tsx     # Location generation oracles
 │   │   ├── MapCanvas.tsx           # Map with zoom/pan controls
 │   │   ├── MobileNav.tsx           # Mobile hamburger menu
+│   │   ├── MoveCard.tsx            # Individual move with dice roller
+│   │   ├── MovesModal.tsx          # PBtA moves browser
 │   │   ├── NameOracles.tsx         # Name generation oracles
 │   │   ├── Oracles.tsx             # General oracles (encounters, beasts, signs, hazards, etc.)
 │   │   ├── ReferenceModal.tsx      # Table browser modal
@@ -141,11 +149,12 @@ heretics-guide-dying-lands/
 │   │   │   ├── recluse_general.ts      # General oracles (loot, wander, fate)
 │   │   │   ├── recluse_hazards.ts      # Comprehensive hazards (11 types)
 │   │   │   ├── recluse_names.ts        # Name generation
-│   │   │   ├── recluse_npc.ts          # NPC generation
+│   │   │   ├── recluse_npc.ts          # NPC generation + visual details
 │   │   │   ├── recluse_signs.ts        # Signs and omens (11 types)
 │   │   │   └── recluse_wilderness.ts   # Wilderness generation
-│   │   ├── globalTables.ts         # Oracle, Fate, Loot, Weather
+│   │   ├── globalTables.ts         # Oracle, Fate, Loot, Weather, Enhanced NPC tables
 │   │   ├── locationTables.ts       # Sub-tables for all locations
+│   │   ├── moves.ts                # PBtA move definitions (40+ moves)
 │   │   ├── regionTables.ts         # Territory → Location mappings
 │   │   └── roadTables.ts           # Road encounters & aesthetics
 │   ├── types/
@@ -194,9 +203,15 @@ heretics-guide-dying-lands/
 - Error handling in place
 - **Comprehensive Oracle System** with 200+ tables from Reclvse Version 1.9
   - General oracles (encounters, beasts, signs, hazards, adventures, factions, NPCs)
+  - Enhanced NPC generation with 11+ detailed attributes (gender, body features, hair/grooming, clothing, presence, item color/quality)
   - Location oracles (dungeon, city, neighborhood, street, wilderness)
   - Name generation oracles
   - Inline dice rollers for all tables
+- **PBtA Moves System** with 40+ playbook moves
+  - Integrated 2d6+modifier dice roller
+  - Animated outcome feedback (Strong Hit, Weak Hit, Miss)
+  - Category filtering (Travel, Dungeon, City, Connection, Quest, Hearth, Advancement, Adventure)
+  - Searchable moves database
 - **Save/Load Functionality** for preserving maps
 - **Table Browser** with search and categorization
 - **Landscape Mobile Optimization** for horizontal viewing on phones and tablets
@@ -255,10 +270,12 @@ heretics-guide-dying-lands/
 ## Potential Enhancements
 
 - ~~Save/load maps to localStorage~~ ✅ Complete!
+- ~~PBtA Moves System with dice roller~~ ✅ Complete!
+- ~~Enhanced NPC generation with visual details~~ ✅ Complete!
 - Export maps as PNG or SVG
 - Share maps via URL with encoded data
 - Map history/undo functionality
-- More animation options
+- Character sheet tracking integration
 - Sound effects (optional)
 - Additional territories or custom territory creator
 - Campaign tracking with multiple saved maps
@@ -287,14 +304,16 @@ The HERETIC MAP GENERATOR is **fully functional and feature-complete**. All core
 - Comprehensive oracle system with 200+ tables from the Recluse supplement
 - Location-specific generation (dungeons, cities, neighborhoods, streets, wilderness)
 - Encounter, creature, hazard, and sign generation
-- NPC, faction, and adventure generation
+- Enhanced NPC generation with detailed visual attributes (11+ characteristics)
+- Faction and adventure generation
 - Name generation with multiple types
+- **PBtA Moves System** with 40+ playbook moves and integrated dice roller
 - Save/load functionality for map preservation
 - Full table browser with search and inline dice rollers
 - Mobile-responsive design with touch controls
 - Print-ready output
 
-The project has evolved from a basic map generator into a comprehensive solo/GM toolkit for the MÖRK BORG Heretic's Guide to Dying Lands supplement, with oracle tables from Reclvse Version 1.9.
+The project has evolved from a basic map generator into a comprehensive solo/GM toolkit for the MÖRK BORG Heretic's Guide to Dying Lands supplement, combining oracle tables from Reclvse Version 1.9 with a complete PBtA-style moves system for character actions and outcomes.
 
 **FOR THE DYING LANDS** ☠
 

@@ -18,7 +18,14 @@ import {
   npcSummaryTable,
   npcMotivationTable,
   npcAppearanceTable,
-  npcTraitsTable
+  npcTraitsTable,
+  npcGenderTable,
+  npcBodyFeatureTable,
+  npcHairGroomingTable,
+  npcClothingDetailTable,
+  npcOverallPresenceTable,
+  itemColorTable,
+  itemQualityTable
 } from './oracles/recluse_npc';
 import {
   weatherPrecipitationTable,
@@ -360,7 +367,19 @@ export {
 } from './oracles/recluse_city';
 
 // Enhanced NPC Details  
-export { npcSummaryTable, npcMotivationTable, npcAppearanceTable, npcTraitsTable };
+export { 
+  npcSummaryTable, 
+  npcMotivationTable, 
+  npcAppearanceTable, 
+  npcTraitsTable,
+  npcGenderTable,
+  npcBodyFeatureTable,
+  npcHairGroomingTable,
+  npcClothingDetailTable,
+  npcOverallPresenceTable,
+  itemColorTable,
+  itemQualityTable
+};
 
 // Enhanced Weather Details
 export { weatherPrecipitationTable, weatherWindTable, weatherTemperatureTable };

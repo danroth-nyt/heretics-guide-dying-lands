@@ -451,3 +451,151 @@ export const factionWeaknessTable: Table = {
   ],
 };
 
+// ==========================================
+// NPC VISUAL DETAILS (Page 101)
+// ==========================================
+
+export const npcGenderTable: Table = {
+  name: 'NPC Gender (d4)',
+  entries: [
+    { roll: 1, result: 'Male' },
+    { roll: 2, result: 'Female' },
+    { roll: 3, result: 'Nonbinary / Androgynous' },
+    { roll: 4, result: 'Uncertain / Obscured / Not obvious' },
+  ],
+};
+
+export const npcBodyFeatureTable: Table = {
+  name: 'NPC Body Feature (d20)',
+  entries: [
+    { roll: 1, result: 'Wiry' },
+    { roll: 2, result: 'Broad' },
+    { roll: 3, result: 'Lanky' },
+    { roll: 4, result: 'Stocky' },
+    { roll: 5, result: 'Hardened' },
+    { roll: 6, result: 'Fragile' },
+    { roll: 7, result: 'Stooped' },
+    { roll: 8, result: 'Towering' },
+    { roll: 9, result: 'Compact' },
+    { roll: 10, result: 'Robust' },
+    { roll: 11, result: 'Gaunt' },
+    { roll: 12, result: 'Muscular' },
+    { roll: 13, result: 'Slender' },
+    { roll: 14, result: 'Heavyset' },
+    { roll: 15, result: 'Angular' },
+    { roll: 16, result: 'Crooked' },
+    { roll: 17, result: 'Short' },
+    { roll: 18, result: 'Elongated' },
+    { roll: 19, result: 'Weathered' },
+    { roll: 20, result: 'Spry' },
+  ],
+};
+
+export const npcHairGroomingTable: Table = {
+  name: 'NPC Hair/Grooming (d20)',
+  entries: [
+    { roll: 1, result: 'Tousled' },
+    { roll: 2, result: 'Braided' },
+    { roll: 3, result: 'Shorn' },
+    { roll: 4, result: 'Greased' },
+    { roll: 5, result: 'Curled' },
+    { roll: 6, result: 'Matted' },
+    { roll: 7, result: 'Slicked' },
+    { roll: 8, result: 'Tangled' },
+    { roll: 9, result: 'Trimmed' },
+    { roll: 10, result: 'Oily' },
+    { roll: 11, result: 'Frosted' },
+    { roll: 12, result: 'Wild' },
+    { roll: 13, result: 'Coiled' },
+    { roll: 14, result: 'Dyed' },
+    { roll: 15, result: 'Cropped' },
+    { roll: 16, result: 'Bristled' },
+    { roll: 17, result: 'Voluminous' },
+    { roll: 18, result: 'Wispy' },
+    { roll: 19, result: 'Chopped' },
+    { roll: 20, result: 'Glossy' },
+  ],
+};
+
+export const npcClothingDetailTable: Table = {
+  name: 'NPC Clothing Detail (d20)',
+  entries: [
+    { roll: 1, result: 'Tattered' },
+    { roll: 2, result: 'Layered' },
+    { roll: 3, result: 'Patched' },
+    { roll: 4, result: 'Threadbare' },
+    { roll: 5, result: 'Muddy' },
+    { roll: 6, result: 'Stained' },
+    { roll: 7, result: 'Faded' },
+    { roll: 8, result: 'Trimmed' },
+    { roll: 9, result: 'Embroidered' },
+    { roll: 10, result: 'Draped' },
+    { roll: 11, result: 'Reinforced' },
+    { roll: 12, result: 'Wrapped' },
+    { roll: 13, result: 'Buttoned' },
+    { roll: 14, result: 'Buckled' },
+    { roll: 15, result: 'Hooded' },
+    { roll: 16, result: 'Cinched' },
+    { roll: 17, result: 'Quilted' },
+    { roll: 18, result: 'Striped' },
+    { roll: 19, result: 'Polished' },
+    { roll: 20, result: 'Fringed' },
+  ],
+};
+
+export const npcOverallPresenceTable: Table = {
+  name: 'NPC Overall Presence (d20)',
+  entries: [
+    { roll: 1, result: 'Intense' },
+    { roll: 2, result: 'Withdrawn' },
+    { roll: 3, result: 'Alert' },
+    { roll: 4, result: 'Stoic' },
+    { roll: 5, result: 'Menacing' },
+    { roll: 6, result: 'Distracted' },
+    { roll: 7, result: 'Vibrant' },
+    { roll: 8, result: 'Somber' },
+    { roll: 9, result: 'Confident' },
+    { roll: 10, result: 'Uncertain' },
+    { roll: 11, result: 'Cold' },
+    { roll: 12, result: 'Warm' },
+    { roll: 13, result: 'Stern' },
+    { roll: 14, result: 'Shy' },
+    { roll: 15, result: 'Focused' },
+    { roll: 16, result: 'Lively' },
+    { roll: 17, result: 'Reserved' },
+    { roll: 18, result: 'Impatient' },
+    { roll: 19, result: 'Serene' },
+    { roll: 20, result: 'Fierce' },
+  ],
+};
+
+export const itemColorTable: Table = {
+  name: 'Item Color (d12)',
+  entries: [
+    { roll: 1, result: 'Black' },
+    { roll: 2, result: 'White' },
+    { roll: 3, result: 'Gray' },
+    { roll: 4, result: 'Red' },
+    { roll: 5, result: 'Blue' },
+    { roll: 6, result: 'Green' },
+    { roll: 7, result: 'Yellow' },
+    { roll: 8, result: 'Purple' },
+    { roll: 9, result: 'Brown' },
+    { roll: 10, result: 'Orange' },
+    { roll: 11, result: 'Pink' },
+    { roll: 12, result: 'Gold' },
+  ],
+};
+
+export const itemQualityTable: Table = {
+  name: 'Item Quality (d6)',
+  entries: [
+    { roll: 1, result: 'Pristine' },
+    { roll: 2, result: 'Worn' },
+    { roll: 3, result: 'Damaged' },
+    { roll: 4, result: 'Ruined' },
+    { roll: 5, result: 'Corrupted' },
+    { roll: 6, result: 'Unstable' },
+  ],
+};
+

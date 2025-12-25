@@ -14,6 +14,13 @@ import {
   npcSummaryTable,
   npcMotivationTable,
   npcTraitsTable,
+  npcGenderTable,
+  npcBodyFeatureTable,
+  npcHairGroomingTable,
+  npcClothingDetailTable,
+  npcOverallPresenceTable,
+  itemColorTable,
+  itemQualityTable,
 } from '../data/globalTables';
 import {
   encounterContextTable,
@@ -90,7 +97,12 @@ interface RollResult {
 
 interface NPCResult {
   name: string;
+  gender: string;
   summary: string;
+  bodyFeature: string;
+  hairGrooming: string;
+  clothingDetail: string;
+  overallPresence: string;
   appearance: string;
   traits: string;
   motivation: string;
@@ -98,6 +110,8 @@ interface NPCResult {
   habit: string;
   mood: string;
   wants: string;
+  itemColor: string;
+  itemQuality: string;
 }
 
 interface EncounterResult {
@@ -193,7 +207,12 @@ const Oracles: React.FC = () => {
     const firstName = rollOnTable(npcFirstNamesTable);
     const surname = rollOnTable(npcSurnamesTable);
     const name = `${firstName} ${surname}`;
+    const gender = rollOnTable(npcGenderTable);
     const summary = rollOnTable(npcSummaryTable);
+    const bodyFeature = rollOnTable(npcBodyFeatureTable);
+    const hairGrooming = rollOnTable(npcHairGroomingTable);
+    const clothingDetail = rollOnTable(npcClothingDetailTable);
+    const overallPresence = rollOnTable(npcOverallPresenceTable);
     const appearance = rollOnTable(npcAppearanceTable);
     const traits = rollOnTable(npcTraitsTable);
     const motivation = rollOnTable(npcMotivationTable);
@@ -201,10 +220,29 @@ const Oracles: React.FC = () => {
     const habit = rollOnTable(npcHabitTable);
     const mood = rollOnTable(npcMoodTable);
     const wants = rollOnTable(npcWantsTable);
+    const itemColor = rollOnTable(itemColorTable);
+    const itemQuality = rollOnTable(itemQualityTable);
 
     setLastRoll({
       type: 'npc',
-      result: { name, summary, appearance, traits, motivation, occupation, habit, mood, wants },
+      result: { 
+        name, 
+        gender, 
+        summary, 
+        bodyFeature, 
+        hairGrooming, 
+        clothingDetail, 
+        overallPresence, 
+        appearance, 
+        traits, 
+        motivation, 
+        occupation, 
+        habit, 
+        mood, 
+        wants, 
+        itemColor, 
+        itemQuality 
+      },
     });
   };
 
@@ -325,14 +363,21 @@ const Oracles: React.FC = () => {
           <h3 className="text-sm font-bold uppercase text-mork-pink">Random NPC:</h3>
           <div className="text-xs space-y-1">
             <p><strong>Name:</strong> {npc.name}</p>
+            <p><strong>Gender:</strong> {npc.gender}</p>
             <p><strong>Summary:</strong> {npc.summary}</p>
-            <p><strong>Appearance:</strong> {npc.appearance}</p>
+            <p><strong>Body:</strong> {npc.bodyFeature}</p>
+            <p><strong>Hair/Grooming:</strong> {npc.hairGrooming}</p>
+            <p><strong>Clothing:</strong> {npc.clothingDetail}</p>
+            <p><strong>Presence:</strong> {npc.overallPresence}</p>
+            <p><strong>Detailed Appearance:</strong> {npc.appearance}</p>
             <p><strong>Traits:</strong> {npc.traits}</p>
             <p><strong>Motivation:</strong> {npc.motivation}</p>
             <p><strong>Occupation:</strong> {npc.occupation}</p>
             <p><strong>Habit:</strong> {npc.habit}</p>
             <p><strong>Mood:</strong> {npc.mood}</p>
             <p><strong>Wants:</strong> {npc.wants}</p>
+            <p><strong>Notable Item Color:</strong> {npc.itemColor}</p>
+            <p><strong>Item Quality:</strong> {npc.itemQuality}</p>
           </div>
         </div>
       );

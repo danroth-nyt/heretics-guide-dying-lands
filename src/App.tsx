@@ -5,6 +5,7 @@ import MapCanvas from './components/MapCanvas';
 import ReferenceModal from './components/ReferenceModal';
 import MobileNav from './components/MobileNav';
 import SaveLoadModal from './components/SaveLoadModal';
+import MovesModal from './components/MovesModal';
 import { generateMap, generateOmens } from './utils/mapEngine';
 import { saveCurrentMapState, loadCurrentMapState } from './utils/mapStorage';
 
@@ -17,6 +18,7 @@ function App() {
   const [isReferenceOpen, setIsReferenceOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSaveLoadOpen, setIsSaveLoadOpen] = useState(false);
+  const [isMovesOpen, setIsMovesOpen] = useState(false);
 
   // Auto-restore last map on mount
   useEffect(() => {
@@ -118,6 +120,7 @@ function App() {
           onPrint={handlePrint}
           onOpenReference={() => setIsReferenceOpen(true)}
           onOpenSaveLoad={() => setIsSaveLoadOpen(true)}
+          onOpenMoves={() => setIsMovesOpen(true)}
           isGenerating={isGenerating}
         />
       </div>
@@ -157,6 +160,10 @@ function App() {
                 setIsSaveLoadOpen(true);
                 setIsMobileMenuOpen(false);
               }}
+              onOpenMoves={() => {
+                setIsMovesOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
               isGenerating={isGenerating}
               isMobileDrawer={true}
             />
@@ -183,6 +190,11 @@ function App() {
         currentRoads={roads}
         currentOmens={omens}
         onLoadMap={handleLoadMap}
+      />
+
+      <MovesModal
+        isOpen={isMovesOpen}
+        onClose={() => setIsMovesOpen(false)}
       />
       
       <main className="flex-1 relative overflow-hidden h-full">
