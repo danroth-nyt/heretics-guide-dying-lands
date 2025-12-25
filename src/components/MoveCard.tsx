@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Move } from '../data/moves';
 import { roll2d6WithMod, MoveRollResult } from '../utils/diceUtils';
 import { Dices } from 'lucide-react';
@@ -11,15 +11,31 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
   const [modifier, setModifier] = useState<number>(0);
   const [lastRoll, setLastRoll] = useState<MoveRollResult | null>(null);
   const [isRolling, setIsRolling] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  // Cleanup timeout on unmount to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleRoll = () => {
     setIsRolling(true);
     
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    
     // Animate the roll
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       const result = roll2d6WithMod(modifier);
       setLastRoll(result);
       setIsRolling(false);
+      timeoutRef.current = null;
     }, 300);
   };
 
