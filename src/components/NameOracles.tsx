@@ -81,45 +81,45 @@ const NameOracles: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-1 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <button
           onClick={rollVillageName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex items-center justify-center gap-1"
         >
-          <MapPin size={16} />
-          Village Name
+          <MapPin size={14} />
+          Village
         </button>
 
         <button
           onClick={rollCityName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex items-center justify-center gap-1"
         >
-          <Building2 size={16} />
-          City Name
+          <Building2 size={14} />
+          City
         </button>
 
         <button
           onClick={rollRegionName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex items-center justify-center gap-1"
         >
-          <Map size={16} />
-          Region Name
+          <Map size={14} />
+          Region
         </button>
 
         <button
           onClick={rollLandmarkName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex items-center justify-center gap-1"
         >
-          <Compass size={16} />
-          Landmark Name
+          <Compass size={14} />
+          Landmark
         </button>
 
         <button
           onClick={rollTavernName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex items-center justify-center gap-1"
         >
-          <Type size={16} />
-          Tavern Name
+          <Type size={14} />
+          Tavern
         </button>
       </div>
 

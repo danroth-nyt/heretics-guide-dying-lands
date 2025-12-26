@@ -1,7 +1,7 @@
 import React from 'react';
 import { Territory, Omens } from '../types';
 import { territoryNames, territoryDescriptions } from '../data/regionTables';
-import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save, MapPin, Type, Swords } from 'lucide-react';
+import { Map, Dices, Eye, Cloud, Mountain, Skull, Printer, HelpCircle, BookOpen, Save, MapPin, Type, Swords, CloudRain, CloudSnow, Wind, Snowflake, Sun, Thermometer, CloudDrizzle, CloudFog } from 'lucide-react';
 import AccordionSection from './AccordionSection';
 import Oracles from './Oracles';
 import LocationOracles from './LocationOracles';
@@ -20,6 +20,29 @@ interface SidebarProps {
   isGenerating?: boolean;
   isMobileDrawer?: boolean;
 }
+
+// Helper function to get weather icon based on text
+const getWeatherIcon = (text: string, size: number = 14) => {
+  const lowerText = text.toLowerCase();
+  
+  // Precipitation icons
+  if (lowerText.includes('snow')) return <CloudSnow size={size} className="text-mork-pink" />;
+  if (lowerText.includes('rain') || lowerText.includes('downpour')) return <CloudRain size={size} className="text-mork-pink" />;
+  if (lowerText.includes('drizzle') || lowerText.includes('drops')) return <CloudDrizzle size={size} className="text-mork-pink" />;
+  if (lowerText.includes('fog') || lowerText.includes('mist')) return <CloudFog size={size} className="text-mork-pink" />;
+  if (lowerText.includes('sleet') || lowerText.includes('hail') || lowerText.includes('icy')) return <Snowflake size={size} className="text-mork-pink" />;
+  
+  // Wind icons
+  if (lowerText.includes('wind') || lowerText.includes('gust') || lowerText.includes('gale') || lowerText.includes('breeze')) return <Wind size={size} className="text-mork-pink" />;
+  
+  // Temperature icons
+  if (lowerText.includes('cold') || lowerText.includes('freez') || lowerText.includes('frost') || lowerText.includes('chill')) return <Snowflake size={size} className="text-mork-pink" />;
+  if (lowerText.includes('hot') || lowerText.includes('warm') || lowerText.includes('heat') || lowerText.includes('scorch')) return <Sun size={size} className="text-mork-pink" />;
+  if (lowerText.includes('temperature') || lowerText.includes('mild') || lowerText.includes('cool')) return <Thermometer size={size} className="text-mork-pink" />;
+  
+  // Default
+  return <Cloud size={size} className="text-mork-pink" />;
+};
 
 const Sidebar: React.FC<SidebarProps> = ({
   selectedTerritory,
@@ -136,15 +159,15 @@ const Sidebar: React.FC<SidebarProps> = ({
               <h3 className="text-sm font-bold uppercase mb-1 text-mork-pink">Weather:</h3>
               <div className="text-sm space-y-1">
                 <p className="flex items-center gap-2">
-                  <Cloud size={14} className="text-mork-pink" />
+                  {getWeatherIcon(omens.weatherDetailed.precipitation)}
                   {omens.weatherDetailed.precipitation}
                 </p>
                 <p className="flex items-center gap-2">
-                  <Cloud size={14} className="text-mork-pink" />
+                  {getWeatherIcon(omens.weatherDetailed.wind)}
                   {omens.weatherDetailed.wind}
                 </p>
                 <p className="flex items-center gap-2">
-                  <Cloud size={14} className="text-mork-pink" />
+                  {getWeatherIcon(omens.weatherDetailed.temperature)}
                   {omens.weatherDetailed.temperature}
                 </p>
               </div>
