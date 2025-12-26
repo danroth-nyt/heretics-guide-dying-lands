@@ -71,32 +71,43 @@ Select the appropriate modifier based on your character's stats. Typical modifie
 - **+2**: Expert or specialized
 - **+3**: Master level
 
-### 3. Roll 2d6 + Modifier
-Click the **"Roll 2d6"** button in the move card. The system automatically:
-- Rolls two six-sided dice
-- Adds your chosen modifier
-- Calculates the total
-- Determines the outcome
+### 3. Roll 2d20 + Modifier vs DR
+Click the **"Roll 2d20"** button in the move card. The system automatically:
+- Rolls two twenty-sided dice
+- Adds your chosen modifier to EACH die separately
+- Compares each adjusted die to the Difficulty Rating (DR, default 12)
+- Counts how many dice meet or exceed the DR
+- Determines the outcome based on hit count
+
+**Example Roll:**
+- Dice: [8] and [15]
+- Modifier: +2
+- Adjusted: [10] and [17]
+- DR: 12
+- Result: 1 hit (only the 17 meets DR) = **Weak Hit**
 
 ### 4. Read the Outcome
 
-The move card will highlight the appropriate outcome based on your total:
+The move card will highlight the appropriate outcome based on your hit count:
 
-#### Strong Hit (10+)
+#### Strong Hit (Both Dice Meet DR)
 - **Green highlight** with pulse animation
 - Best possible result
+- Both dice succeeded
 - Full success with no complications
 - You achieve your goal completely
 
-#### Weak Hit (7-9)
+#### Weak Hit (One Die Meets DR)
 - **Amber/yellow highlight** with pulse animation
 - Partial success
+- Only one die succeeded
 - You achieve your goal but with a cost, complication, or choice
 - Mixed results
 
-#### Miss (6 or less)
+#### Miss (Neither Die Meets DR)
 - **Red highlight** with pulse animation
 - Failure or complications
+- Both dice failed to meet the DR
 - The GM makes a move against you
 - Things get worse
 
@@ -116,25 +127,26 @@ Italicized text describing when this move applies
 
 ### Dice Roller
 - Modifier dropdown (-2 to +3)
-- Roll 2d6 button
+- Roll 2d20 button
 - Result display showing:
-  - Individual dice results: [4] [5]
-  - Modifier: +2
-  - Total: 11
+  - Individual dice results with modifiers: [8]+2=10 vs DR12 ✗
+  - Second die: [15]+2=17 vs DR12 ✓
+  - Hit count: 1 hit
+  - Color coding: Green (success), Red (failure)
 
 ### Outcomes
 Three distinct sections with automatic highlighting:
 
-**Strong Hit (10+)**
+**Strong Hit (Both Dice Meet DR)**
 - Description of full success
 - Mechanical effects (if any)
 
-**Weak Hit (7-9)**
+**Weak Hit (One Die Meets DR)**
 - Description of partial success
 - Costs, complications, or choices
 - Mechanical effects (if any)
 
-**Miss (6-)**
+**Miss (Neither Die Meets DR)**
 - Description of failure or complication
 - GM move trigger
 - Mechanical effects (if any)
@@ -179,10 +191,13 @@ Click category buttons to view only moves of that type:
 - Trigger: "When you survey an area before the party enters..."
 - You decide your character's Wits modifier is +1
 
-**2. Roll 2d6+1**
-- Dice show: [3] [6]
+**2. Roll 2d20+1 vs DR12**
+- Dice show: [11] [14]
 - Modifier: +1
-- Total: 10 (Strong Hit!)
+- Adjusted: [12] [15]
+- DR: 12
+- Hits: 2 (both dice meet DR!)
+- Result: Strong Hit!
 
 **3. Read Strong Hit outcome**
 - The Strong Hit box pulses green
@@ -286,12 +301,14 @@ Edit `src/index.css` to change the pulse animation colors and timing:
 
 ### Dice Algorithm
 - Uses cryptographically random `Math.random()`
-- Each d6 is independent (1-6)
-- Total = die1 + die2 + modifier
+- Each d20 is independent (1-20)
+- Adjusted die = die + modifier
+- Each adjusted die compared to DR (default 12)
+- Hit count = number of dice that meet or exceed DR
 - Outcomes:
-  - `total >= 10`: Strong Hit
-  - `7 <= total <= 9`: Weak Hit
-  - `total <= 6`: Miss
+  - `hits === 2`: Strong Hit (both dice succeed)
+  - `hits === 1`: Weak Hit (one die succeeds)
+  - `hits === 0`: Miss (no dice succeed)
 
 ### Data Structure
 Moves are defined in `src/data/moves.ts`:

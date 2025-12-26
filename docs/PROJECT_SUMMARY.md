@@ -47,7 +47,11 @@ A complete web application for generating procedural hex-crawl maps based on the
 
 4. **Dice System**
    - Complete dice rolling utilities (d4, d6, d8, d10, d12, d20, d66)
-   - PBtA-style 2d6+modifier rolling with outcome calculation (Strong Hit 10+, Weak Hit 7-9, Miss 6-)
+   - **2d20 vs DR system**: Each die + modifier compared to Difficulty Rating (default 12)
+     - Strong Hit: Both dice meet/exceed DR
+     - Weak Hit: One die meets/exceeds DR
+     - Miss: Neither die meets DR
+   - Legacy 2d6 PBtA system maintained for backwards compatibility
    - Table lookup system with automatic dice detection
    - Seed-based randomization for consistent results
 
@@ -67,11 +71,15 @@ A complete web application for generating procedural hex-crawl maps based on the
    - **Road**: Curved SVG paths with difficulty-based styling
    - **LocationModal**: Responsive modal with mobile bottom-sheet design
    - **RoadTooltip**: Adaptive popup for desktop/mobile displays
-   - **Oracles**: General oracle rollers (encounters, beasts, signs, hazards, adventures, factions, NPCs with enhanced details)
+   - **Oracles**: Collapsible oracle categories with Quick Access section
+     - Quick Access: Complication, NPC, Loot (3-column grid)
+     - Characters: NPC, Faction
+     - Threats: Encounter, Complication, Beast, Hazards
+     - Story & World: Wander, Adventure, Signs
    - **LocationOracles**: Location-specific oracles (dungeon, city, neighborhood, street, wilderness)
-   - **NameOracles**: Name generation oracles (given, surname, title, epithet)
-   - **MovesModal**: Comprehensive PBtA moves browser with search and category filters
-   - **MoveCard**: Individual move display with integrated dice roller and animated outcome feedback
+   - **NameOracles**: Compact 2-column grid name generation (village, city, region, landmark, tavern)
+   - **MovesModal**: Comprehensive moves browser with search and category filters
+   - **MoveCard**: Individual move display with 2d20 dice roller showing both die results, hit counts, and animated outcome feedback
    - **CategoryFilter**: Filter moves by category (Travel, Dungeon, City, Connection, Quest, Hearth, Advancement, Adventure)
    - **AccordionSection**: Collapsible sections for organized sidebar
    - **SaveLoadModal**: Save and load map functionality
@@ -99,10 +107,13 @@ A complete web application for generating procedural hex-crawl maps based on the
    - Keyboard shortcuts (Ctrl+G, Ctrl+O, Ctrl+P)
    - Responsive design for mobile and tablet devices
    - Touch-optimized controls with minimum tap targets (44px)
+   - Touch action optimization (`touch-action: manipulation`)
    - Zoom and pan functionality for mobile map interaction
    - Mobile drawer navigation with slide animations
    - **Landscape Mobile Optimization** with 2-column modal layouts and compact UI
    - Dynamic hamburger menu positioning (bottom-left portrait, top-left landscape)
+   - Mobile viewport controls (no user zoom, viewport-fit: cover for notched devices)
+   - Dynamic weather icons based on conditions (rain, snow, wind, temperature)
    - Error handling
    - Loading states
 
@@ -202,14 +213,17 @@ heretics-guide-dying-lands/
 - Keyboard shortcuts implemented
 - Error handling in place
 - **Comprehensive Oracle System** with 200+ tables from Reclvse Version 1.9
+  - Collapsible categories for organized access
+  - Quick Access buttons for frequently used oracles
   - General oracles (encounters, beasts, signs, hazards, adventures, factions, NPCs)
   - Enhanced NPC generation with 11+ detailed attributes (gender, body features, hair/grooming, clothing, presence, item color/quality)
   - Location oracles (dungeon, city, neighborhood, street, wilderness)
-  - Name generation oracles
+  - Name generation oracles with compact 2-column layout
   - Inline dice rollers for all tables
-- **PBtA Moves System** with 40+ playbook moves
-  - Integrated 2d6+modifier dice roller
-  - Animated outcome feedback (Strong Hit, Weak Hit, Miss)
+- **Moves System** with 40+ playbook moves
+  - Integrated 2d20 vs DR dice roller with individual die tracking
+  - Visual hit counting (2 hits = Strong, 1 hit = Weak, 0 hits = Miss)
+  - Animated outcome feedback with color-coded results
   - Category filtering (Travel, Dungeon, City, Connection, Quest, Hearth, Advancement, Adventure)
   - Searchable moves database
 - **Save/Load Functionality** for preserving maps

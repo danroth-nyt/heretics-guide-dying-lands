@@ -14,17 +14,13 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
 - **Print-Ready**: Export maps to A4 format for physical use
 
 ### Reference Tools
-- **General Oracles**: Instant access to frequently used tables
-  - Roll Loot (d66)
-  - Roll Wander motivation
-  - Generate complete NPCs with 11+ detailed attributes (gender, body features, hair/grooming, clothing, presence, item color/quality)
-  - Roll Encounters with complications
-  - Roll Complications (5 types)
-  - Roll Beasts/Creatures (7 attributes)
-  - Roll Signs (11 types: dungeon, city, wilderness, threats)
-  - Roll Hazards (11 types: natural, weather, terrain, unnatural, wildlife, resource loss, travel cost, misleading, dungeon entrance/room, city street)
-  - Roll Adventures (4 components)
-  - Roll Factions (8 attributes)
+- **General Oracles**: Collapsible categories with Quick Access section
+  - **Quick Access** (3-button grid): Complication, NPC, Loot
+  - **Characters Category**: NPC (11+ attributes), Faction (8 attributes)
+  - **Threats Category**: Encounters, Complications (5 types), Beasts/Creatures (7 attributes), Hazards (11 types)
+  - **Story & World Category**: Wander motivation, Adventures (4 components), Signs (11 types)
+  - Dynamic weather icons (rain, snow, wind, temperature indicators)
+  - Smooth expand/collapse animations
 - **Location Oracles**: Comprehensive location generation
   - Roll Dungeon (overall characteristics)
   - Roll Dungeon Room (room-specific details)
@@ -37,11 +33,15 @@ A web-based procedural map generator for MÖRK BORG's "Heretic's Guide to Dying 
   - Organized by type (Encounters, Creatures, Hazards, Signs, Wilderness, City, Dungeon, NPCs, Adventures, Names, Items, and more)
   - Inline dice roller for any table
 - **Omens**: Roll for Oracle, Landscape, and Weather to set the scene
-- **PBtA Moves System**: Complete playbook moves with integrated dice roller
+- **Moves System**: Complete playbook moves with integrated 2d20 dice roller
   - 40+ character moves across 8 categories
-  - 2d6+modifier rolling with automatic outcome calculation
+  - **2d20 vs DR rolling**: Each die + modifier compared to Difficulty Rating (default 12)
+    - Strong Hit: Both dice meet/exceed DR
+    - Weak Hit: One die meets/exceeds DR
+    - Miss: Neither die meets DR
+  - Visual hit tracking with color-coded results (green success, red failure)
   - Category filtering (Travel, Dungeon, City, Connection, Quest, Hearth, Advancement, Adventure)
-  - Animated outcome feedback (Strong Hit 10+, Weak Hit 7-9, Miss 6-)
+  - Animated outcome feedback with pulse animations
   - Searchable moves database
 
 ### UI/UX
@@ -114,8 +114,10 @@ Quick setup:
 - **Mobile Menu**: Tap the hamburger menu (bottom-left in portrait, top-left in landscape) to access controls
 - **Zoom & Pan**: Use pinch-to-zoom or tap the zoom buttons to navigate the map
 - **Touch Targets**: All buttons are optimized for touch with minimum 44px tap areas
+- **Touch Optimization**: Enhanced touch response with `touch-action: manipulation`
 - **Modals**: Swipe down or tap the close button to dismiss modal windows
 - **Landscape Mode**: Optimized 2-column modal layouts and compact UI for horizontal viewing
+- **Viewport Control**: Prevents unwanted zooming on mobile (maximum-scale=1.0)
 
 ## Project Structure
 
@@ -160,7 +162,7 @@ src/
 │   ├── roadTables.ts          # Road encounters & aesthetics
 │   └── globalTables.ts        # Oracle, Fate, Loot, NPC, Items, Enhanced NPC tables
 ├── utils/             # Utilities and logic
-│   ├── diceUtils.ts           # Dice rolling functions + PBtA 2d6+mod
+│   ├── diceUtils.ts           # Dice rolling (2d20 vs DR + legacy 2d6)
 │   ├── mapEngine.ts           # Map generation engine
 │   ├── mapStorage.ts          # Save/load functionality
 │   └── tableLookup.ts         # Table rolling logic
