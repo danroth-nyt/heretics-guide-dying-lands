@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, Users, ChevronDown, Zap, AlertTriangle, Skull, Eye, MapIcon, Package } from 'lucide-react';
+import { User, Compass, Swords, Users, ChevronDown, Zap, AlertTriangle, Skull, Eye, Map, Package } from 'lucide-react';
 import { rollOnTable } from '../utils/tableLookup';
 import {
   lootTable,
@@ -607,17 +607,17 @@ const Oracles: React.FC = () => {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={rollNPC}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <User size={14} />
-              NPC
+              <User size={14} className="shrink-0" />
+              <span className="leading-tight">NPC</span>
             </button>
             <button
               onClick={rollFaction}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <Users size={14} />
-              Faction
+              <Users size={14} className="shrink-0" />
+              <span className="leading-tight">Faction</span>
             </button>
           </div>
         </OracleCategory>
@@ -631,31 +631,31 @@ const Oracles: React.FC = () => {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={rollEncounter}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <Swords size={14} />
-              Encounter
+              <Swords size={14} className="shrink-0" />
+              <span className="leading-tight">Encounter</span>
             </button>
             <button
               onClick={rollComplication}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <AlertTriangle size={14} />
-              Complication
+              <AlertTriangle size={14} className="shrink-0" />
+              <span className="leading-tight">Complication</span>
             </button>
             <button
               onClick={rollBeast}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <Skull size={14} />
-              Beast
+              <Skull size={14} className="shrink-0" />
+              <span className="leading-tight">Beast</span>
             </button>
             <button
               onClick={rollHazards}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <Zap size={14} />
-              Hazards
+              <Zap size={14} className="shrink-0" />
+              <span className="leading-tight">Hazards</span>
             </button>
           </div>
         </OracleCategory>
@@ -669,24 +669,24 @@ const Oracles: React.FC = () => {
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={rollWander}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <Compass size={14} />
-              Wander
+              <Compass size={14} className="shrink-0" />
+              <span className="leading-tight">Wander</span>
             </button>
             <button
               onClick={rollAdventure}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <MapIcon size={14} />
-              Adventure
+              <Map size={14} className="shrink-0" />
+              <span className="leading-tight">Adventure</span>
             </button>
             <button
               onClick={rollSigns}
-              className="mork-button text-xs py-2 flex items-center justify-center gap-1"
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
             >
-              <Eye size={14} />
-              Signs
+              <Eye size={14} className="shrink-0" />
+              <span className="leading-tight">Signs</span>
             </button>
           </div>
         </OracleCategory>
