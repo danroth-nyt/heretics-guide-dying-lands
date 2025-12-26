@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Move } from '../data/moves';
-import { roll2d6WithMod, MoveRollResult } from '../utils/diceUtils';
+import { rollCoreMove, CoreRollResult } from '../utils/diceUtils';
 import { Dices } from 'lucide-react';
 
 interface MoveCardProps {
@@ -9,7 +9,7 @@ interface MoveCardProps {
 
 const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
   const [modifier, setModifier] = useState<number>(0);
-  const [lastRoll, setLastRoll] = useState<MoveRollResult | null>(null);
+  const [lastRoll, setLastRoll] = useState<CoreRollResult | null>(null);
   const [isRolling, setIsRolling] = useState(false);
   const timeoutRef = useRef<number | null>(null);
 
@@ -32,7 +32,7 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
     
     // Animate the roll
     timeoutRef.current = setTimeout(() => {
-      const result = roll2d6WithMod(modifier);
+      const result = rollCoreMove(modifier);
       setLastRoll(result);
       setIsRolling(false);
       timeoutRef.current = null;
@@ -101,25 +101,55 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
             }`}
           >
             <Dices size={14} />
-            Roll 2d6
+            Roll 2d20
           </button>
         </div>
 
         {/* Roll Result Display */}
         {lastRoll && (
           <div className="text-xs space-y-1 text-mork-black">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <span className="font-bold">Dice:</span>
-              <span className="font-mono">[{lastRoll.dice[0]}] [{lastRoll.dice[1]}]</span>
-              <span className="font-bold">+</span>
-              <span className="font-mono">{lastRoll.modifier >= 0 ? '+' : ''}{lastRoll.modifier}</span>
-              <span className="font-bold">=</span>
-              <span className={`font-mono font-bold text-lg ${
+              <div className="flex items-center gap-1">
+                <span className="font-mono">[{lastRoll.dice[0]}]</span>
+                <span className="text-xs">{lastRoll.modifier >= 0 ? `+${lastRoll.modifier}` : lastRoll.modifier}</span>
+                <span>=</span>
+                <span className={`font-mono font-bold ${
+                  lastRoll.adjustedDice[0] >= lastRoll.dr ? 'text-green-900' : 'text-red-900'
+                }`}>
+                  {lastRoll.adjustedDice[0]}
+                </span>
+                <span className="text-xs opacity-60">vs DR{lastRoll.dr}</span>
+                <span className={`text-xs font-bold ${
+                  lastRoll.adjustedDice[0] >= lastRoll.dr ? 'text-green-900' : 'text-red-900'
+                }`}>
+                  {lastRoll.adjustedDice[0] >= lastRoll.dr ? '✓' : '✗'}
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <span className="font-mono">[{lastRoll.dice[1]}]</span>
+                <span className="text-xs">{lastRoll.modifier >= 0 ? `+${lastRoll.modifier}` : lastRoll.modifier}</span>
+                <span>=</span>
+                <span className={`font-mono font-bold ${
+                  lastRoll.adjustedDice[1] >= lastRoll.dr ? 'text-green-900' : 'text-red-900'
+                }`}>
+                  {lastRoll.adjustedDice[1]}
+                </span>
+                <span className="text-xs opacity-60">vs DR{lastRoll.dr}</span>
+                <span className={`text-xs font-bold ${
+                  lastRoll.adjustedDice[1] >= lastRoll.dr ? 'text-green-900' : 'text-red-900'
+                }`}>
+                  {lastRoll.adjustedDice[1] >= lastRoll.dr ? '✓' : '✗'}
+                </span>
+              </div>
+            </div>
+            <div className="text-xs font-bold">
+              Result: <span className={`${
                 lastRoll.outcome === 'strong' ? 'text-green-900' :
                 lastRoll.outcome === 'weak' ? 'text-amber-900' :
                 'text-red-900'
               }`}>
-                {lastRoll.total}
+                {lastRoll.hits} {lastRoll.hits === 1 ? 'hit' : 'hits'}
               </span>
             </div>
           </div>
@@ -134,7 +164,7 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
             : 'border-mork-black bg-transparent'
         }`}>
           <p className="text-xs font-bold uppercase text-green-900 mb-1">
-            Strong Hit (10+):
+            Strong Hit (Both Dice Meet DR):
           </p>
           <p className="text-xs text-mork-black">{move.strongHit.description}</p>
           {move.strongHit.mechanicalEffect && (
@@ -150,7 +180,7 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
             : 'border-mork-black bg-transparent'
         }`}>
           <p className="text-xs font-bold uppercase text-amber-900 mb-1">
-            Weak Hit (7-9):
+            Weak Hit (One Die Meets DR):
           </p>
           <p className="text-xs text-mork-black">{move.weakHit.description}</p>
           {move.weakHit.mechanicalEffect && (
@@ -166,7 +196,7 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
             : 'border-mork-black bg-transparent'
         }`}>
           <p className="text-xs font-bold uppercase text-red-900 mb-1">
-            Miss (6-):
+            Miss (Neither Die Meets DR):
           </p>
           <p className="text-xs text-mork-black">{move.miss.description}</p>
           {move.miss.mechanicalEffect && (

@@ -18,6 +18,8 @@
 html, body, #root {
   height: 100%;
   min-height: 100vh;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -774,6 +776,40 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 1199px) and (orientation: landscape) {
   .landscape-map-offset {
     top: 2.5rem !important;
+  }
+}
+
+/* ============================================
+   ORACLE DRAWER STYLES
+   ============================================ */
+
+/* Quick Access buttons - compact and icon-focused */
+.oracle-quick-btn {
+  padding: 0.5rem !important;
+  min-height: auto !important;
+  font-size: 0.65rem;
+  line-height: 1.1;
+}
+
+/* Oracle category container */
+.oracle-category {
+  border: 2px solid var(--mork-black);
+  background-color: rgba(253, 224, 71, 0.5);
+}
+
+/* Smooth expand/collapse animation */
+.oracle-category > div {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

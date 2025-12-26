@@ -347,6 +347,74 @@ Tested and optimized for:
 
 ---
 
+## Recent Enhancements (December 2025)
+
+### Mobile Viewport Optimization
+Added mobile-first viewport controls to prevent unwanted zooming and improve touch experience:
+
+**Changes in `index.html`:**
+- `maximum-scale=1.0, user-scalable=no` - Prevents accidental zoom on mobile
+- `viewport-fit=cover` - Safe area support for notched devices (iPhone X+)
+
+**Changes in `src/index.css`:**
+- `touch-action: manipulation` - Eliminates double-tap zoom delay
+- `-webkit-text-size-adjust: 100%` - Prevents text size adjustment on orientation change
+
+### Collapsible Oracle Categories
+Reorganized the oracle section with expandable categories for better mobile usability:
+
+**New Structure:**
+- **Quick Access** (always visible): 3-button grid for most common oracles
+  - Complication, NPC, Loot
+- **Characters** (collapsible): NPC, Faction
+- **Threats** (collapsible): Encounter, Complication, Beast, Hazards
+- **Story & World** (collapsible): Wander, Adventure, Signs
+
+**Visual Features:**
+- Smooth expand/collapse animations (200ms ease-out)
+- Chevron icons that rotate 180° on toggle
+- Yellow background with black borders (MÖRK BORG aesthetic)
+- Reduced button sizes (0.5rem padding) for mobile efficiency
+
+### Dynamic Weather Icons
+Weather descriptions now display with contextual icons:
+
+**Icon Mapping:**
+- Precipitation: CloudRain, CloudSnow, CloudDrizzle, CloudFog
+- Wind: Wind, Gust indicators
+- Temperature: Snowflake (cold), Sun (hot), Thermometer (mild)
+- Falls back to generic Cloud icon for unrecognized conditions
+
+**Implementation:**
+- `getWeatherIcon()` helper function in Sidebar.tsx
+- Icons colored in `mork-pink` for consistency
+- Smart text matching (case-insensitive keyword detection)
+
+### Compact Name Oracle Layout
+Changed from vertical list to 2-column grid for better space efficiency:
+
+**Before:** 1-column layout with full-width buttons
+**After:** 2-column grid with vertical icon+text layout
+
+**Benefits:**
+- Fits more options in viewport
+- Better thumb reach on mobile
+- Consistent with Quick Access design pattern
+
+### 2d20 Dice System
+Upgraded from PBtA 2d6 system to 2d20 vs Difficulty Rating:
+
+**Key Changes:**
+- Each die rolled separately and compared to DR (default 12)
+- Visual feedback for each die: color-coded success/failure
+- Hit counting: 2 hits = Strong, 1 hit = Weak, 0 hits = Miss
+- More granular probability curve suitable for gritty gameplay
+
+**UI Improvements:**
+- Individual die display: `[d20] +mod = result vs DR12`
+- Check marks (✓) and crosses (✗) for quick reading
+- Flexible layout wraps naturally on small screens
+
 ## Refresh to See Changes
 
 **Ctrl + F5** (Windows) or **Cmd + Shift + R** (Mac) to see the wide-screen optimized map!

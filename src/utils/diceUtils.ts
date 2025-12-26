@@ -111,7 +111,57 @@ export function shuffle<T>(array: T[]): T[] {
 }
 
 /**
- * PBtA Move Roll Result
+ * Core Roll Result (2d20 vs DR)
+ */
+export interface CoreRollResult {
+  dice: [number, number];           // raw d20 rolls
+  modifier: number;
+  adjustedDice: [number, number];   // each die + modifier
+  dr: number;                       // difficulty rating (target)
+  hits: number;                     // 0, 1, or 2 dice that meet/exceed DR
+  outcome: 'strong' | 'weak' | 'miss';
+}
+
+/**
+ * Roll 2d20 with a modifier against a DR (Difficulty Rating)
+ * Each die is compared separately to the DR after adding the modifier
+ * - Strong Hit: Both dice meet or exceed DR
+ * - Weak Hit: One die meets or exceeds DR
+ * - Miss: Neither die meets DR
+ */
+export function rollCoreMove(modifier: number, dr: number = 12): CoreRollResult {
+  const die1 = rollD20();
+  const die2 = rollD20();
+  const adjusted1 = die1 + modifier;
+  const adjusted2 = die2 + modifier;
+  
+  // Count how many dice meet or exceed the DR
+  let hits = 0;
+  if (adjusted1 >= dr) hits++;
+  if (adjusted2 >= dr) hits++;
+  
+  let outcome: 'strong' | 'weak' | 'miss';
+  if (hits === 2) {
+    outcome = 'strong';
+  } else if (hits === 1) {
+    outcome = 'weak';
+  } else {
+    outcome = 'miss';
+  }
+  
+  return {
+    dice: [die1, die2],
+    modifier,
+    adjustedDice: [adjusted1, adjusted2],
+    dr,
+    hits,
+    outcome
+  };
+}
+
+/**
+ * @deprecated Use rollCoreMove instead
+ * Legacy PBtA Move Roll Result - kept for backwards compatibility
  */
 export interface MoveRollResult {
   dice: [number, number];
@@ -121,6 +171,7 @@ export interface MoveRollResult {
 }
 
 /**
+ * @deprecated Use rollCoreMove instead
  * Roll 2d6 with a modifier for PBtA moves
  * - Strong Hit: 10+
  * - Weak Hit: 7-9

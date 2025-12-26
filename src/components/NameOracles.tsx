@@ -81,45 +81,45 @@ const NameOracles: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-1 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <button
           onClick={rollVillageName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
         >
-          <MapPin size={16} />
-          Village Name
+          <MapPin size={14} className="shrink-0" />
+          <span className="leading-tight">Village</span>
         </button>
 
         <button
           onClick={rollCityName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
         >
-          <Building2 size={16} />
-          City Name
+          <Building2 size={14} className="shrink-0" />
+          <span className="leading-tight">City</span>
         </button>
 
         <button
           onClick={rollRegionName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
         >
-          <Map size={16} />
-          Region Name
+          <Map size={14} className="shrink-0" />
+          <span className="leading-tight">Region</span>
         </button>
 
         <button
           onClick={rollLandmarkName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
         >
-          <Compass size={16} />
-          Landmark Name
+          <Compass size={14} className="shrink-0" />
+          <span className="leading-tight">Landmark</span>
         </button>
 
         <button
           onClick={rollTavernName}
-          className="mork-button text-sm flex items-center justify-center gap-2"
+          className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
         >
-          <Type size={16} />
-          Tavern Name
+          <Type size={14} className="shrink-0" />
+          <span className="leading-tight">Tavern</span>
         </button>
       </div>
 

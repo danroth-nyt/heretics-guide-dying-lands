@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dices, User, Compass, Swords, Users } from 'lucide-react';
+import { User, Compass, Swords, Users, ChevronDown, Zap, AlertTriangle, Skull, Eye, Map, Package } from 'lucide-react';
 import { rollOnTable } from '../utils/tableLookup';
 import {
   lootTable,
@@ -186,8 +186,50 @@ interface HazardsResult {
   cityStreet: string;
 }
 
+// Collapsible category component
+interface OracleCategoryProps {
+  title: string;
+  children: React.ReactNode;
+  isOpen: boolean;
+  onToggle: () => void;
+}
+
+const OracleCategory: React.FC<OracleCategoryProps> = ({ title, children, isOpen, onToggle }) => {
+  return (
+    <div className="oracle-category">
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between p-2 bg-mork-black text-mork-yellow border-2 border-mork-black hover:bg-mork-yellow hover:text-mork-black transition-colors font-bold text-sm uppercase"
+      >
+        <span>{title}</span>
+        <ChevronDown
+          size={16}
+          className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+        />
+      </button>
+      {isOpen && (
+        <div className="p-2 space-y-2">
+          {children}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Oracles: React.FC = () => {
   const [lastRoll, setLastRoll] = useState<RollResult | null>(null);
+  const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
+    characters: false,
+    threats: false,
+    story: false,
+  });
+
+  const toggleCategory = (category: string) => {
+    setOpenCategories(prev => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
 
   const rollLoot = () => {
     setLastRoll({
@@ -523,89 +565,134 @@ const Oracles: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      {/* General Oracles */}
-      <div className="grid grid-cols-1 gap-2">
-        <button
-          onClick={rollWander}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Compass size={16} />
-          Why Wander?
-        </button>
-
-        <button
-          onClick={rollAdventure}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Compass size={16} />
-          Roll Adventure
-        </button>
-
-        <button
-          onClick={rollEncounter}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Swords size={16} />
-          Roll Encounter
-        </button>
-
-        <button
-          onClick={rollComplication}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Swords size={16} />
-          Roll Complication
-        </button>
-
-        <button
-          onClick={rollBeast}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Swords size={16} />
-          Roll Beast
-        </button>
-
-        <button
-          onClick={rollSigns}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Compass size={16} />
-          Roll Signs
-        </button>
-
-        <button
-          onClick={rollHazards}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Swords size={16} />
-          Roll Hazards
-        </button>
-        
-        <button
-          onClick={rollNPC}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <User size={16} />
-          Roll NPC
-        </button>
-
-        <button
-          onClick={rollFaction}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Users size={16} />
-          Roll Faction
-        </button>
-
-        <button
-          onClick={rollLoot}
-          className="mork-button text-sm flex items-center justify-center gap-2"
-        >
-          <Dices size={16} />
-          Roll Loot
-        </button>
+      {/* Quick Access Section */}
+      <div className="space-y-2">
+        <div className="flex items-center gap-2 text-xs uppercase font-bold text-mork-black opacity-75">
+          <Zap size={14} />
+          <span>Quick Access</span>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          <button
+            onClick={rollComplication}
+            className="oracle-quick-btn mork-button text-xs py-2 px-1 min-h-0 flex flex-col items-center justify-center gap-1"
+          >
+            <AlertTriangle size={16} />
+            <span className="leading-tight text-center">Complication</span>
+          </button>
+          <button
+            onClick={rollNPC}
+            className="oracle-quick-btn mork-button text-xs py-2 px-1 min-h-0 flex flex-col items-center justify-center gap-1"
+          >
+            <User size={16} />
+            <span className="leading-tight">NPC</span>
+          </button>
+          <button
+            onClick={rollLoot}
+            className="oracle-quick-btn mork-button text-xs py-2 px-1 min-h-0 flex flex-col items-center justify-center gap-1"
+          >
+            <Package size={16} />
+            <span className="leading-tight">Loot</span>
+          </button>
+        </div>
       </div>
 
+      {/* Categorized Oracles */}
+      <div className="space-y-2">
+        {/* Characters Category */}
+        <OracleCategory
+          title="Characters"
+          isOpen={openCategories.characters}
+          onToggle={() => toggleCategory('characters')}
+        >
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={rollNPC}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <User size={14} className="shrink-0" />
+              <span className="leading-tight">NPC</span>
+            </button>
+            <button
+              onClick={rollFaction}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Users size={14} className="shrink-0" />
+              <span className="leading-tight">Faction</span>
+            </button>
+          </div>
+        </OracleCategory>
+
+        {/* Threats Category */}
+        <OracleCategory
+          title="Threats"
+          isOpen={openCategories.threats}
+          onToggle={() => toggleCategory('threats')}
+        >
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={rollEncounter}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Swords size={14} className="shrink-0" />
+              <span className="leading-tight">Encounter</span>
+            </button>
+            <button
+              onClick={rollComplication}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <AlertTriangle size={14} className="shrink-0" />
+              <span className="leading-tight">Complication</span>
+            </button>
+            <button
+              onClick={rollBeast}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Skull size={14} className="shrink-0" />
+              <span className="leading-tight">Beast</span>
+            </button>
+            <button
+              onClick={rollHazards}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Zap size={14} className="shrink-0" />
+              <span className="leading-tight">Hazards</span>
+            </button>
+          </div>
+        </OracleCategory>
+
+        {/* Story & World Category */}
+        <OracleCategory
+          title="Story & World"
+          isOpen={openCategories.story}
+          onToggle={() => toggleCategory('story')}
+        >
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              onClick={rollWander}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Compass size={14} className="shrink-0" />
+              <span className="leading-tight">Wander</span>
+            </button>
+            <button
+              onClick={rollAdventure}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Map size={14} className="shrink-0" />
+              <span className="leading-tight">Adventure</span>
+            </button>
+            <button
+              onClick={rollSigns}
+              className="mork-button text-xs py-2 flex flex-col items-center justify-center gap-1 min-h-[3rem]"
+            >
+              <Eye size={14} className="shrink-0" />
+              <span className="leading-tight">Signs</span>
+            </button>
+          </div>
+        </OracleCategory>
+      </div>
+
+      {/* Results Section - Always at bottom */}
       {lastRoll && <div className="mt-4">{renderResult()}</div>}
     </div>
   );
