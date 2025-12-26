@@ -112,7 +112,7 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
               <span className="font-bold">Dice:</span>
               <div className="flex items-center gap-1">
                 <span className="font-mono">[{lastRoll.dice[0]}]</span>
-                <span className="text-xs">+{lastRoll.modifier >= 0 ? lastRoll.modifier : `(${lastRoll.modifier})`}</span>
+                <span className="text-xs">{lastRoll.modifier >= 0 ? `+${lastRoll.modifier}` : lastRoll.modifier}</span>
                 <span>=</span>
                 <span className={`font-mono font-bold ${
                   lastRoll.adjustedDice[0] >= lastRoll.dr ? 'text-green-900' : 'text-red-900'
@@ -128,7 +128,7 @@ const MoveCard: React.FC<MoveCardProps> = ({ move }) => {
               </div>
               <div className="flex items-center gap-1">
                 <span className="font-mono">[{lastRoll.dice[1]}]</span>
-                <span className="text-xs">+{lastRoll.modifier >= 0 ? lastRoll.modifier : `(${lastRoll.modifier})`}</span>
+                <span className="text-xs">{lastRoll.modifier >= 0 ? `+${lastRoll.modifier}` : lastRoll.modifier}</span>
                 <span>=</span>
                 <span className={`font-mono font-bold ${
                   lastRoll.adjustedDice[1] >= lastRoll.dr ? 'text-green-900' : 'text-red-900'
